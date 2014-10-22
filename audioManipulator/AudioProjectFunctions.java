@@ -1,11 +1,12 @@
-package AudioManipulator;
+package audioManipulator;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import MainPackage.Menu;
+import mainPackage.Menu;
+
 
 
 public class AudioProjectFunctions {

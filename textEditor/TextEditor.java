@@ -1,4 +1,4 @@
-package TextEditor;
+package textEditor;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import audioManipulator.AudioBackgroundTask;
+
 /**
  * SoftEng206 Assignment3 - text editor class
  * 
@@ -36,6 +38,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected TextHelp th = new TextHelp();
 	protected TextPreview tp = new TextPreview();
 	protected TextSave ts = new TextSave();
+	protected TextBackgroundTask tbt = new TextBackgroundTask();
 
 	private static final long serialVersionUID = 1L;
 
@@ -385,15 +388,12 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	 * 
 	 * @return exit status
 	 */
-	public int runCommands(String input, String output) {
-		// Create the swingWorker class and execute it
-		longTask = new TextBackgroundTask(input, output);
-		longTask.execute();
-		try {
-			return longTask.get();
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
-		}
-		return 1;
+
+	public String makeCommand(String input, String output){
+		
+		String cmd = tbt.makeTextCommand(input, output);
+		
+		return cmd;
+	
 	}
 }

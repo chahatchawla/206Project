@@ -1,4 +1,4 @@
-package MainPackage;
+package mainPackage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +14,8 @@ public class Export {
 		int i = -1;
 		while (i<0) {	//Loop until the user provides a valid output name or cancels exporting
 			//Take the output file name as an input from the user
-			String outputName = JOptionPane.showInputDialog(
-					null, "Please choose the output name: ",
+			String outputName = JOptionPane.showInputDialog(null,
+					"Please choose the output name for the final .mp4 file: ", 
 					"Export project",
 					JOptionPane.DEFAULT_OPTION);
 
@@ -64,7 +64,10 @@ public class Export {
 					int textExitStatus = 0;
 					int audioExitStatus = 0;
 					int videoExitStatus = 0;
-
+					
+					
+					StringBuilder finalCmd = new StringBuilder(); 
+							
 					//Get the video path
 					String videoPath = "";
 					File f1 = new File(Menu.getInstance().projectPath);
@@ -96,55 +99,44 @@ public class Export {
 						JOptionPane.showMessageDialog(null, "Please save the changes before exporting");
 						return;
 					} else if (f2.exists() && !f3.exists() && !(f4.exists()||f5.exists()) ) { //User did video manipulation only
-						audioExitStatus = Main.videoMan.runCommands(videoPath, outputFileName);
+						finalCmd.append(Main.videoMan.makeCommand(videoPath, outputFileName));
 
 					} else if (!f2.exists() && f3.exists() && !(f4.exists()||f5.exists()) ) { //User did audio manipulation only
-						audioExitStatus = Main.audioMan.runCommands(videoPath, outputFileName);
+						finalCmd.append(Main.audioMan.makeCommand(videoPath, outputFileName));
 
 					} else if (!f2.exists() && !f3.exists() && (f4.exists()||f5.exists())) { //User did text editing only
-						textExitStatus = Main.textEdit.runCommands(videoPath, outputFileName);
+						finalCmd.append(Main.textEdit.makeCommand(videoPath, outputFileName));
 
 					} 
 					//User did video manipulation and text editing 
 					else if (f2.exists() && !f3.exists() && (f4.exists()||f5.exists()) ) { 
-						videoExitStatus = Main.videoMan.runCommands(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4");
-						textExitStatus = Main.textEdit.runCommands(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName);
+						finalCmd.append(Main.videoMan.makeCommand(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4"));
+						finalCmd.append(Main.textEdit.makeCommand(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName));
 					}
 
 					//User did audio manipulation and text editing 
 					else if (!f2.exists() && f3.exists() && (f4.exists()||f5.exists()) ) { 
-						audioExitStatus = Main.audioMan.runCommands(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4");
-						textExitStatus = Main.textEdit.runCommands(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName);
+						finalCmd.append( Main.audioMan.makeCommand(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4"));
+						finalCmd.append(Main.textEdit.makeCommand(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName));
 					}
 
 					//User did video manipulation and audio manipulation
 					else if (f2.exists() && f3.exists() && !(f4.exists()||f5.exists()) ) { 
-						videoExitStatus = Main.videoMan.runCommands(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4");
-						audioExitStatus = Main.audioMan.runCommands(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName);
+						finalCmd.append(Main.videoMan.makeCommand(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4"));
+						finalCmd.append(Main.audioMan.makeCommand(Menu.getInstance().hiddenDir+"/temp.mp4", outputFileName));
 					}
 					//User did video manipulation and audio manipulation and text editing 
 					else {
-						videoExitStatus = Main.videoMan.runCommands(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4");
-						audioExitStatus = Main.audioMan.runCommands(Menu.getInstance().hiddenDir+"/temp.mp4", Menu.getInstance().hiddenDir+"/temp2.mp4");
-						textExitStatus = Main.textEdit.runCommands(Menu.getInstance().hiddenDir+"/temp2.mp4", outputFileName);
+						finalCmd.append(Main.videoMan.makeCommand(videoPath, Menu.getInstance().hiddenDir+"/temp.mp4"));
+						finalCmd.append(Main.audioMan.makeCommand(Menu.getInstance().hiddenDir+"/temp.mp4", Menu.getInstance().hiddenDir+"/temp2.mp4"));
+						finalCmd.append(Main.textEdit.makeCommand(Menu.getInstance().hiddenDir+"/temp2.mp4", outputFileName));
 					}
 
+					
+					System.out.println(finalCmd.toString());
+					ExportBackGroundTask longTask = new ExportBackGroundTask(finalCmd.toString());
+					longTask.execute();
 
-					//Show error messages or completion message
-					if (videoExitStatus != 0) {
-						JOptionPane.showMessageDialog(null, "Error encountered in video manipulation. Exporting is aborted!");
-					}
-					else if (audioExitStatus != 0) {
-						JOptionPane.showMessageDialog(null, "Error encountered in audio manipulation. Exporting is aborted!");
-					} else if (textExitStatus != 0) {
-						JOptionPane.showMessageDialog(null, "Error encountered in text editing. Exporting is aborted!");
-					} else {
-						JOptionPane.showMessageDialog(null, "Export is Successful!");
-					}
-
-					//Delete the hidden folder that holds the intermediate outputs
-					File f6 = new File(Menu.getInstance().hiddenDir);
-					f6.delete();
 				}
 			}
 		}

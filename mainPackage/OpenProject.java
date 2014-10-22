@@ -1,4 +1,4 @@
-package MainPackage;
+package mainPackage;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,7 +113,12 @@ public class OpenProject {
 			}
 			if (f4.exists() && !f5.exists()) {
 				Main.tpf.setCreditFields(Menu.getInstance().workingDir + "/.creditFields");
-			} else if ((f4.exists() && f5.exists()) || (!f4.exists() && f5.exists())){
+			} else if (!f4.exists() && f5.exists()){
+				Main.tpf.setTitleFields(Menu.getInstance().workingDir + "/.titleFields");
+			}
+			else {
+				Main.tpf.setTitleFields(Menu.getInstance().workingDir + "/.titleFields");
+				Main.tpf.setCreditFields(Menu.getInstance().workingDir + "/.creditFields");
 			}
 
 		} catch (IOException e1) {

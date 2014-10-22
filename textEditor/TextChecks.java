@@ -1,4 +1,4 @@
-package TextEditor;
+package textEditor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

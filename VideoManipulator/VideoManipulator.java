@@ -43,6 +43,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import audioManipulator.AudioBackgroundTask;
+
 
 /**
  * SoftEng206 Assignment3 - video manipulator class
@@ -55,7 +57,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 
 public class VideoManipulator extends JPanel implements ItemListener,
-		ActionListener {
+ActionListener {
 
 	private static VideoManipulator instance = new VideoManipulator();
 	protected VideoChecks vc = new VideoChecks();
@@ -65,6 +67,7 @@ public class VideoManipulator extends JPanel implements ItemListener,
 	protected SnapshotPreview sp = new SnapshotPreview();
 	protected FilterPreview fp = new FilterPreview();
 	protected VideoSave vs = new VideoSave();
+	protected VideoBackgroundTask vbt = new VideoBackgroundTask();
 
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
@@ -432,16 +435,10 @@ public class VideoManipulator extends JPanel implements ItemListener,
 		}
 	}
 
-	public int runCommands(String input, String output) {
-		// Create the swingWorker class and execute it
-		longTask = new VideoBackgroundTask(input, output);
-		longTask.execute();
-		try {
-			return longTask.get();
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
-		}
-		return 1;
+	public String makeCommand(String input, String output){
+		String cmd = vbt.makeVideoCommand(input, output);
+
+		return cmd;
 	}
 
 }

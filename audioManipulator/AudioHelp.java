@@ -1,17 +1,18 @@
-package TextEditor;
+package audioManipulator;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class TextHelp {
-	protected void textHelp(){
-		//Set the welcome title frame 
-		JFrame helpframe = new JFrame("Help - Text Editor");
+public class AudioHelp {
+	
+	protected void audioHelp(){
+		//Set the audio help frame 
+		JFrame helpframe = new JFrame("Help - Audio Manipulator");
 		JPanel helpPanel = new JPanel(new BorderLayout());
-		
-		helpPanel.add(TextEditor.getInstance().helpImage);
+
+		helpPanel.add(AudioManipulator.getInstance().helpImage);
 		helpframe.setContentPane(helpPanel);
 		helpframe.setLocation(450, 100);
 		helpframe.setResizable(false);

@@ -1,4 +1,4 @@
-package TextEditor;
+package textEditor;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package AudioManipulator;
+package audioManipulator;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -41,6 +41,7 @@ ActionListener {
 	protected AudioSave as = new AudioSave();
 	protected OverlayList ol = new OverlayList();
 	protected ReplacePreview rp = new ReplacePreview();
+	protected AudioBackgroundTask abt = new AudioBackgroundTask();
 
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
@@ -538,15 +539,11 @@ ActionListener {
 	 * 
 	 * @return exit status
 	 */
-	public int runCommands(String input, String output) {
-		// Create the swingWorker class and execute it
-		longTask = new AudioBackgroundTask(input, output);
-		longTask.execute();
-		try {
-			return longTask.get();
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
-		}
-		return 1;
+	public String makeCommand(String input, String output){
+		
+		String cmd = abt.makeAudioCommand(input, output);
+		
+		return cmd;
+	
 	}
 }

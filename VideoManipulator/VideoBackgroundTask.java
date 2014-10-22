@@ -1,31 +1,21 @@
 package VideoManipulator;
 
-import javax.swing.SwingWorker;
-/**
- * Background Task class extends SwingWorker and handles all the long tasks.
- */
-public class VideoBackgroundTask  extends SwingWorker<Integer, String> {
-	Process process;
-	ProcessBuilder builder;
-	String firstInput;
-	String lastOutput;
-	// Constructor for backgroundTask, takes in the name of the input and
-	// the output
-	protected VideoBackgroundTask(String input, String output) {
+public class VideoBackgroundTask{
+	
+	private String firstInput;
+	private String lastOutput;
+	
+	protected String makeVideoCommand(String input, String output){
+		
 		firstInput = input;
 		lastOutput = output;
-	}
-
-	// Override doInBackgrount() to execute longTask in the background
-	@Override
-	protected Integer doInBackground() throws Exception {
 
 		// Reference for all the avconv commands
 		// https://libav.org/avconv.html and a combination of many searches
 		// found on google, final command selected after a lot of trials and
 		// testing
 
-		try {
+		
 			// if filter is enabled, constructs the command for adding the
 			// filter to the input video
 			if (VideoManipulator.getInstance().filterEnable) {
@@ -107,7 +97,7 @@ public class VideoBackgroundTask  extends SwingWorker<Integer, String> {
 
 					bigsSnapshotCmd.append("avconv -i ");
 					bigsSnapshotCmd.append(firstInput);
-					bigsSnapshotCmd.append(" -y ");
+					bigsSnapshotCmd.append(" -strict experimental -y ");
 					bigsSnapshotCmd.append(lastOutput);
 					bigsSnapshotCmd.append(";");
 
@@ -161,7 +151,7 @@ public class VideoBackgroundTask  extends SwingWorker<Integer, String> {
 
 					bigLoopVideoCmd.append("avconv -i ");
 					bigLoopVideoCmd.append(firstInput);
-					bigLoopVideoCmd.append(" -y ");
+					bigLoopVideoCmd.append(" -strict experimental -y ");
 					bigLoopVideoCmd.append(lastOutput);
 					bigLoopVideoCmd.append(";");
 
@@ -185,15 +175,9 @@ public class VideoBackgroundTask  extends SwingWorker<Integer, String> {
 			}
 			// start the builder for the bash command so it is executed
 			String cmd = finalCommand.toString();
-
-			builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-			process = builder.start();
-			process.waitFor();
-			return process.exitValue();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return 1;
+			System.out.println(cmd);
+			return cmd;
+			
 	}
 }
 

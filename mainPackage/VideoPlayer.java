@@ -1,10 +1,11 @@
-package MainPackage;
+package mainPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -60,7 +61,7 @@ public class VideoPlayer extends JPanel implements ActionListener,
 	private JLabel timeDisplay = new JLabel("00:00:00");
 	private JSlider volume = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
 
-	private JSlider videoSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 0);
+	private JSlider videoSlider = new JSlider(JSlider.HORIZONTAL, 0, 54900, 0);
 
 	private SkipTask longTask;
 	private Download download;
@@ -152,46 +153,78 @@ public class VideoPlayer extends JPanel implements ActionListener,
 		// clicked/pressed/released it updates the video
 		
 		videoSlider.setValue(0);
-		videoSlider.addMouseListener(new MouseListener() {
-			double time;
+		
+		
 
-			@Override
+		//Add a mouse listener to find and calculate where to transition to on the video/audio.
+		
+		videoSlider.addMouseListener(new MouseAdapter() {            
 			public void mouseClicked(MouseEvent e) {
-				if (video.isPlaying()) {
-					time = ((double) videoSlider.getValue() / videoSlider
-							.getMaximum()) * ((double) video.getLength());
-					video.setTime((long) time);
-				}
-			}
 
-			@Override
+				// find the position of the click on the jslider
+				double position = (((double)e.getX() / (double)videoSlider.getWidth()) * videoSlider.getMaximum());
+
+				
+				if (position>=videoSlider.getMaximum()){
+					// if they have reached the maximum, go back to 0
+					videoSlider.setValue(0);
+				}
+			
+				else {
+					// update the video slider
+					videoSlider.setValue((int)position);
+					
+					// then find the time of the video and set it 
+					double time = ((double) videoSlider.getValue() / videoSlider
+					.getMaximum()) * ((double) video.getLength());
+					video.setTime((long) time);
+				
+				}
+			}          
 			public void mousePressed(MouseEvent e) {
-				if (video.isPlaying()) {
-					time = ((double) videoSlider.getValue() / videoSlider
-							.getMaximum()) * ((double) video.getLength());
-					video.setTime((long) time);
-				}
-			}
 
-			@Override
+				// find the position of the click on the jslider
+				double position = (((double)e.getX() / (double)videoSlider.getWidth()) * videoSlider.getMaximum());
+
+				
+				if (position>=videoSlider.getMaximum()){
+					// if they have reached the maximum, go back to 0
+					videoSlider.setValue(0);
+				}
+			
+				else {
+					// update the video slider
+					videoSlider.setValue((int)position);
+					
+					// then find the time of the video and set it 
+					double time = ((double) videoSlider.getValue() / videoSlider
+					.getMaximum()) * ((double) video.getLength());
+					video.setTime((long) time);
+				
+				}
+			}   
 			public void mouseReleased(MouseEvent e) {
-				if (video.isPlaying()) {
-					time = ((double) videoSlider.getValue() / videoSlider
-							.getMaximum()) * ((double) video.getLength());
-					video.setTime((long) time);
+
+				// find the position of the click on the jslider
+				double position = (((double)e.getX() / (double)videoSlider.getWidth()) * videoSlider.getMaximum());
+
+				
+				if (position>=videoSlider.getMaximum()){
+					// if they have reached the maximum, go back to 0
+					videoSlider.setValue(0);
 				}
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-
-			}
-
+			
+				else {
+					// update the video slider
+					videoSlider.setValue((int)position);
+					
+					// then find the time of the video and set it 
+					double time = ((double) videoSlider.getValue() / videoSlider
+					.getMaximum()) * ((double) video.getLength());
+					video.setTime((long) time);
+				
+				}
+			}                  
 		});
 
 		// Setting preferred sizes for some components
@@ -298,12 +331,11 @@ public class VideoPlayer extends JPanel implements ActionListener,
 								String formatedTime = df.format(new Date(time));
 								if (time < video.getLength()) {
 									timeDisplay.setText(formatedTime);
-
-									// update the video slider
+								
+									// update the video slider as timer progresses
 									videoSlider.setValue((int) ((double) video
-											.getTime() / video.getLength() * videoSlider
-											.getMaximum()));
-
+									.getTime() / video.getLength() * videoSlider
+									.getMaximum()));
 								} else {
 									playBtn.setIcon(play);
 								}

@@ -1,4 +1,4 @@
-package MainPackage;
+package mainPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,10 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import AudioManipulator.AudioManipulator;
-import AudioManipulator.AudioProjectFunctions;
-import TextEditor.TextEditor;
-import TextEditor.TextProjectFunctions;
+import textEditor.TextEditor;
+import textEditor.TextProjectFunctions;
+
+import audioManipulator.AudioManipulator;
+import audioManipulator.AudioProjectFunctions;
+
 import VideoManipulator.VideoManipulator;
 import VideoManipulator.VideoProjectFunctions;
 

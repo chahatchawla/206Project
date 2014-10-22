@@ -1,4 +1,4 @@
-package MainPackage;
+package mainPackage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +9,10 @@ import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import audioManipulator.AudioManipulator;
+
+import com.sun.jna.platform.FileUtils;
 
 public class NewProject {
 	protected void newProject(){
@@ -81,7 +85,9 @@ public class NewProject {
 					File f = new File(outputFileName);
 					Menu.getInstance().hiddenDir = Menu.getInstance().workingDir+"/."+projectName+".vamix";
 					File hidden = new File(Menu.getInstance().hiddenDir);
-
+					
+					
+					
 					if ( f.exists()) {
 						//Allow user to choose either overwriting the current project or cancel creating new project
 						Object[] existOptions = {"Cancel", "Overwrite"};
@@ -91,8 +97,44 @@ public class NewProject {
 								null,existOptions, existOptions[0]);
 
 						if (optionChosen == 1) { //if overwrite, delete the existing file and hidden directory
-							f.delete();
-							hidden.delete();
+							
+							
+
+							String cmd = "rm -r " + Menu.getInstance().workingDir;
+							ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
+									cmd);
+							Process process;
+							try {
+								process = builder.start();
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+							
+							try {
+								//Create the main project file
+								f.createNewFile();
+								//Create the hidden directory that holds all the results of the intermediate processes
+								hidden.mkdir();
+
+								//Write the hidden directory and the working directory to the main project file
+								FileWriter fw = new FileWriter(f);
+								BufferedWriter bw = new BufferedWriter(fw);
+								Menu.getInstance().projectPath = f.getPath();
+								bw.write(Menu.getInstance().projectPath); //Store the project path
+								bw.newLine();
+								bw.write(hidden.toString()); //Store the hidden folder path
+								bw.newLine();
+								bw.write(Menu.getInstance().workingDir); //Store the working directory
+								bw.newLine();
+								bw.close();
+
+								//When project is created successfully, enable importing media
+								Menu.getInstance().submenu.setEnabled(true);
+
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+				
 							i++;
 
 						} else { //Cancel creating new project

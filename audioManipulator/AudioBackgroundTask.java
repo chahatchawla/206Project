@@ -1,35 +1,21 @@
-package AudioManipulator;
+package audioManipulator;
 
-import javax.swing.SwingWorker;
 
-import VideoManipulator.VideoManipulator;
 
-/**
- * Background Task class extends SwingWorker and handles all the long tasks.
- */
-public class AudioBackgroundTask extends SwingWorker<Integer, String> {
-	Process process;
-	ProcessBuilder builder;
-	String firstInput;
-	String lastOutput;
-
-	// Constructor for backgroundTask, takes in the name of the input and
-	// the output
-	protected AudioBackgroundTask(String input, String output) {
+public class AudioBackgroundTask{
+	
+	private String firstInput;
+	private String lastOutput;
+	
+	protected String makeAudioCommand(String input, String output){
+		
 		firstInput = input;
 		lastOutput = output;
-	}
-
-	// Override doInBackgrount() to execute longTask in the background
-	@Override
-	protected Integer doInBackground() throws Exception {
-
 		// Reference for all the avconv commands
 		// https://libav.org/avconv.html and a combination of many searches
 		// found on google, final command selected after a lot of trials and
 		// testing
 
-		try {
 			// if remove is enabled and replace is not enabled, constructs
 			// the
 			// command for removing the audio from the input file
@@ -103,7 +89,7 @@ public class AudioBackgroundTask extends SwingWorker<Integer, String> {
 
 					bigExtractCmd.append("avconv -i ");
 					bigExtractCmd.append(firstInput);
-					bigExtractCmd.append(" -y ");
+					bigExtractCmd.append(" -strict experimental -y ");
 					bigExtractCmd.append(lastOutput);
 					bigExtractCmd.append(";");
 
@@ -298,31 +284,24 @@ public class AudioBackgroundTask extends SwingWorker<Integer, String> {
 			if (AudioManipulator.getInstance().removeEnable
 					&& !AudioManipulator.getInstance().replaceEnable) {
 				finalCommand.append(AudioManipulator.getInstance().removeCmd);
-				finalCommand.append(";");
+				
 			}
 			if (AudioManipulator.getInstance().extractEnable) {
 				finalCommand.append(AudioManipulator.getInstance().extractCmd);
-				finalCommand.append(";");
+				
 			}
 			if (AudioManipulator.getInstance().replaceEnable) {
 				finalCommand.append(AudioManipulator.getInstance().replaceCmd);
-				finalCommand.append(";");
+				
 			}
 			if (AudioManipulator.getInstance().overlayEnable) {
 				finalCommand.append(AudioManipulator.getInstance().overlayCmd);
-				finalCommand.append(";");
+			
 			}
 
 			// start the builder for the bash command so it is executed
 			String cmd = finalCommand.toString();
 			System.out.println(cmd);
-			builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-			process = builder.start();
-			process.waitFor();
-			return process.exitValue();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return 1;
+			return cmd;
 	}
 }
