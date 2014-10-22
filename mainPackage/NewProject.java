@@ -89,8 +89,10 @@ public class NewProject {
 					
 					
 					if ( f.exists()) {
+
+						
 						//Allow user to choose either overwriting the current project or cancel creating new project
-						Object[] existOptions = {"Cancel", "Overwrite"};
+						Object[] existOptions = {"Overwrite", "Cancel"};
 						int optionChosen = JOptionPane.showOptionDialog(null, "Project already exists. " +
 								"Do you want to overwrite the existing project?",
 								"Project Exists!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -98,8 +100,6 @@ public class NewProject {
 
 						if (optionChosen == 1) { //if overwrite, delete the existing file and hidden directory
 							
-							
-
 							String cmd = "rm -r " + Menu.getInstance().workingDir;
 							ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
 									cmd);

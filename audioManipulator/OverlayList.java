@@ -7,8 +7,13 @@ import java.nio.file.Path;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+
+import audioManipulator.ReplacePreview.ReplaceBackgroundTask;
 
 public class OverlayList {
+	
+	private OverlayBackgroundTask longTask;
 	// If the inputOverlayButton is clicked
 	protected void inputOverlay(){
 
@@ -115,22 +120,10 @@ public class OverlayList {
 			// check if something is selected in the list
 			if (AudioManipulator.getInstance().audioFilesList.getSelectedIndex() != -1) {
 
+				longTask = new OverlayBackgroundTask();
+				longTask.execute();
 
-				String playFile;
-				int index;
-				index = AudioManipulator.getInstance().audioFilesList.getSelectedIndex();
-				playFile = AudioManipulator.getInstance().fullNames.get(index).toString();
-
-				String cmd = "avplay -i " + playFile
-						+ " -window_title playChosenAudio -x 400 -y 100";
-				ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
-						cmd);
-				Process process;
-				try {
-					process = builder.start();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				
 			}
 
 
@@ -144,5 +137,28 @@ public class OverlayList {
 		}
 
 	}
+	class OverlayBackgroundTask  extends SwingWorker<Void, String> {
+		StringBuilder cmd = new StringBuilder();
+		@Override
+		protected Void doInBackground() throws Exception {
+			String playFile;
+			int index;
+			index = AudioManipulator.getInstance().audioFilesList.getSelectedIndex();
+			playFile = AudioManipulator.getInstance().fullNames.get(index).toString();
 
+			String cmd = "avplay -i " + playFile
+					+ " -window_title playChosenAudio -x 400 -y 100";
+			ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
+					cmd);
+			Process process;
+			try {
+				process = builder.start();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			return null;
+
+			
+		}
+	}
 }

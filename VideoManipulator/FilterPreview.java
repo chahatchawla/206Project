@@ -1,5 +1,7 @@
 package VideoManipulator;
 
+import java.awt.Menu;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -42,67 +44,54 @@ public class FilterPreview {
 		protected Void doInBackground() throws Exception {
 			StringBuilder cmd = new StringBuilder();
 
-			// set the snapshot time to the 1st second of the video
-			String inputFrameTime = "00:00:01";
-
-			// command to take a screenshot from the video
-
-			cmd.append("avconv -i " + VideoManipulator.getInstance().videoPath + " -ss " + inputFrameTime
-					+ " -f image2 -vframes 1 " + VideoManipulator.getInstance().hiddenDir + "/preview.png");
-			cmd.append(";");
-
 			// if the filter is negate
 			if (VideoManipulator.getInstance().filter.equals("Negate")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf \"negate=5\" -strict experimental -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo						
+						+ " -vf \"negate=5\" -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
+				
+				
 			}
 			// if the filter is blur
 			else if (VideoManipulator.getInstance().filter.equals("Blur")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf \"boxblur=2:1:0:0:0:0\" -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo				
+						+ " -vf \"boxblur=2:1:0:0:0:0\" -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
 			}
 			// if the filter is horizontal flip
 			else if (VideoManipulator.getInstance().filter.equals("Horizontal Flip")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf \"hflip\" -strict experimental -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo			
+						+ " -vf \"hflip\" -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
 			}
 			// if the filter is vertical flip
 			else if (VideoManipulator.getInstance().filter.equals("Vertical Flip")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf \"vflip\" -strict experimental -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo			
+						+ " -vf \"vflip\" -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
 			}
 			// if the filter is fade in
 			else if (VideoManipulator.getInstance().filter.equals("Fade In")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf fade=in:00:30 -strict experimental -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo			
+						+ " -vf fade=in:00:30 -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
 			}
 			// if the filter is transpose
 			else if (VideoManipulator.getInstance().filter.equals("Transpose")) {
 
 				cmd.append("avplay -i "
-						+ VideoManipulator.getInstance().hiddenDir
-						+ "/preview.png"
-						+ " -vf transpose=dir=clock_flip -strict experimental -window_title previewScreen -x 500 -y 350");
+						+ mainPackage.Menu.getInstance().inputVideo			
+						+ " -vf transpose=dir=clock_flip -strict experimental -t 5 -window_title previewScreen -x 500 -y 350");
 
 			}
 

@@ -60,14 +60,16 @@ public class Main {
 	protected static AudioProjectFunctions apf = new AudioProjectFunctions();
 	protected static TextProjectFunctions tpf = new TextProjectFunctions();
 
-	private JLabel titleImage = new JLabel(new ImageIcon("title.png"));
+	private JLabel titleImage ;
 
 
 	/*
 	 * The class constructor
 	 */
 	private Main() {
-
+		
+		titleImage= new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/title.png")));
+		
 		frame = new JFrame("VAMIX - Video Audio Mixer ");
 
 		
@@ -101,6 +103,15 @@ public class Main {
 		frame.setSize(1200, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		//Set the volume values back to default when the user closes the Vamix player
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		@Override
+		public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			VideoPlayer.video.mute(false);
+			VideoPlayer.video.setVolume(100);
+		}
+		});
 
 		//Set the welcome title frame 
 		JFrame titleframe = new JFrame("Welcome to VAMIX");

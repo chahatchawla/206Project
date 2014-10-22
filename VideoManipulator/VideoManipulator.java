@@ -43,6 +43,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import mainPackage.VideoPlayer;
+
 import audioManipulator.AudioBackgroundTask;
 
 
@@ -132,8 +134,8 @@ ActionListener {
 	protected JLabel separator12 = new JLabel("");
 
 	// Initializing the image for the icons
-	protected ImageIcon help = new ImageIcon("help.png");
-	protected JLabel helpImage = new JLabel(new ImageIcon("video.png"));
+	protected ImageIcon help;
+	protected JLabel helpImage;
 
 	// Initializing the enable booleans
 	protected boolean filterEnable = false;
@@ -168,7 +170,9 @@ ActionListener {
 	 */
 
 	private VideoManipulator() {
-
+		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
+		
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);

@@ -1,7 +1,5 @@
 package textEditor;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

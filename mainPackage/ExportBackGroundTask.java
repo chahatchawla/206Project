@@ -1,7 +1,5 @@
 package mainPackage;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
@@ -9,8 +7,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,8 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
-
-import audioManipulator.AudioManipulator;
 
 /**
  * Background Task class extends SwingWorker and handles all the long tasks.

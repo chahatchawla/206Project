@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import audioManipulator.AudioManipulator;
+
 public class TextChecks {
 	
 	
@@ -111,10 +113,17 @@ public class TextChecks {
 				Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
 				Matcher matchesInteger = integerPattern.matcher(TextEditor.getInstance().addDuration.getText());
 				boolean isInteger = matchesInteger.matches();
-
+				int duration = Integer.parseInt(TextEditor.getInstance().addDuration.getText().trim());
+				int lengthOfVideo = (int)(Double.parseDouble(TextEditor.getInstance().videoLength));
+				
 				if (!isInteger){
 					JOptionPane.showMessageDialog(null,
 							"ERROR: please specify the duration that is 1 or more seconds");
+					passedOrNot = false;
+				}
+				else if (duration > lengthOfVideo){
+					JOptionPane.showMessageDialog(null,
+							"ERROR: duration cannot be more than " + lengthOfVideo + " seconds");
 					passedOrNot = false;
 				}
 

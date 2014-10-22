@@ -45,13 +45,13 @@ public class VideoPlayer extends JPanel implements ActionListener,
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	protected static EmbeddedMediaPlayer video;
 
-	private ImageIcon forward = new ImageIcon("forward.png");
-	private ImageIcon rewind = new ImageIcon("rewind.png");
-	private ImageIcon play = new ImageIcon("play.png");
-	private ImageIcon pause = new ImageIcon("pause.png");
-	private ImageIcon stop = new ImageIcon("stop.png");
-	private ImageIcon mute = new ImageIcon("mute.png");
-	private ImageIcon unmute = new ImageIcon("volume.png");
+	private ImageIcon forward; 
+	private ImageIcon rewind;
+	private ImageIcon play;
+	private ImageIcon pause;
+	private ImageIcon stop;
+	private ImageIcon mute;
+	private ImageIcon unmute;
 
 	private JButton fastFwdBtn = new JButton();
 	private JButton backFwdBtn = new JButton();
@@ -71,7 +71,17 @@ public class VideoPlayer extends JPanel implements ActionListener,
 	 * The class constructor
 	 */
 	public VideoPlayer() {
-
+		
+		// set the images for the button
+		forward = new ImageIcon(VideoPlayer.class.getResource("Resources/forward.png"));
+		rewind = new ImageIcon(VideoPlayer.class.getResource("Resources/rewind.png"));
+		play = new ImageIcon(VideoPlayer.class.getResource("Resources/play.png"));
+		pause = new ImageIcon(VideoPlayer.class.getResource("Resources/pause.png"));
+		stop = new ImageIcon(VideoPlayer.class.getResource("Resources/stop.png"));
+		mute = new ImageIcon(VideoPlayer.class.getResource("Resources/mute.png"));
+		unmute = new ImageIcon(VideoPlayer.class.getResource("Resources/volume.png"));
+		
+		
 		// set the preferred sizes for the buttons
 		playBtn.setPreferredSize(new Dimension(60, 35));
 		fastFwdBtn.setPreferredSize(new Dimension(60, 35));

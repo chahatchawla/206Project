@@ -41,8 +41,7 @@ public class VideoSave {
 			}
 			// Save all user inputs to the hidden videoFields text
 			try {
-				// boolean passedAll = allChecksAudio();
-				// if (passedAll) {
+				
 				FileWriter fw = new FileWriter(f);
 				BufferedWriter bw = new BufferedWriter(fw);
 
@@ -63,7 +62,7 @@ public class VideoSave {
 				bw.write(VideoManipulator.getInstance().filter + "\n");
 
 				bw.close();
-				// }
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

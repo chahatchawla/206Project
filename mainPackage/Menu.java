@@ -43,22 +43,22 @@ public class Menu extends JMenuBar implements ActionListener {
 	protected ImportFromFolder iff = new ImportFromFolder();
 	protected Export ex = new Export();
 	protected HelpTab ht = new HelpTab();
-	
+
 	protected JMenu fileMenu;
 	protected static JMenu submenu;
 	protected static JMenuItem export;
 	protected JMenu helpMenu;
 	protected JMenuItem newProj, openProj, fromURL, fromFolder, exit, help;
-	
+
 	// Initializing the image for the icons
-	protected ImageIcon helpVideo = new ImageIcon("help.png");
-	protected JLabel videoImage = new JLabel(new ImageIcon("video.png"));
-	protected ImageIcon helpAudio = new ImageIcon("help.png");
-	protected JLabel audioImage = new JLabel(new ImageIcon("audio.png"));
-	protected ImageIcon helpTextEdit = new ImageIcon("help.png");
-	protected JLabel textEditImage = new JLabel(new ImageIcon("textEdit.png"));
-	protected ImageIcon helpMain = new ImageIcon("help.png");
-	protected JLabel mainImage = new JLabel(new ImageIcon("title.png"));
+
+	protected JLabel videoImage; 
+
+	protected JLabel audioImage ;
+
+	protected JLabel textEditImage ;
+
+	protected JLabel mainImage ;
 
 
 	protected FileNameExtensionFilter mediaFilter = new FileNameExtensionFilter( "mp3, avi & mp4 Clips", "mp3", "mp4", "avi");
@@ -68,16 +68,20 @@ public class Menu extends JMenuBar implements ActionListener {
 	protected static String hiddenDir = "";
 	protected static String projectPath = "";
 
-	protected String inputVideo;
+	public String inputVideo;
 	protected Download download;
 	protected static JFrame downloadFrame = new JFrame("Download");
-	
+
 
 	/*
 	 * The class constructor
 	 */
 	private Menu() {
-
+		
+		videoImage= new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
+		audioImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
+		textEditImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/textEdit.png")));
+		mainImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/title.png")));
 		//Build the file menu.
 		fileMenu = new JMenu("File");
 		add(fileMenu);
@@ -146,7 +150,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			downloadFrame.setSize(500, 200);
 			downloadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			downloadFrame.setVisible(true);
-			
+
 
 			//-----------------------------------------------------------------------------------
 			//If user chooses to import video from local folder
@@ -155,16 +159,17 @@ public class Menu extends JMenuBar implements ActionListener {
 			//-----------------------------------------------------------------------------------
 		} else if (e.getSource() == export) {
 			ex.export();
-			
+
 			//-----------------------------------------------------------------------------------
 
 			//Close the frame
 		} else if (e.getSource() == exit) {
+			VideoPlayer.video.mute(false);
 			Main.frame.dispose();
 		} else if (e.getSource() == help) {
 
-		ht.helpTab();
-		
+			ht.helpTab();
+
 		} 
 
 	}
@@ -173,7 +178,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	 * Gets the full path of the project
 	 */
 	public static void finishDownload() {
-			downloadFrame.dispose();
+		downloadFrame.dispose();
 	}
 	/**
 	 * Gets the full path of the project

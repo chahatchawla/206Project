@@ -37,7 +37,9 @@ public class Export {
 				if (found) {
 					JOptionPane.showMessageDialog(null, "Sorry, output file name cannot contain spaces.");
 				} else {
-
+					
+					VideoPlayer.video.mute(false);
+					
 					//Check that the file doesn't exists in the specified directory
 					String outputFileName = Menu.getInstance().workingDir+"/"+outputName+".mp4";
 					File f = new File(outputFileName);
@@ -60,12 +62,7 @@ public class Export {
 					i++; //to exit the while loop
 
 
-					//Declare exit status variables
-					int textExitStatus = 0;
-					int audioExitStatus = 0;
-					int videoExitStatus = 0;
-					
-					
+								
 					StringBuilder finalCmd = new StringBuilder(); 
 							
 					//Get the video path

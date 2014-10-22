@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import mainPackage.VideoPlayer;
+
 import audioManipulator.AudioBackgroundTask;
 
 /**
@@ -90,8 +92,8 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected JComboBox coloursList = new JComboBox(dropDownColors);
 
 	// Initializing the image for the icons
-	protected ImageIcon help = new ImageIcon("help.png");
-	protected JLabel helpImage = new JLabel(new ImageIcon("textEdit.png"));
+	protected ImageIcon help ;
+	protected JLabel helpImage ; 
 
 	// Initializing the seperators
 	protected JLabel separator = new JLabel("");
@@ -117,9 +119,9 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected String creditFrameTime = "";
 	protected int fontType = 0;
 	protected int fontStyle = 0;
-	protected int titleFontSize = 8;
-	protected int fontSize = 8;
-	protected int creditFontSize = 8;
+	protected int titleFontSize = 30;
+	protected int fontSize = 30;
+	protected int creditFontSize = 30;
 	protected String titleFontColour = "black";
 	protected String fontColour = "black";
 	protected String creditFontColour = "black";
@@ -149,6 +151,9 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 
 	// TextEditor constructor - sets the GUI for textEditor tab
 	private TextEditor() {
+		
+		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/textEdit.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -156,7 +161,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 
-
+		sizesList.setSelectedIndex(6);
 		// change the font of the title
 		textEditorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 

@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import mainPackage.VideoPlayer;
+
 /**
  * SoftEng206 Assignment3 - audio manipulator class
  * 
@@ -130,8 +132,8 @@ ActionListener {
 
 
 	// Initializing the image for the icons
-	protected ImageIcon help = new ImageIcon("help.png");
-	protected JLabel helpImage = new JLabel(new ImageIcon("audio.png"));
+	protected ImageIcon help ;
+	protected JLabel helpImage;
 
 	// Initializing the Strings
 	protected String removeCmd = "";
@@ -154,6 +156,9 @@ ActionListener {
 	 */
 
 	private AudioManipulator() {
+		
+		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
