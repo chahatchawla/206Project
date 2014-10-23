@@ -14,15 +14,15 @@ public class Export {
 		int i = -1;
 		while (i<0) {	//Loop until the user provides a valid output name or cancels exporting
 			//Take the output file name as an input from the user
-			String outputName = JOptionPane.showInputDialog(null,
+			Menu.getInstance().outputName = JOptionPane.showInputDialog(null,
 					"Please choose the output name for the final .mp4 file: ", 
 					"Export project",
 					JOptionPane.DEFAULT_OPTION);
 
-			if (outputName == null) { //Cancel is pressed, go back to main frame
+			if (Menu.getInstance().outputName == null) { //Cancel is pressed, go back to main frame
 				i++;
 
-			} else if (outputName.isEmpty()) {
+			} else if (Menu.getInstance().outputName.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Sorry, output file name cannot be empty!");
 
 			} else {
@@ -31,7 +31,7 @@ public class Export {
 				 * @reference: http://stackoverflow.com/questions/4067809/how-to-check-space-in-string
 				 */
 				Pattern pattern = Pattern.compile("\\s");
-				Matcher matcher = pattern.matcher(outputName);
+				Matcher matcher = pattern.matcher(Menu.getInstance().outputName);
 				boolean found = matcher.find();
 
 				if (found) {
@@ -41,17 +41,17 @@ public class Export {
 					VideoPlayer.video.mute(false);
 					
 					//Check that the file doesn't exists in the specified directory
-					String outputFileName = Menu.getInstance().workingDir+"/"+outputName+".mp4";
+					String outputFileName = Menu.getInstance().workingDir+"/"+Menu.getInstance().outputName+".mp4";
 					File f = new File(outputFileName);
 					if ( f.exists()) {
 						//Allow user to choose either overwriting the existing file or cancel exporting
-						Object[] existOptions = {"Cancel", "Overwrite"};
+						Object[] existOptions = {"Overwrite", "Cancel"};
 						int optionChosen = JOptionPane.showOptionDialog(null, "File already exists." +
 								"Do you want to overwrite the existing media file?",
 								"File Exists!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 								null,existOptions, existOptions[0]);
 
-						if (optionChosen == 1) { //if overwrite, delete the existing file
+						if (optionChosen == 0) { //if overwrite, delete the existing file
 							f.delete();
 							i++;
 
@@ -93,7 +93,7 @@ public class Export {
 
 					//If no edits were done in the project do not export
 					if (!f2.exists() && !f3.exists() && !(f4.exists()||f5.exists()) ) {
-						JOptionPane.showMessageDialog(null, "Please save the changes before exporting");
+						JOptionPane.showMessageDialog(null, "No changes were saved. Please save the changes before exporting");
 						return;
 					} else if (f2.exists() && !f3.exists() && !(f4.exists()||f5.exists()) ) { //User did video manipulation only
 						finalCmd.append(Main.videoMan.makeCommand(videoPath, outputFileName));

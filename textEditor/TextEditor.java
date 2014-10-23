@@ -13,11 +13,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 
 import mainPackage.VideoPlayer;
 
@@ -28,7 +32,7 @@ import audioManipulator.AudioBackgroundTask;
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
- * Partial Code Extracted by Assignment 3 
+ *         Partial Code Extracted by Assignment 3
  * @author Chahat Chawla and Zainab Al Lawati
  * 
  */
@@ -56,7 +60,8 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected JLabel textEditorLabel = new JLabel("Text Editor");
 	protected JLabel screenLabel = new JLabel("Add Text On: ");
 	protected JLabel durationLabel = new JLabel("Duration (in seconds): ");
-	protected JLabel backgroundImageLabel = new JLabel("Choose a Background Option: ");
+	protected JLabel backgroundImageLabel = new JLabel(
+			"Choose a Background Option: ");
 	protected JLabel addTextLabel = new JLabel("Add Text:");
 	protected JLabel wordLimitLabel = new JLabel("(250 characters)");
 	protected JLabel chooseFontLabel = new JLabel("Font Type: ");
@@ -70,7 +75,8 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected JTextField addTimeFrame = new JTextField("hh:mm:ss");
 
 	// Initializing the JRadioButton
-	protected JRadioButton overlayCheck = new JRadioButton("Overlay on the video");
+	protected JRadioButton overlayCheck = new JRadioButton(
+			"Overlay on the video");
 	protected JRadioButton defaultCheck = new JRadioButton(
 			"Default frame from 00:00:01");
 	protected JRadioButton frameCheck = new JRadioButton(
@@ -79,21 +85,22 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	// Initializing the ComboBox and lists of drop down menus
 	protected String[] dropDownScreen = { "", "Title Screen", "Credit Screen" };
 	protected JComboBox screenList = new JComboBox(dropDownScreen);
-	protected String[] dropDownFonts = { "Arial", "Courier", "Georgia", "TimesNewRoman",
-	"Verdana" };
+	protected String[] dropDownFonts = { "Arial", "Courier", "Georgia",
+			"TimesNewRoman", "Verdana" };
 	protected JComboBox fontsList = new JComboBox(dropDownFonts);
-	protected String[] dropDownStyles = { "PLAIN", "BOLD", "ITALIC", "BOLD&ITALIC" };
+	protected String[] dropDownStyles = { "PLAIN", "BOLD", "ITALIC",
+			"BOLD&ITALIC" };
 	protected JComboBox stylesList = new JComboBox(dropDownStyles);
-	protected String[] dropDownSizes = { "8", "10", "14", "18", "22", "26", "30", "34",
-			"38", "42", "48", "52", "56", "72" };
+	protected String[] dropDownSizes = { "8", "10", "14", "18", "22", "26",
+			"30", "34", "38", "42", "48", "52", "56", "72" };
 	protected JComboBox sizesList = new JComboBox(dropDownSizes);
-	protected String[] dropDownColors = { "black", "green", "blue", "yellow", "red",
-			"white", "pink" };
+	protected String[] dropDownColors = { "black", "green", "blue", "yellow",
+			"red", "white", "pink" };
 	protected JComboBox coloursList = new JComboBox(dropDownColors);
 
 	// Initializing the image for the icons
-	protected ImageIcon help ;
-	protected JLabel helpImage ; 
+	protected ImageIcon help;
+	protected JLabel helpImage;
 
 	// Initializing the seperators
 	protected JLabel separator = new JLabel("");
@@ -151,9 +158,11 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 
 	// TextEditor constructor - sets the GUI for textEditor tab
 	private TextEditor() {
-		
-		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/textEdit.png")));
+
+		help = new ImageIcon(
+				VideoPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(
+				VideoPlayer.class.getResource("Resources/textEdit.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -162,6 +171,9 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		helpButton.setBorderPainted(false);
 
 		sizesList.setSelectedIndex(6);
+
+		addTextArea.setDocument(new JTextFieldLimit(250));
+		addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
 		// change the font of the title
 		textEditorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 
@@ -214,8 +226,6 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		add(prevBtn);
 		add(saveButton);
 
-
-
 		// set the preferred size for the components
 		separator.setPreferredSize(new Dimension(525, 30));
 		separator2.setPreferredSize(new Dimension(525, 20));
@@ -237,30 +247,29 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		defaultCheck.addItemListener(this);
 		overlayCheck.addItemListener(this);
 
-		// set the size for the text fields 
+		// set the size for the text fields
 		addTimeFrame.setColumns(10);
 		addDuration.setColumns(3);
 
-
-		//disable the fields
+		// disable the fields
 		addTimeFrame.setEnabled(false);
-		//tpf.refreshTitleScreen();
-		//tpf.refreshCreditScreen();
+		// tpf.refreshTitleScreen();
+		// tpf.refreshCreditScreen();
 		frameCheck.setEnabled(false);
 		defaultCheck.setEnabled(false);
 
-
-
 	}
+
 	public static TextEditor getInstance() {
 		return instance;
 	}
+
 	/**
 	 * actionPerformed method responds to all the actions done by the user on
 	 * the GUI
 	 */
 	public void actionPerformed(ActionEvent e) {
-	
+
 		// Make sure that the credit and title fields do not interfere with each
 		// other
 		if (e.getSource() == screenList) {
@@ -288,8 +297,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		}
 		if (e.getSource() == saveButton) {
 			ts.textSave();
-		}
-		else if (e.getSource() == fontsList) {
+		} else if (e.getSource() == fontsList) {
 			fontType = fontsList.getSelectedIndex();
 			prevFont = fontsList.getSelectedItem().toString();
 			// change the font type on the text the user writes to the font type
@@ -338,8 +346,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 			tp.textPreview();
 		}
 
-
-		else if (e.getSource() == helpButton){
+		else if (e.getSource() == helpButton) {
 			th.textHelp();
 		}
 	}
@@ -388,17 +395,58 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 			}
 		}
 	}
+
+	/*
+	 * The 250 character limit for the the title/credit length can decrease the
+	 * possibility of having large texts that exceeds the screen dimensions
+	 * since the maximum font size is 72. Although it doesn't guarantee that the
+	 * input will always be in right size, limiting characters is easier for the
+	 * user since they get a pop up message as soon as they reach 250
+	 * characters, allowing them to be aware of the limit and change their text
+	 * accordingly.
+	 * 
+	 * Reference: http://www.java2s.com/Code/Java/Swing-JFC/LimitJTextFieldinputtoamaximumlength.htm
+	 */
+
+	class JTextFieldLimit extends PlainDocument {
+		private int limit;
+
+		JTextFieldLimit(int limit) {
+			super();
+			this.limit = limit;
+		}
+
+		JTextFieldLimit(int limit, boolean upper) {
+			super();
+			this.limit = limit;
+		}
+
+		public void insertString(int offset, String str, AttributeSet attr)
+				throws BadLocationException {
+			if (str == null)
+				return;
+
+			if ((getLength() + str.length()) <= limit) {
+				super.insertString(offset, str, attr);
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"ERROR: Text can only be 250 characters.");
+			}
+
+		}
+	}
+
 	/**
 	 * Method run all the audio manipulating commands in a background thread
 	 * 
 	 * @return exit status
 	 */
 
-	public String makeCommand(String input, String output){
-		
+	public String makeCommand(String input, String output) {
+
 		String cmd = tbt.makeTextCommand(input, output);
-		
+
 		return cmd;
-	
+
 	}
 }

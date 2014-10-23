@@ -105,7 +105,18 @@ public class ExportBackGroundTask extends SwingWorker<Integer, String> {
 		if (process.exitValue() == 0){
 			progressBar.setValue(0);
 			exportFrame.dispose();
-			JOptionPane.showMessageDialog(null, "Export is Successful!");
+			Object[] existOptions = {"Yes, Please","No, Thankyou"};
+			int optionChosen = JOptionPane.showOptionDialog(null,
+					"Export was successful! Would you like to preview the exported video?",
+					"Export", JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, existOptions,
+					existOptions[0]);
+			
+			if (optionChosen == 0){
+				PrevExportBackgroundTask longTask = new PrevExportBackgroundTask();
+				longTask.execute();
+				
+			}
 
 		}
 		else {
@@ -114,9 +125,7 @@ public class ExportBackGroundTask extends SwingWorker<Integer, String> {
 			JOptionPane.showMessageDialog(null, "Error encountered. Exporting is aborted!");
 
 		}
-		//Delete the hidden folder that holds the intermediate outputs
-		File f6 = new File(Menu.getInstance().hiddenDir);
-		f6.delete();
+		
 
 	}
 

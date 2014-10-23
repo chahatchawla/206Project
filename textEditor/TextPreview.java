@@ -30,7 +30,6 @@ public class TextPreview {
 
 		// create a file for preview text
 		filePreview = new File(TextEditor.getInstance().hiddenDir + "/PreviewText.txt");
-
 		// Reference for writing to file:
 		// http://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
 

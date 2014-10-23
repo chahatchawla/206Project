@@ -336,7 +336,7 @@ public class TextProjectFunctions {
 		if ((TextEditor.getInstance().projectPath != null) && (!TextEditor.getInstance().projectPath.isEmpty())) {
 			TextEditor.getInstance().fontsList.setSelectedIndex(0);
 			TextEditor.getInstance().stylesList.setSelectedIndex(0);
-			TextEditor.getInstance().sizesList.setSelectedIndex(0);
+			TextEditor.getInstance().sizesList.setSelectedIndex(6);
 			TextEditor.getInstance().coloursList.setSelectedIndex(0);
 		}
 		TextEditor.getInstance().backgroundImageOption = 0;
@@ -344,8 +344,8 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().titleFrameTime = "";
 		TextEditor.getInstance().fontType = 0;
 		TextEditor.getInstance().fontStyle = 0;
-		TextEditor.getInstance().titleFontSize = 8;
-		TextEditor.getInstance().fontSize = 8;
+		TextEditor.getInstance().titleFontSize = 30;
+		TextEditor.getInstance().fontSize = 30;
 		TextEditor.getInstance().titleFontColour = "black";
 		TextEditor.getInstance().fontColour = "black";
 		TextEditor.getInstance().titleFontName = "";
@@ -390,7 +390,8 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().frameCheck.setEnabled(false);
 		if ((TextEditor.getInstance().projectPath != null) && (!TextEditor.getInstance().projectPath.isEmpty())) {
 			TextEditor.getInstance().fontsList.setSelectedIndex(0);
-			TextEditor.getInstance().sizesList.setSelectedIndex(0);
+			TextEditor.getInstance().stylesList.setSelectedIndex(0);
+			TextEditor.getInstance().sizesList.setSelectedIndex(6);
 			TextEditor.getInstance().coloursList.setSelectedIndex(0);
 		}
 		TextEditor.getInstance().backgroundImageOption = 0;
@@ -398,8 +399,8 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().creditFrameTime = "";
 		TextEditor.getInstance().fontType = 0;
 		TextEditor.getInstance().fontStyle = 0;
-		TextEditor.getInstance().fontSize = 8;
-		TextEditor.getInstance().creditFontSize = 8;
+		TextEditor.getInstance().fontSize = 30;
+		TextEditor.getInstance().creditFontSize = 30;
 		TextEditor.getInstance().fontColour = "black";
 		TextEditor.getInstance().creditFontColour = "black";
 		TextEditor.getInstance().fontName = "";

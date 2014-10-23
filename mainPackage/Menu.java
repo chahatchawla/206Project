@@ -69,6 +69,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	protected static String projectPath = "";
 
 	public String inputVideo;
+	public String outputName;
 	protected Download download;
 	protected static JFrame downloadFrame = new JFrame("Download");
 

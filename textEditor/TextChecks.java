@@ -98,17 +98,7 @@ public class TextChecks {
 				JOptionPane.showMessageDialog(null,
 						"ERROR: please specify the duration");
 
-				/*
-				 * If text area has lines > 10 the number of lines were used to
-				 * limit the title/credit length specifying number of lines can
-				 * decrease the possibility of having large texts that exceeds
-				 * the screen dimensions since the maximum font size is 72.
-				 * Although it doesn't guarantee that the input will always be
-				 * in right size, limiting line numbers is easier for the user
-				 * since he can go back and count the extra lines to delete
-				 * them. Which is fairly hard task if words or characters were
-				 * used as a limit (they also don't guarantee right text size)
-				 */
+		
 			} else if (!TextEditor.getInstance().addDuration.getText().trim().equals("")){
 				Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
 				Matcher matchesInteger = integerPattern.matcher(TextEditor.getInstance().addDuration.getText());
@@ -128,10 +118,7 @@ public class TextChecks {
 				}
 
 
-			} else if (TextEditor.getInstance().addTextArea.getLineCount() > 10) {
-				JOptionPane.showMessageDialog(null,
-						"ERROR: Text can only be 10 lines.");
-				passedOrNot = false;
+					
 
 				// If a frame background was chosen without specifying the frame
 				// time

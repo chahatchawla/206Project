@@ -98,12 +98,12 @@ public class AudioChecks {
 
 		// Reference for avProbe:
 		// https://libav.org/avprobe.html
-
 		int count = 0;
 
 		// count the lines using the avprobe bash command
 		String cmd = "avprobe -loglevel error -show_streams " + AudioManipulator.getInstance().videoPath
-				+ " | grep -i streams.stream | wc -l";
+				+ " | grep -i streams.stream.1 | wc -l";
+		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
 		builder.redirectErrorStream(true);
 		Process process;
@@ -121,7 +121,7 @@ public class AudioChecks {
 		}
 
 		// if the video file has no audio stream, disable all audio manipulation fields
-		if (count == 2) {
+		if (count == 0) {
 			JOptionPane
 			.showMessageDialog(
 					null,
@@ -258,6 +258,7 @@ public class AudioChecks {
 		if (AudioManipulator.getInstance().outputFileName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output file name for extract");
+			passedOrNot = false;
 		}
 
 		// check whether the outputFileName specified user already exists in the
@@ -412,26 +413,42 @@ public class AudioChecks {
 	 * allChecksAudio Method does all the checks for Audio Manipulator
 	 */
 	protected boolean allChecksAudio() {
+
 		boolean passedAllChecks = true;
+		boolean passedSignal = true;
+		boolean passedExtract = true;
+		boolean passedReplace = true;
+		boolean passedOverlay = true;
+
+		passedSignal = audioSignalCheck();
+
+
 
 		// do all the checks for extract
 		if (AudioManipulator.getInstance().extractEnable) {
-			passedAllChecks = allChecksExtract();
+			passedExtract = allChecksExtract();
 		}
 
 		// do all the checks for replace
 		if (AudioManipulator.getInstance().replaceEnable) {
-			passedAllChecks = allChecksReplace();
+			passedReplace = allChecksReplace();
 		}
 
 		// do all the checks for overlay
 		if (AudioManipulator.getInstance().overlayEnable) {
 
-			passedAllChecks = allChecksOverlay();
+			passedOverlay = allChecksOverlay();
 
 		}
 
+		if(passedSignal && passedExtract && passedReplace && passedOverlay){
+			passedAllChecks = true;
 
+		}
+		else {
+			passedAllChecks = false;
+		}
+		
 		return passedAllChecks;
 	}
 }

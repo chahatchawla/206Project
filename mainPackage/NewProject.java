@@ -78,7 +78,7 @@ public class NewProject {
 					Menu.getInstance().workingDir = dirChooser.getSelectedFile().getPath()+"/"+projectName;
 					//Create the working directory
 					File workDir = new File(Menu.getInstance().workingDir);
-					workDir.mkdir();
+					//workDir.mkdir();
 
 					//Check that the project doesn't exists in the specified directory
 					String outputFileName = Menu.getInstance().workingDir+"/"+projectName+".vamix";
@@ -88,8 +88,7 @@ public class NewProject {
 					
 					
 					
-					if ( f.exists()) {
-
+					if (workDir.exists()) {
 						
 						//Allow user to choose either overwriting the current project or cancel creating new project
 						Object[] existOptions = {"Overwrite", "Cancel"};
@@ -97,8 +96,8 @@ public class NewProject {
 								"Do you want to overwrite the existing project?",
 								"Project Exists!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 								null,existOptions, existOptions[0]);
-
-						if (optionChosen == 1) { //if overwrite, delete the existing file and hidden directory
+												
+						if (optionChosen == 0) { //if overwrite, delete the existing file and hidden directory
 							
 							String cmd = "rm -r " + Menu.getInstance().workingDir;
 							ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
@@ -111,11 +110,12 @@ public class NewProject {
 							}
 							
 							try {
+								workDir.mkdir();
 								//Create the main project file
 								f.createNewFile();
 								//Create the hidden directory that holds all the results of the intermediate processes
 								hidden.mkdir();
-
+							
 								//Write the hidden directory and the working directory to the main project file
 								FileWriter fw = new FileWriter(f);
 								BufferedWriter bw = new BufferedWriter(fw);
@@ -144,6 +144,8 @@ public class NewProject {
 					i++; //to exit the while loop
 
 					try {
+						
+						workDir.mkdir();
 						//Create the main project file
 						f.createNewFile();
 						//Create the hidden directory that holds all the results of the intermediate processes

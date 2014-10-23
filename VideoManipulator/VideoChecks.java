@@ -123,6 +123,8 @@ public class VideoChecks {
 		if (VideoManipulator.getInstance().outputSnapshotName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output snapshot name");
+			passedOrNot = false;
+			
 		}
 
 		// check whether the outputSnapshotName specified user already exists in
@@ -294,21 +296,35 @@ public class VideoChecks {
 	 * allChecksVideo Method does all the checks for Video Manipulator
 	 */
 	protected boolean allChecksVideo() {
+		
+		
 		boolean passedAllChecks = true;
+		boolean passedSnapshot = true;
+		boolean passedLoop = true;
+		boolean passedFilter = true;
 
 		// do all the checks for snapshot
 		if (VideoManipulator.getInstance().snapshotEnable) {
-			passedAllChecks = allChecksSnapshot();
+			passedSnapshot = allChecksSnapshot();
 		}
 
 		// do all the checks for loopVideo
 		if (VideoManipulator.getInstance().loopVideoEnable) {
-			passedAllChecks = allChecksLoop();
+			passedLoop = allChecksLoop();
 		}
 
 		// do all the checks for filter
 		if (VideoManipulator.getInstance().filterEnable) {
-			passedAllChecks = allChecksFilter();
+			passedFilter = allChecksFilter();
+		}
+		
+	
+		if(passedSnapshot && passedLoop && passedFilter){
+			passedAllChecks = true;
+
+		}
+		else {
+			passedAllChecks = false;
 		}
 		return passedAllChecks;
 	}
