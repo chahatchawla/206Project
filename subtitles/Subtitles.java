@@ -528,6 +528,9 @@ ActionListener {
 				mainPackage.VideoPlayer.video.stop();
 				mainPackage.VideoPlayer.video.play();
 				mainPackage.VideoPlayer.video.setSubTitleFile(new File(inputFile));
+				JOptionPane
+				.showMessageDialog(null,
+						"Imported subtitles have been added to the media player!");
 		}
 
 

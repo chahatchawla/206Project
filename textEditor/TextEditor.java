@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
-import java.util.concurrent.ExecutionException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +24,6 @@ import javax.swing.text.PlainDocument;
 
 import mainPackage.VideoPlayer;
 
-import audioManipulator.AudioBackgroundTask;
 
 /**
  * SoftEng206 Assignment3 - text editor class
@@ -43,6 +41,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected TextProjectFunctions tpf = new TextProjectFunctions();
 	protected TextHelp th = new TextHelp();
 	protected TextPreview tp = new TextPreview();
+	protected TextDelete td = new TextDelete();
 	protected TextSave ts = new TextSave();
 	protected TextBackgroundTask tbt = new TextBackgroundTask();
 
@@ -50,10 +49,13 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
+	protected final String TEXT_PREVIEW = "Preview";
+	protected final String TEXT_DELETE = "Delete";
 
 	// Initializing the buttons
 	protected JButton saveButton = new JButton(TEXT_SAVE);
-	protected JButton prevBtn = new JButton("preview");
+	protected JButton prevBtn = new JButton(TEXT_PREVIEW);
+	protected JButton deleteBtn = new JButton(TEXT_DELETE);
 	protected JButton helpButton = new JButton();
 
 	// Initializing the labels
@@ -89,7 +91,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 			"TimesNewRoman", "Verdana" };
 	protected JComboBox fontsList = new JComboBox(dropDownFonts);
 	protected String[] dropDownStyles = { "PLAIN", "BOLD", "ITALIC",
-			"BOLD&ITALIC" };
+	"BOLD&ITALIC" };
 	protected JComboBox stylesList = new JComboBox(dropDownStyles);
 	protected String[] dropDownSizes = { "8", "10", "14", "18", "22", "26",
 			"30", "34", "38", "42", "48", "52", "56", "72" };
@@ -111,6 +113,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected JLabel separator6 = new JLabel("");
 	protected JLabel separator7 = new JLabel("");
 	protected JLabel separator8 = new JLabel("");
+	protected JLabel separator9 = new JLabel("");
 
 	// Initializing all the variables for text editing
 	protected File textFile;
@@ -183,6 +186,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		// adding action listeners to all the buttons and lists so when a user
 		// clicks a button or a list, the corresponding actions are done.
 		prevBtn.addActionListener(this);
+		deleteBtn.addActionListener(this);
 		saveButton.addActionListener(this);
 		helpButton.addActionListener(this);
 		screenList.addActionListener(this);
@@ -222,8 +226,11 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		add(separator8);
 		add(scroll);
 		add(separator7);
-		add(helpButton);
+
+		add(deleteBtn);
 		add(prevBtn);
+		add(separator9);
+		add(helpButton);
 		add(saveButton);
 
 		// set the preferred size for the components
@@ -235,10 +242,12 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		separator6.setPreferredSize(new Dimension(525, 10));
 		separator7.setPreferredSize(new Dimension(525, 30));
 		separator8.setPreferredSize(new Dimension(525, 10));
+		separator9.setPreferredSize(new Dimension(525, 10));
 
 		saveButton.setPreferredSize(new Dimension(150, 25));
 		helpButton.setPreferredSize(new Dimension(60, 40));
 		prevBtn.setPreferredSize(new Dimension(150, 25));
+		deleteBtn.setPreferredSize(new Dimension(150, 25));
 		scroll.setPreferredSize(new Dimension(400, 130));
 
 		// add ItemListner to the radio buttons, to check what happens when the
@@ -344,6 +353,11 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		// if the preview button is clicked
 		else if (e.getSource() == prevBtn) {
 			tp.textPreview();
+		}
+
+		// if the delete button is clicked
+		else if (e.getSource() == deleteBtn) {
+			td.textDelete();
 		}
 
 		else if (e.getSource() == helpButton) {

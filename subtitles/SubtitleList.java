@@ -82,15 +82,21 @@ public class SubtitleList {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-
+			
+			JOptionPane
+			.showMessageDialog(null,
+					Subtitles.getInstance().outputFileName.getText() + ".srt has been generated in the project directory!");
 			Subtitles.getInstance().srtCheck.setSelected(false);
 			Subtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
 			Subtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
 			Subtitles.getInstance().text.setText("");
 			Subtitles.getInstance().outputFileName.setText("");
-			for (int i = 0; i < Subtitles.getInstance().model.getRowCount(); i++){
-				Subtitles.getInstance().model.removeRow(i);
+			
+			int listRow = Subtitles.getInstance().model.getRowCount();
+			for (int i = 0; i < listRow; i++){
+				Subtitles.getInstance().model.removeRow(0);
 			}
+			
 		}
 	}
 

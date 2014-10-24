@@ -33,6 +33,7 @@ public class ImportFromFolder {
 				f.printStackTrace();
 			}
 
+			
 			// if the file is NOT an audio or a video or audio file, notify the user and
 			// allow them to import again
 			if (!(type.equals("audio/mpeg")) && !((type.split("/")[0]).equals("video"))){

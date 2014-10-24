@@ -20,7 +20,7 @@ public class TextSave {
 			// chosen
 			JOptionPane
 			.showMessageDialog(null,
-					"ERROR: please select the type of screen you want to add text on.");
+					"ERROR: please select the type of screen you want to add text on");
 			return;
 		}
 

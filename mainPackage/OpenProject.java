@@ -14,10 +14,7 @@ public class OpenProject {
 	protected void openProject(){
 
 		//Refresh the project
-		VideoPlayer.getInstance().video.stop();
-		VideoPlayer.getInstance().timeDisplay.setText("00:00:00");
-		VideoPlayer.getInstance().videoSlider.setValue(0);
-		VideoPlayer.getInstance().playBtn.setIcon(VideoPlayer.getInstance().play);
+		VideoPlayer.getInstance().stopVideo();
 		Main.vpf.refreshVideoMan();
 		Main.apf.refreshAudioMan();
 		Main.tpf.refreshtextEdit();
@@ -104,8 +101,8 @@ public class OpenProject {
 				
 			}
 			
-			VideoPlayer.getInstance().video.playMedia(Menu.getInstance().inputVideo);
-			VideoPlayer.getInstance().playBtn.setIcon(VideoPlayer.getInstance().pause);
+			
+			VideoPlayer.getInstance().playVideo(Menu.getInstance().inputVideo);
 			Menu.getInstance().export.setEnabled(true);
 		
 

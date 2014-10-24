@@ -314,49 +314,16 @@ public class VideoPlayer extends JPanel implements ActionListener,
 												// been downloaded
 							String chosenFile = download.getChosenFile();
 							if (!chosenFile.equals("No file yet")) {
-								inputVideo = chosenFile;
-								video.playMedia(inputVideo);
-								playBtn.setIcon(pause);
+								playVideo(chosenFile);
 							}
 						}
 						if (readVideoPath() != null) { // Play the video that
 														// was imported from
 														// folder
-							inputVideo = readVideoPath();
-							video.playMedia(inputVideo);
-							playBtn.setIcon(pause);
+							playVideo(readVideoPath());
+							
 						}
-						// Setting the timer
-						Timer ticker = new Timer(200, new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								/*
-								 * Display the time in the format "hh:mm:ss"
-								 * 
-								 * @reference:
-								 * http://stackoverflow.com/questions
-								 * /9214786/how
-								 * -to-convert-the-seconds-in-this-format-hhmmss
-								 */
-								int time = (int) (video.getTime());
-								SimpleDateFormat df = new SimpleDateFormat(
-										"HH:mm:ss");
-								TimeZone tz = TimeZone.getTimeZone("UTC");
-								df.setTimeZone(tz);
-								String formatedTime = df.format(new Date(time));
-								if (time < video.getLength()) {
-									timeDisplay.setText(formatedTime);
-								
-									// update the video slider as timer progresses
-									videoSlider.setValue((int) ((double) video
-									.getTime() / video.getLength() * videoSlider
-									.getMaximum()));
-								} else {
-									playBtn.setIcon(play);
-								}
-							}
-						});
-						ticker.start();
+						
 					}
 				} else { // If video is paused
 					video.play();
@@ -418,12 +385,54 @@ public class VideoPlayer extends JPanel implements ActionListener,
 		return null;
 	}
 
+	
+	protected  void playVideo(String input) {
+		inputVideo = input;
+		video.playMedia(inputVideo);
+		playBtn.setIcon(pause);
+		// Setting the timer
+		Timer ticker = new Timer(200, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * Display the time in the format "hh:mm:ss"
+				 * 
+				 * @reference:
+				 * http://stackoverflow.com/questions
+				 * /9214786/how
+				 * -to-convert-the-seconds-in-this-format-hhmmss
+				 */
+				int time = (int) (video.getTime());
+				SimpleDateFormat df = new SimpleDateFormat(
+						"HH:mm:ss");
+				TimeZone tz = TimeZone.getTimeZone("UTC");
+				df.setTimeZone(tz);
+				String formatedTime = df.format(new Date(time));
+				if (time < video.getLength()) {
+					timeDisplay.setText(formatedTime);
+				
+					// update the video slider as timer progresses
+					videoSlider.setValue((int) ((double) video
+					.getTime() / video.getLength() * videoSlider
+					.getMaximum()));
+				} else {
+					playBtn.setIcon(play);
+				}
+			}
+		});
+		ticker.start();
+	}
 	/**
 	 * Method allows other classes to stop the current played video
 	 */
-	protected static void stopVideo() {
+	protected void stopVideo() {
 		if (video.isPlayable()) {
+			
 			video.stop();
+			timeDisplay.setText("00:00:00");
+			videoSlider.setValue(0);
+			playBtn.setIcon(play);
+			
 		}
 	}
 

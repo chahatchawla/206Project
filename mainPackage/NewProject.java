@@ -34,7 +34,7 @@ public class NewProject {
 		Main.spf.refreshSubtitles();
 		
 		//Stop the played video
-		VideoPlayer.stopVideo();
+		VideoPlayer.getInstance().stopVideo();
 		Menu.getInstance().inputVideo = null;
 
 		int i = -1;

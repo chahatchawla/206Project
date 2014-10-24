@@ -22,7 +22,7 @@ public class SubtitleProjectFunctions {
 		Subtitles.getInstance().importCheck.setEnabled(state);
 		Subtitles.getInstance().srtCheck.setEnabled(state);
 
-		
+
 		Subtitles.getInstance().saveButton.setEnabled(state);
 		Subtitles.getInstance().helpButton.setEnabled(state);
 	}
@@ -55,11 +55,11 @@ public class SubtitleProjectFunctions {
 					.readLine());
 
 			String subtitles = reader.readLine();
-			
+
 			int listRow = Subtitles.getInstance().model.getRowCount();
 			for (int i = 0; i < listRow; i++){
 				Subtitles.getInstance().model.removeRow(0);
-						}
+			}
 			if (subtitles !=null){
 				String[] splitList = subtitles.split(" ");
 
@@ -128,7 +128,7 @@ public class SubtitleProjectFunctions {
 		Subtitles.getInstance().text.setText("");
 		Subtitles.getInstance().outputFileName.setText("");
 		Subtitles.getInstance().inputFile="";
-		
+
 		int listRow = Subtitles.getInstance().model.getRowCount();
 		for (int i = 0; i < listRow; i++){
 			Subtitles.getInstance().model.removeRow(0);

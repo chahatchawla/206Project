@@ -139,7 +139,7 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().sizesList.setEnabled(state);
 		TextEditor.getInstance().coloursList.setEnabled(state);
 
-
+		TextEditor.getInstance().deleteBtn.setEnabled(state);
 		TextEditor.getInstance().prevBtn.setEnabled(state);
 		TextEditor.getInstance().saveButton.setEnabled(state);
 		TextEditor.getInstance().helpButton.setEnabled(state);
@@ -360,6 +360,7 @@ public class TextProjectFunctions {
 	 * except the screen list
 	 */
 	public void setFieldsEnabled(boolean state) {
+		TextEditor.getInstance().deleteBtn.setEnabled(state);
 		TextEditor.getInstance().saveButton.setEnabled(state);
 		TextEditor.getInstance().helpButton.setEnabled(state);
 		TextEditor.getInstance().prevBtn.setEnabled(state);
