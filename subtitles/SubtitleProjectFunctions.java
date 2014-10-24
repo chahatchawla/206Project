@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 import mainPackage.Menu;
 
 public class SubtitleProjectFunctions {
@@ -36,39 +37,54 @@ public class SubtitleProjectFunctions {
 
 		Subtitles.getInstance().subtitlesFields = subtitlesFieldsPath;
 		File f = new File(Subtitles.getInstance().subtitlesFields);
-//		try {
-//
-//			// read the videoFields file and sets the fields for video
-//			// manipulation depending on the last save
-//
-//			BufferedReader reader;
-//			reader = new BufferedReader(new FileReader(f));
-//			VideoManipulator.getInstance().snapshotCheck.setSelected(Boolean
-//					.parseBoolean(reader.readLine()));
-//			VideoManipulator.getInstance().timeSnapshot.setText(reader
-//					.readLine());
-//			VideoManipulator.getInstance().outputSnapshotName.setText(reader
-//					.readLine());
-//
-//			VideoManipulator.getInstance().loopVideoCheck.setSelected(Boolean
-//					.parseBoolean(reader.readLine()));
-//			VideoManipulator.getInstance().timeStart.setText(reader.readLine());
-//			VideoManipulator.getInstance().timeLength
-//					.setText(reader.readLine());
-//			VideoManipulator.getInstance().outputLoopVideoName.setText(reader
-//					.readLine());
-//			VideoManipulator.getInstance().loop.setText(reader.readLine());
-//
-//			VideoManipulator.getInstance().filterCheck.setSelected(Boolean
-//					.parseBoolean(reader.readLine()));
-//			VideoManipulator.getInstance().filter = reader.readLine();
-//			VideoManipulator.getInstance().filterList
-//					.setSelectedItem(VideoManipulator.getInstance().filter);
-//
-//			reader.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+
+			// read the videoFields file and sets the fields for video
+			// manipulation depending on the last save
+
+			BufferedReader reader;
+			reader = new BufferedReader(new FileReader(f));
+			Subtitles.getInstance().srtCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
+			Subtitles.getInstance().startTime.setText(reader
+					.readLine());
+			Subtitles.getInstance().endTime.setText(reader
+					.readLine());
+			Subtitles.getInstance().text.setText(reader
+					.readLine());
+			
+			String subtitles = reader.readLine();
+
+			if (subtitles !=null){
+				String[] splitList = subtitles.split(" ");
+				int row = 0;
+				for (int i = 0; i< splitList.length; i = i +3) {
+					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 0);
+					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 1);
+					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 2);
+					 row++;
+				}
+			}
+			
+			Subtitles.getInstance().outputFileName.setText(reader
+					.readLine());
+
+			Subtitles.getInstance().importCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
+			Subtitles.getInstance().inputFile = (reader
+					.readLine());
+			
+			if (Subtitles.getInstance().inputFile != null) { 
+				File subtitle = new File(Subtitles.getInstance().inputFile);
+				if (subtitle.exists()) {
+					Subtitles.getInstance().playButton.setEnabled(true);
+				}
+			}
+			
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -101,7 +117,7 @@ public class SubtitleProjectFunctions {
 	 * refreshVideoMan Method refreshes all the fields in the video manipulator
 	 * tab
 	 */
-	public void refreshVideoMan() {
+	public void refreshSubtitles() {
 
 		Subtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
 		Subtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
