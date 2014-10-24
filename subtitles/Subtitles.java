@@ -52,7 +52,7 @@ ActionListener {
 	protected SubtitleChecks sc = new SubtitleChecks();
 	protected SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
 	//	protected AudioHelp ah = new AudioHelp();
-	//	protected AudioSave as = new AudioSave();
+	protected SubtitleSave ss = new SubtitleSave();
 	protected SubtitleList sl = new SubtitleList();
 	//	protected ReplacePreview rp = new ReplacePreview();
 	//	protected AudioBackgroundTask abt = new AudioBackgroundTask();
@@ -535,7 +535,7 @@ ActionListener {
 
 		// If the save button is clicked
 		else if (e.getSource() == saveButton) {
-			//as.audioSave();
+			ss.subtitleSave();
 		}
 
 

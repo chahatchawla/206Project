@@ -25,13 +25,13 @@ public class AudioSave {
 
 				// Allow user to choose either overwriting the existing changes
 				// or keep them if the file exists
-				Object[] existOptions = { "Cancel", "Overwrite" };
+				Object[] existOptions = {  "Overwrite" ,"Cancel"};
 				int optionChosen = JOptionPane.showOptionDialog(null,
 						"Do you want to overwrite the previous changes?",
 						"File Exists!", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, existOptions,
 						existOptions[0]);
-				if (optionChosen == 0) { // If cancel, go back to main menu
+				if (optionChosen == 1) { // If cancel, go back to main menu
 					AudioManipulator.getInstance().apf.setAllFields(AudioManipulator.getInstance().workingDir + "/.audioFields");
 					return;
 				}
