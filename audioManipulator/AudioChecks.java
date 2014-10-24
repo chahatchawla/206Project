@@ -272,14 +272,14 @@ public class AudioChecks {
 
 			// Allow user to choose either overwriting the current file or
 			// change the output file name
-			Object[] existOptions = { "Cancel", "Overwrite" };
+			Object[] existOptions = {"Overwrite", "Cancel"};
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
 					+ AudioManipulator.getInstance().outputFileName.getText() + ".mp3 already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
 					existOptions[0]);
-			if (optionChosen == 1) {
+			if (optionChosen == 0) {
 				f.delete(); // Delete the existing file
 			} else {
 				AudioManipulator.getInstance().outputFileName.setText("");

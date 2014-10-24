@@ -19,8 +19,14 @@ public class SubtitleList {
 
 	// If the inputOverlayButton is clicked
 	protected void inputSubtitle(){
-		// Append a row 
-		Subtitles.getInstance().model.addRow(new Object[]{Subtitles.getInstance().text.getText(), Subtitles.getInstance().startTime.getText(), Subtitles.getInstance().endTime.getText()});
+
+		boolean passedAdd = Subtitles.getInstance().sc.allChecksAdd();
+
+		if (passedAdd){
+			// Append a row 
+			Subtitles.getInstance().model.addRow(new Object[]{Subtitles.getInstance().text.getText(), Subtitles.getInstance().startTime.getText(), Subtitles.getInstance().endTime.getText()});
+		}
+
 	}
 
 	// If the deleteSubtitle is clicked
@@ -31,45 +37,61 @@ public class SubtitleList {
 
 	}
 
-	// If the playSubtitle is clicked
-	protected void playSubtitle(){
+	// If the editSubtitle is clicked
+	protected void editSubtitle(){
+
+		// Edit a row
+		int editRow = Subtitles.getInstance().subtitlesTable.getSelectedRow();
+		Subtitles.getInstance().text.setText((String) Subtitles.getInstance().model.getValueAt(editRow, 0));
+		Subtitles.getInstance().startTime.setText((String) Subtitles.getInstance().model.getValueAt(editRow, 1));
+		Subtitles.getInstance().endTime.setText((String) Subtitles.getInstance().model.getValueAt(editRow, 2));
+		Subtitles.getInstance().model.removeRow(editRow);
 
 	}
 
 	// If the generate is clicked
 	protected void generateSubtitle(){
 
-		//allchecks
-		FileWriter fw;
+		boolean passedGenerate = Subtitles.getInstance().sc.allChecksGenerate();
 
-		File f = new File(Subtitles.getInstance().outputFileName.getText() + ".srt");
-		
-		try {
-			fw = new FileWriter(f, false);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter x = new PrintWriter(bw);
+		if (passedGenerate){
+
+			//allchecks
+			FileWriter fw;
+
+			File f = new File(Subtitles.getInstance().workingDir + "/" + Subtitles.getInstance().outputFileName.getText()
+					+ ".srt");
+
+			try {
+				fw = new FileWriter(f, false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter x = new PrintWriter(bw);
 
 
-			for (int i = 0; i < Subtitles.getInstance().model.getRowCount(); i++){
+				for (int i = 0; i < Subtitles.getInstance().model.getRowCount(); i++){
 
-				System.out.println(i+1);
-				x.println(i+1);
-				System.out.println(Subtitles.getInstance().model.getValueAt(i, 1) + " --> " + Subtitles.getInstance().model.getValueAt(i, 2));
-				System.out.println(Subtitles.getInstance().model.getValueAt(i, 0));
-				x.println(Subtitles.getInstance().model.getValueAt(i, 1) + " --> " + Subtitles.getInstance().model.getValueAt(i, 2));
-				x.println(Subtitles.getInstance().model.getValueAt(i, 0));
+					x.println(i+1);
+					x.println(Subtitles.getInstance().model.getValueAt(i, 1) + " --> " + Subtitles.getInstance().model.getValueAt(i, 2));
+					x.println(Subtitles.getInstance().model.getValueAt(i, 0));
 
-				
-				x.println("");
+					x.println("");
+				}
+
+
+				bw.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 
-
-			bw.close();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			Subtitles.getInstance().srtCheck.setSelected(false);
+			Subtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
+			Subtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
+			Subtitles.getInstance().text.setText("");
+			Subtitles.getInstance().outputFileName.setText("");
+			for (int i = 0; i < Subtitles.getInstance().model.getRowCount(); i++){
+				Subtitles.getInstance().model.removeRow(i);
+			}
 		}
-
-
 	}
 
 }

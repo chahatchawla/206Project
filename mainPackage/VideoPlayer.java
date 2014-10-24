@@ -43,7 +43,7 @@ public class VideoPlayer extends JPanel implements ActionListener,
 		ChangeListener {
 
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
-	protected static EmbeddedMediaPlayer video;
+	public static EmbeddedMediaPlayer video;
 
 	private ImageIcon forward; 
 	private ImageIcon rewind;
@@ -81,6 +81,7 @@ public class VideoPlayer extends JPanel implements ActionListener,
 		mute = new ImageIcon(VideoPlayer.class.getResource("Resources/mute.png"));
 		unmute = new ImageIcon(VideoPlayer.class.getResource("Resources/volume.png"));
 		
+
 		
 		// set the preferred sizes for the buttons
 		playBtn.setPreferredSize(new Dimension(60, 35));

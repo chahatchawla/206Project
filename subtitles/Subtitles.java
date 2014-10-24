@@ -6,6 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -14,6 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -22,6 +30,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
+import audioManipulator.AudioManipulator;
 
 import mainPackage.VideoPlayer;
 
@@ -39,8 +49,8 @@ public class Subtitles extends JPanel implements ItemListener,
 ActionListener {
 
 	private static Subtitles instance = new Subtitles();
-	//	protected AudioChecks ac = new AudioChecks();
-	//	protected AudioProjectFunctions apf = new AudioProjectFunctions();
+	protected SubtitleChecks sc = new SubtitleChecks();
+	protected SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
 	//	protected AudioHelp ah = new AudioHelp();
 	//	protected AudioSave as = new AudioSave();
 	protected SubtitleList sl = new SubtitleList();
@@ -51,15 +61,15 @@ ActionListener {
 	protected final String TEXT_SAVE = "Save";
 	protected final String TEXT_ADD = "Add Subtitle";
 	protected final String TEXT_DELETE = "Delete Subtitle";
-	protected final String TEXT_PREVIEW = "Preview Subtitle";
+	protected final String TEXT_EDIT = "Edit Subtitle";
 	protected final String TEXT_CHOOSE = "Choose";
 	protected final String TEXT_GENERATE = "Generate";
 	protected final String TEXT_PLAY = "Play Subtitles on Imported Video";
 	protected final String TEXT_TIME = "Get Video Time";
 
 	// // Initializing the labels
-	protected JLabel srtLabel = new JLabel("Subtitles");
-	protected JLabel listOverlayLabel = new JLabel("List of all subtitles : ");
+	protected JLabel subtitlesLabel = new JLabel("Subtitles");
+	protected JLabel listSubtitleLabel = new JLabel("List of all subtitles : ");
 	protected JLabel outputFileLabel = new JLabel("Output file name : ");
 	protected JLabel chooseSrtLabel = new JLabel("Please choose a .srt file : ");
 	protected JLabel srt = new JLabel(" .srt");
@@ -69,8 +79,8 @@ ActionListener {
 
 	// Initializing the textField
 	protected JTextField outputFileName = new JTextField("");
-	protected JTextField startTime = new JTextField("hh:mm:ss");
-	protected JTextField endTime = new JTextField("hh:mm:ss");
+	protected JTextField startTime = new JTextField("hh:mm:ss,mmm");
+	protected JTextField endTime = new JTextField("hh:mm:ss,mmm");
 	protected JTextField text = new JTextField("");
 
 
@@ -78,7 +88,7 @@ ActionListener {
 	protected JButton helpButton = new JButton();
 	protected JButton inputSubtitleButton = new JButton(TEXT_ADD);
 	protected JButton deleteSubtitleButton = new JButton(TEXT_DELETE);
-	protected JButton playSubtitleButton = new JButton(TEXT_PREVIEW);
+	protected JButton editSubtitleButton = new JButton(TEXT_EDIT);
 	protected JButton generateButton = new JButton(TEXT_GENERATE);
 	protected JButton inputSrtButton = new JButton(TEXT_CHOOSE);
 	protected JButton getTime1Button = new JButton(TEXT_TIME);
@@ -134,7 +144,7 @@ ActionListener {
 	protected JLabel helpImage;
 
 	// Initializing the Strings
-
+	protected String inputFile = "";
 	protected String srtCmd = "";
 	protected String projectPath;
 	protected String hiddenDir;
@@ -171,14 +181,14 @@ ActionListener {
 		helpButton.setBorderPainted(false);
 
 		// change the font of the title, subTitles and starLabels
-		srtLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		subtitlesLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		srtCheck.setFont(new Font("Dialog", Font.BOLD, 15));
 		importCheck.setFont(new Font("Dialog", Font.BOLD, 15));
 
 		// set the columns of the textFields
 		outputFileName.setColumns(15);
-		startTime.setColumns(6);
-		endTime.setColumns(6);
+		startTime.setColumns(9);
+		endTime.setColumns(9);
 		text.setColumns(22);
 
 		// settings for the list
@@ -190,7 +200,7 @@ ActionListener {
 		inputSubtitleButton.setPreferredSize(new Dimension(130, 20));
 		deleteSubtitleButton.setPreferredSize(new Dimension(150, 20));
 		saveButton.setPreferredSize(new Dimension(150, 25));
-		playSubtitleButton.setPreferredSize(new Dimension(160, 20));
+		editSubtitleButton.setPreferredSize(new Dimension(160, 20));
 		inputSrtButton.setPreferredSize(new Dimension(90, 20));
 		playButton.setPreferredSize(new Dimension(270, 20));
 		generateButton.setPreferredSize(new Dimension(110, 20));
@@ -205,10 +215,14 @@ ActionListener {
 		generateButton.addActionListener(this);
 		saveButton.addActionListener(this);
 		helpButton.addActionListener(this);
-		playSubtitleButton.addActionListener(this);
+		editSubtitleButton.addActionListener(this);
+		getTime1Button.addActionListener(this);
+		getTime2Button.addActionListener(this);
+		inputSrtButton.addActionListener(this);
+		playButton.addActionListener(this);
 
 		// adding all components to the Panel
-		add(srtLabel);
+		add(subtitlesLabel);
 		add(separator);
 		add(separator2);
 
@@ -227,11 +241,11 @@ ActionListener {
 		add(separator12);
 		add(inputSubtitleButton);
 		add(separator7);
-		add(listOverlayLabel);
+		add(listSubtitleLabel);
 		add(scrollPane);
 		add(separator8);
 		add(deleteSubtitleButton);
-		add(playSubtitleButton);
+		add(editSubtitleButton);
 		add(separator10);
 		add(outputFileLabel);
 		add(outputFileName);
@@ -272,8 +286,8 @@ ActionListener {
 		deleteSubtitleButton.setEnabled(false);
 		scrollPane.setEnabled(false);
 		subtitlesTable.setEnabled(false);
-		playSubtitleButton.setEnabled(false);
-		listOverlayLabel.setEnabled(false);
+		editSubtitleButton.setEnabled(false);
+		listSubtitleLabel.setEnabled(false);
 		inputSrtButton.setEnabled(false);
 		playButton.setEnabled(false);
 		chooseSrtLabel.setEnabled(false);
@@ -312,10 +326,10 @@ ActionListener {
 
 				inputSubtitleButton.setEnabled(true);
 				deleteSubtitleButton.setEnabled(true);
-				playSubtitleButton.setEnabled(true);
+				editSubtitleButton.setEnabled(true);
 				scrollPane.setEnabled(true);
 				subtitlesTable.setEnabled(true);
-				listOverlayLabel.setEnabled(true);
+				listSubtitleLabel.setEnabled(true);
 				srtEnable = true;
 				outputFileLabel.setEnabled(true);
 				srt.setEnabled(true);
@@ -346,8 +360,8 @@ ActionListener {
 
 				inputSubtitleButton.setEnabled(false);
 				deleteSubtitleButton.setEnabled(false);
-				playSubtitleButton.setEnabled(false);
-				listOverlayLabel.setEnabled(false);
+				editSubtitleButton.setEnabled(false);
+				listSubtitleLabel.setEnabled(false);
 				scrollPane.setEnabled(false);
 				subtitlesTable.setEnabled(false);
 				srtEnable = false;
@@ -375,7 +389,7 @@ ActionListener {
 
 			if (e.getStateChange() == 1) {
 				inputSrtButton.setEnabled(true);
-				playButton.setEnabled(true);
+				//playButton.setEnabled(true);
 				chooseSrtLabel.setEnabled(true);
 				importEnable = true;
 
@@ -420,19 +434,100 @@ ActionListener {
 
 
 		// If the playSubtitleButton is clicked
-		else if (e.getSource() == playSubtitleButton) {
-			sl.playSubtitle();
+		else if (e.getSource() == editSubtitleButton) {
+			sl.editSubtitle();
 		}
-		
-		
+
+
 		// If the playSubtitleButton is clicked
 		else if (e.getSource() == generateButton) {
 			sl.generateSubtitle();
 		}
 
+		// If the getTime1Button is clicked
+		else if (e.getSource() == getTime1Button) {
+
+			if (mainPackage.VideoPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.VideoPlayer.video.getTime();
+				SimpleDateFormat df = new SimpleDateFormat(
+						"HH:mm:ss,SSS");
+				TimeZone tz = TimeZone.getTimeZone("UTC");
+				df.setTimeZone(tz);
+				String formatedTime = df.format(new Date(time));
+
+				startTime.setText(formatedTime);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+			}
+
+		}
+
+		// If the getTime1Button is clicked
+		else if (e.getSource() == getTime2Button) {
+			if (mainPackage.VideoPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.VideoPlayer.video.getTime();
+				SimpleDateFormat df = new SimpleDateFormat(
+						"HH:mm:ss,SSS");
+				TimeZone tz = TimeZone.getTimeZone("UTC");
+				df.setTimeZone(tz);
+				String formatedTime = df.format(new Date(time));
+
+				endTime.setText(formatedTime);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+			}
+		}
+
+		// If the inputSrtButton is clicked
+		else if (e.getSource() == inputSrtButton){
+
+			// Reference for JFileChooser():
+			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
+
+			// Show only correct extension type file by default
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(null);
+			// Store the chosen file
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				inputFile = chooser.getSelectedFile().toString();
+				
+				File file = new File(inputFile);
+				Path path = file.toPath();
+				String type = "";
+				
+				try {
+					type = Files.probeContentType(path);
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+				
+				// if the file is NOT a .srt file, notify the user and
+				// allow them to select again
+				if (!(type.equals("application/x-subrip"))) {
+					JOptionPane
+					.showMessageDialog(
+							null,
+							"ERROR: "
+									+ inputFile
+									+ " does not refer to a valid .srt file. Please select a new input file!");
+				}
+				else {
+					
+					playButton.setEnabled(true);
+				}
+				
+				
+				
+			}
 
 
-
+		}
+		// If the playButton is clicked
+		else if (e.getSource() == playButton) {
+				mainPackage.VideoPlayer.video.setSubTitleFile(new File(inputFile));
+		}
 
 
 		// If the save button is clicked
@@ -444,19 +539,6 @@ ActionListener {
 		else if (e.getSource() == helpButton){
 			//ah.audioHelp();
 		}
-
-	}
-	/**
-	 * Method run all the audio manipulating commands in a background thread
-	 * 
-	 * @return exit status
-	 */
-	public String makeCommand(String input, String output){
-
-		String cmd = "";
-		//= abt.makeAudioCommand(input, output);
-
-		return cmd;
 
 	}
 }
