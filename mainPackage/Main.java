@@ -15,14 +15,14 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import subtitles.SubtitleProjectFunctions;
-import subtitles.Subtitles;
-import textEditor.TextEditor;
+import subtitles.MainSubtitles;
+import textEditor.MainTextEditor;
 import textEditor.TextProjectFunctions;
 
-import audioManipulator.AudioManipulator;
+import audioManipulator.MainAudioManipulator;
 import audioManipulator.AudioProjectFunctions;
 
-import VideoManipulator.VideoManipulator;
+import VideoManipulator.MainVideoManipulator;
 import VideoManipulator.VideoProjectFunctions;
 
 /**
@@ -54,10 +54,10 @@ public class Main {
 	protected static JFrame frame;
 
 	protected static JTabbedPane tabbedPane;
-	protected static AudioManipulator audioMan;
-	protected static VideoManipulator videoMan;
-	protected static TextEditor textEdit;
-	protected static Subtitles subtitles;
+	protected static MainAudioManipulator audioMan;
+	protected static MainVideoManipulator videoMan;
+	protected static MainTextEditor textEdit;
+	protected static MainSubtitles subtitles;
 	
 	protected static VideoProjectFunctions vpf = new VideoProjectFunctions();
 	protected static AudioProjectFunctions apf = new AudioProjectFunctions();
@@ -82,13 +82,13 @@ public class Main {
 		tabbedPane.setPreferredSize(new Dimension(525, 700));
 
 
-		videoMan = VideoManipulator.getInstance();
+		videoMan = MainVideoManipulator.getInstance();
 		tabbedPane.add("Video Manipulator", videoMan);
-		audioMan = AudioManipulator.getInstance();
+		audioMan = MainAudioManipulator.getInstance();
 		tabbedPane.add("Audio Manipulator", audioMan);
-		textEdit = TextEditor.getInstance();
+		textEdit = MainTextEditor.getInstance();
 		tabbedPane.add("Text Editor", textEdit);
-		subtitles = Subtitles.getInstance();
+		subtitles = MainSubtitles.getInstance();
 		tabbedPane.add("Subtitles", subtitles);
 		
 		

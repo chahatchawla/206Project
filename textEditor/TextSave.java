@@ -14,9 +14,9 @@ public class TextSave {
 	protected void textSave(){
 		
 		// Get the video path and length
-		TextEditor.getInstance().tpf.setVideoInfo();
+		MainTextEditor.getInstance().tpf.setVideoInfo();
 
-		if (TextEditor.getInstance().screenType.equals("")) { // Abort saving if screen type was not
+		if (MainTextEditor.getInstance().screenType.equals("")) { // Abort saving if screen type was not
 			// chosen
 			JOptionPane
 			.showMessageDialog(null,
@@ -24,40 +24,40 @@ public class TextSave {
 			return;
 		}
 
-		boolean passsedChecks = TextEditor.getInstance().tc.allChecks();
+		boolean passsedChecks = MainTextEditor.getInstance().tc.allChecks();
 
 		if (passsedChecks) {
 
 			// check the screen type to select the corresponding text file
-			if (TextEditor.getInstance().screenType.equals("Title Screen")) {
-				TextEditor.getInstance().textFile = new File(TextEditor.getInstance().workingDir + "/.TitleText.txt");
+			if (MainTextEditor.getInstance().screenType.equals("Title Screen")) {
+				MainTextEditor.getInstance().textFile = new File(MainTextEditor.getInstance().workingDir + "/.TitleText.txt");
 				// get the duration for title screen
-				TextEditor.getInstance().titleDuration = TextEditor.getInstance().addDuration.getText().trim();
+				MainTextEditor.getInstance().titleDuration = MainTextEditor.getInstance().addDuration.getText().trim();
 				// get the inputFrameTime for title screen
-				TextEditor.getInstance().titleFrameTime = TextEditor.getInstance().addTimeFrame.getText().trim();
+				MainTextEditor.getInstance().titleFrameTime = MainTextEditor.getInstance().addTimeFrame.getText().trim();
 
 
 				// set the font settings for title screen
-				TextEditor.getInstance().tpf.setTitleFontSettings();
+				MainTextEditor.getInstance().tpf.setTitleFontSettings();
 
 				// Save all user inputs to the hidden titleFields text
-				File f = new File(TextEditor.getInstance().workingDir + "/.titleFields");
+				File f = new File(MainTextEditor.getInstance().workingDir + "/.titleFields");
 				try {
 					FileWriter fw = new FileWriter(f);
 					BufferedWriter bw = new BufferedWriter(fw);
 					// Add title audio fields
 					bw.write("Title Screen" + "\n");
-					bw.write(TextEditor.getInstance().titleDuration + "\n");
-					bw.write(TextEditor.getInstance().overlayCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().defaultCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().frameCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().titleFrameTime + "\n");
-					bw.write(TextEditor.getInstance().titleFontSize + "\n");
-					bw.write(TextEditor.getInstance().titleFontColour + "\n");
-					bw.write(TextEditor.getInstance().titleFontName + "\n");
-					bw.write(TextEditor.getInstance().titleFontStyle + "\n");
-					bw.write(TextEditor.getInstance().titlePreviewFont + "\n");
-					bw.write(TextEditor.getInstance().addTextArea.getText() + "\n");
+					bw.write(MainTextEditor.getInstance().titleDuration + "\n");
+					bw.write(MainTextEditor.getInstance().overlayCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().defaultCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().frameCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().titleFrameTime + "\n");
+					bw.write(MainTextEditor.getInstance().titleFontSize + "\n");
+					bw.write(MainTextEditor.getInstance().titleFontColour + "\n");
+					bw.write(MainTextEditor.getInstance().titleFontName + "\n");
+					bw.write(MainTextEditor.getInstance().titleFontStyle + "\n");
+					bw.write(MainTextEditor.getInstance().titlePreviewFont + "\n");
+					bw.write(MainTextEditor.getInstance().addTextArea.getText() + "\n");
 					bw.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -65,35 +65,35 @@ public class TextSave {
 
 
 			} else {
-				TextEditor.getInstance().textFile = new File(TextEditor.getInstance().workingDir + "/.CreditText.txt");
+				MainTextEditor.getInstance().textFile = new File(MainTextEditor.getInstance().workingDir + "/.CreditText.txt");
 				// get the duration for credit screen
-				TextEditor.getInstance().creditDuration = TextEditor.getInstance().addDuration.getText().trim();
+				MainTextEditor.getInstance().creditDuration = MainTextEditor.getInstance().addDuration.getText().trim();
 				// get the inputFrameTime for credit screen
-				TextEditor.getInstance().creditFrameTime = TextEditor.getInstance().addTimeFrame.getText().trim();
+				MainTextEditor.getInstance().creditFrameTime = MainTextEditor.getInstance().addTimeFrame.getText().trim();
 
 
 
 				// set the font settings for credit screen
-				TextEditor.getInstance().tpf.setCreditFontSettings();
+				MainTextEditor.getInstance().tpf.setCreditFontSettings();
 
 				// Save all user inputs to the hidden creditFields text
-				File f = new File(TextEditor.getInstance().workingDir + "/.creditFields");
+				File f = new File(MainTextEditor.getInstance().workingDir + "/.creditFields");
 				try {
 					FileWriter fw = new FileWriter(f);
 					BufferedWriter bw = new BufferedWriter(fw);
 					// Add credit audio fields
 					bw.write("Credit Screen" + "\n");
-					bw.write(TextEditor.getInstance().creditDuration + "\n");
-					bw.write(TextEditor.getInstance().overlayCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().defaultCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().frameCheck.isSelected() + "\n");
-					bw.write(TextEditor.getInstance().creditFrameTime + "\n");
-					bw.write(TextEditor.getInstance().creditFontSize + "\n");
-					bw.write(TextEditor.getInstance().creditFontColour + "\n");
-					bw.write(TextEditor.getInstance().creditFontName + "\n");
-					bw.write(TextEditor.getInstance().creditFontStyle + "\n");
-					bw.write(TextEditor.getInstance().creditPreviewFont + "\n");
-					bw.write(TextEditor.getInstance().addTextArea.getText() + "\n");
+					bw.write(MainTextEditor.getInstance().creditDuration + "\n");
+					bw.write(MainTextEditor.getInstance().overlayCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().defaultCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().frameCheck.isSelected() + "\n");
+					bw.write(MainTextEditor.getInstance().creditFrameTime + "\n");
+					bw.write(MainTextEditor.getInstance().creditFontSize + "\n");
+					bw.write(MainTextEditor.getInstance().creditFontColour + "\n");
+					bw.write(MainTextEditor.getInstance().creditFontName + "\n");
+					bw.write(MainTextEditor.getInstance().creditFontStyle + "\n");
+					bw.write(MainTextEditor.getInstance().creditPreviewFont + "\n");
+					bw.write(MainTextEditor.getInstance().addTextArea.getText() + "\n");
 					bw.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -102,7 +102,7 @@ public class TextSave {
 
 			}
 			// check whether the text file for credit or title exists
-			if (TextEditor.getInstance().textFile.exists()) {
+			if (MainTextEditor.getInstance().textFile.exists()) {
 
 				// if the file does exist, inform the user that they have
 				// previously created a screen
@@ -122,10 +122,10 @@ public class TextSave {
 					if (fileExistsResponse == 0) {
 						FileWriter fw;
 						try {
-							fw = new FileWriter(TextEditor.getInstance().textFile, false);
+							fw = new FileWriter(MainTextEditor.getInstance().textFile, false);
 							BufferedWriter bw = new BufferedWriter(fw);
 							PrintWriter x = new PrintWriter(bw);
-							x.println(TextEditor.getInstance().addTextArea.getText());
+							x.println(MainTextEditor.getInstance().addTextArea.getText());
 							bw.close();
 						} catch (IOException e1) {
 							e1.printStackTrace();
@@ -142,10 +142,10 @@ public class TextSave {
 			else {
 				FileWriter fw;
 				try {
-					fw = new FileWriter(TextEditor.getInstance().textFile, true);
+					fw = new FileWriter(MainTextEditor.getInstance().textFile, true);
 					BufferedWriter bw = new BufferedWriter(fw);
 					PrintWriter x = new PrintWriter(bw);
-					x.println(TextEditor.getInstance().addTextArea.getText());
+					x.println(MainTextEditor.getInstance().addTextArea.getText());
 					bw.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();

@@ -101,7 +101,7 @@ public class AudioChecks {
 		int count = 0;
 
 		// count the lines using the avprobe bash command
-		String cmd = "avprobe -loglevel error -show_streams " + AudioManipulator.getInstance().videoPath
+		String cmd = "avprobe -loglevel error -show_streams " + MainAudioManipulator.getInstance().videoPath
 				+ " | grep -i streams.stream.1 | wc -l";
 		
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
@@ -126,48 +126,48 @@ public class AudioChecks {
 			.showMessageDialog(
 					null,
 					"ERROR: no audio signal in the imported video, can not perform audio manipulation, SORRY :(");
-			AudioManipulator.getInstance().removeCheck.setEnabled(false);
-			AudioManipulator.getInstance().removeCheck.setSelected(false);
-			AudioManipulator.getInstance().extractCheck.setEnabled(false);
-			AudioManipulator.getInstance().extractCheck.setSelected(false);
-			AudioManipulator.getInstance().replaceCheck.setEnabled(false);
-			AudioManipulator.getInstance().replaceCheck.setSelected(false);
-			AudioManipulator.getInstance().overlayCheck.setEnabled(false);
-			AudioManipulator.getInstance().overlayCheck.setSelected(false);
+			MainAudioManipulator.getInstance().removeCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().removeCheck.setSelected(false);
+			MainAudioManipulator.getInstance().extractCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().extractCheck.setSelected(false);
+			MainAudioManipulator.getInstance().replaceCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().replaceCheck.setSelected(false);
+			MainAudioManipulator.getInstance().overlayCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().overlayCheck.setSelected(false);
 
-			AudioManipulator.getInstance().outputFileNameLabel.setEnabled(false);
-			AudioManipulator.getInstance().outputFileName.setEnabled(false);
-			AudioManipulator.getInstance().mp3Label.setEnabled(false);
-			AudioManipulator.getInstance().starLabel2.setEnabled(false);
-			AudioManipulator.getInstance().extractDurationCheck.setEnabled(false);
-			AudioManipulator.getInstance().startTimeLabelExtract.setEnabled(false);
-			AudioManipulator.getInstance().startTimeExtract.setEnabled(false);
-			AudioManipulator.getInstance().lengthLabelExtract.setEnabled(false);
-			AudioManipulator.getInstance().lengthExtract.setEnabled(false);
-			AudioManipulator.getInstance().inputAudioReplaceButton.setEnabled(false);
-			AudioManipulator.getInstance().replacePlayButton.setEnabled(false);
-			AudioManipulator.getInstance().inputFile = "";
+			MainAudioManipulator.getInstance().outputFileNameLabel.setEnabled(false);
+			MainAudioManipulator.getInstance().outputFileName.setEnabled(false);
+			MainAudioManipulator.getInstance().mp3Label.setEnabled(false);
+			MainAudioManipulator.getInstance().starLabel2.setEnabled(false);
+			MainAudioManipulator.getInstance().extractDurationCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().startTimeLabelExtract.setEnabled(false);
+			MainAudioManipulator.getInstance().startTimeExtract.setEnabled(false);
+			MainAudioManipulator.getInstance().lengthLabelExtract.setEnabled(false);
+			MainAudioManipulator.getInstance().lengthExtract.setEnabled(false);
+			MainAudioManipulator.getInstance().inputAudioReplaceButton.setEnabled(false);
+			MainAudioManipulator.getInstance().replacePlayButton.setEnabled(false);
+			MainAudioManipulator.getInstance().inputFile = "";
 
-			AudioManipulator.getInstance().starLabel2.setEnabled(false);
-			AudioManipulator.getInstance().overlayDurationCheck.setEnabled(false);
-			AudioManipulator.getInstance().overlayDurationCheck.setSelected(false);
-			AudioManipulator.getInstance().inputOverlayButton.setEnabled(false);
-			AudioManipulator.getInstance().deleteOverlayButton.setEnabled(false);
-			AudioManipulator.getInstance().playOverlayButton.setEnabled(false);
-			AudioManipulator.getInstance().listOverlayLabel.setEnabled(false);
-			AudioManipulator.getInstance().scrollPane.setEnabled(false);
-			AudioManipulator.getInstance().audioFilesList.setEnabled(false);
-			AudioManipulator.getInstance().overlayEnable = false;
+			MainAudioManipulator.getInstance().starLabel2.setEnabled(false);
+			MainAudioManipulator.getInstance().overlayDurationCheck.setEnabled(false);
+			MainAudioManipulator.getInstance().overlayDurationCheck.setSelected(false);
+			MainAudioManipulator.getInstance().inputOverlayButton.setEnabled(false);
+			MainAudioManipulator.getInstance().deleteOverlayButton.setEnabled(false);
+			MainAudioManipulator.getInstance().playOverlayButton.setEnabled(false);
+			MainAudioManipulator.getInstance().listOverlayLabel.setEnabled(false);
+			MainAudioManipulator.getInstance().scrollPane.setEnabled(false);
+			MainAudioManipulator.getInstance().audioFilesList.setEnabled(false);
+			MainAudioManipulator.getInstance().overlayEnable = false;
 
-			AudioManipulator.getInstance().startTimeLabelOverlay.setEnabled(false);
-			AudioManipulator.getInstance().startTimeOverlay.setEnabled(false);
-			AudioManipulator.getInstance().startTimeOverlay.setText("");
-			AudioManipulator.getInstance().lengthLabelOverlay.setEnabled(false);
-			AudioManipulator.getInstance().lengthOverlay.setEnabled(false);
-			AudioManipulator.getInstance().lengthOverlay.setText("");
+			MainAudioManipulator.getInstance().startTimeLabelOverlay.setEnabled(false);
+			MainAudioManipulator.getInstance().startTimeOverlay.setEnabled(false);
+			MainAudioManipulator.getInstance().startTimeOverlay.setText("");
+			MainAudioManipulator.getInstance().lengthLabelOverlay.setEnabled(false);
+			MainAudioManipulator.getInstance().lengthOverlay.setEnabled(false);
+			MainAudioManipulator.getInstance().lengthOverlay.setText("");
 
 
-			AudioManipulator.getInstance().apf.enableAudioMan(false);
+			MainAudioManipulator.getInstance().apf.enableAudioMan(false);
 
 
 			return false;
@@ -186,22 +186,22 @@ public class AudioChecks {
 
 	protected boolean allChecksExtract() {
 		// Get the video path and length
-		AudioManipulator.getInstance().apf.setVideoInfo();
+		MainAudioManipulator.getInstance().apf.setVideoInfo();
 		boolean passedOrNot = true;
 
 		// if duration is enabled
-		if (AudioManipulator.getInstance().extractDurationEnable) {
+		if (MainAudioManipulator.getInstance().extractDurationEnable) {
 
 			// check whether the input startTime and lengthTime is in the right
 			// format or not using timeChecks()
-			int passedTimeCheckExtract = timeChecks(AudioManipulator.getInstance().startTimeExtract.getText()
-					.trim(), AudioManipulator.getInstance().lengthExtract.getText().trim());
+			int passedTimeCheckExtract = timeChecks(MainAudioManipulator.getInstance().startTimeExtract.getText()
+					.trim(), MainAudioManipulator.getInstance().lengthExtract.getText().trim());
 
 			// if both are in the wrong format, inform the user and allow them
 			// to enter the start time and length again
 			if (passedTimeCheckExtract == 3) {
-				AudioManipulator.getInstance().startTimeExtract.setText("");
-				AudioManipulator.getInstance().lengthExtract.setText("");
+				MainAudioManipulator.getInstance().startTimeExtract.setText("");
+				MainAudioManipulator.getInstance().lengthExtract.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(
@@ -212,7 +212,7 @@ public class AudioChecks {
 			// if start time is in the wrong format, inform the user and allow
 			// them to enter the start time again
 			else if (passedTimeCheckExtract == 1) {
-				AudioManipulator.getInstance().startTimeExtract.setText("");
+				MainAudioManipulator.getInstance().startTimeExtract.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(null,
@@ -223,7 +223,7 @@ public class AudioChecks {
 			// if length is in the wrong format, inform the user and allow them
 			// to enter the length again
 			else if (passedTimeCheckExtract == 2) {
-				AudioManipulator.getInstance().lengthExtract.setText("");
+				MainAudioManipulator.getInstance().lengthExtract.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(null,
@@ -233,12 +233,12 @@ public class AudioChecks {
 			// check for whether the given duration + start time is smaller than
 			// the length of the video or not
 			else if (passedOrNot) {
-				int convertedStartTime = convertToSeconds(AudioManipulator.getInstance().startTimeExtract
+				int convertedStartTime = convertToSeconds(MainAudioManipulator.getInstance().startTimeExtract
 						.getText().trim());
-				int convertedLength = convertToSeconds(AudioManipulator.getInstance().lengthExtract.getText()
+				int convertedLength = convertToSeconds(MainAudioManipulator.getInstance().lengthExtract.getText()
 						.trim());
 				int totalTime = convertedStartTime + convertedLength;
-				int lengthOfVideo = (int) (Double.parseDouble(AudioManipulator.getInstance().videoLength));
+				int lengthOfVideo = (int) (Double.parseDouble(MainAudioManipulator.getInstance().videoLength));
 
 				// if totalTime is more than the length of the video, inform the
 				// user and allow them to enter the start time and length again
@@ -248,14 +248,14 @@ public class AudioChecks {
 					.showMessageDialog(
 							null,
 							"ERROR: start time + length for extract can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-					AudioManipulator.getInstance().startTimeExtract.setText("");
-					AudioManipulator.getInstance().lengthExtract.setText("");
+					MainAudioManipulator.getInstance().startTimeExtract.setText("");
+					MainAudioManipulator.getInstance().lengthExtract.setText("");
 				}
 			}
 		}
 
 		// check for whether the outputFileName field is empty
-		if (AudioManipulator.getInstance().outputFileName.getText().trim().equals("")) {
+		if (MainAudioManipulator.getInstance().outputFileName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output file name for extract");
 			passedOrNot = false;
@@ -263,7 +263,7 @@ public class AudioChecks {
 
 		// check whether the outputFileName specified user already exists in the
 		// project directory
-		String outputFile = AudioManipulator.getInstance().workingDir + "/" + AudioManipulator.getInstance().outputFileName.getText()
+		String outputFile = MainAudioManipulator.getInstance().workingDir + "/" + MainAudioManipulator.getInstance().outputFileName.getText()
 				+ ".mp3";
 		File f = new File(outputFile);
 		if (f.exists()) {
@@ -274,7 +274,7 @@ public class AudioChecks {
 			// change the output file name
 			Object[] existOptions = {"Overwrite", "Cancel"};
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ AudioManipulator.getInstance().outputFileName.getText() + ".mp3 already exists. "
+					+ MainAudioManipulator.getInstance().outputFileName.getText() + ".mp3 already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
@@ -282,7 +282,7 @@ public class AudioChecks {
 			if (optionChosen == 0) {
 				f.delete(); // Delete the existing file
 			} else {
-				AudioManipulator.getInstance().outputFileName.setText("");
+				MainAudioManipulator.getInstance().outputFileName.setText("");
 				passedOrNot = false;
 			}
 		}
@@ -295,22 +295,22 @@ public class AudioChecks {
 
 	protected boolean allChecksOverlay() {
 		// Get the video path and length
-		AudioManipulator.getInstance().apf.setVideoInfo();
+		MainAudioManipulator.getInstance().apf.setVideoInfo();
 		boolean passedOrNot = true;
 
 		// if duration is enabled
-		if (AudioManipulator.getInstance().overlayDurationEnable) {
+		if (MainAudioManipulator.getInstance().overlayDurationEnable) {
 
 			// check whether the input startTime and lengthTime is in the right
 			// format or not using timeChecks()
-			int passedTimeCheckOverlay = timeChecks(AudioManipulator.getInstance().startTimeOverlay.getText()
-					.trim(), AudioManipulator.getInstance().lengthOverlay.getText().trim());
+			int passedTimeCheckOverlay = timeChecks(MainAudioManipulator.getInstance().startTimeOverlay.getText()
+					.trim(), MainAudioManipulator.getInstance().lengthOverlay.getText().trim());
 
 			// if both are in the wrong format, inform the user and allow them
 			// to enter the start time and length again
 			if (passedTimeCheckOverlay == 3) {
-				AudioManipulator.getInstance().startTimeOverlay.setText("");
-				AudioManipulator.getInstance().lengthOverlay.setText("");
+				MainAudioManipulator.getInstance().startTimeOverlay.setText("");
+				MainAudioManipulator.getInstance().lengthOverlay.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(
@@ -321,7 +321,7 @@ public class AudioChecks {
 			// if start time is in the wrong format, inform the user and allow
 			// them to enter the start time again
 			else if (passedTimeCheckOverlay == 1) {
-				AudioManipulator.getInstance().startTimeOverlay.setText("");
+				MainAudioManipulator.getInstance().startTimeOverlay.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(null,
@@ -332,7 +332,7 @@ public class AudioChecks {
 			// if length is in the wrong format, inform the user and allow them
 			// to enter the length again
 			else if (passedTimeCheckOverlay == 2) {
-				AudioManipulator.getInstance().lengthOverlay.setText("");
+				MainAudioManipulator.getInstance().lengthOverlay.setText("");
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(null,
@@ -342,12 +342,12 @@ public class AudioChecks {
 			// check for whether the given duration + start time is smaller than
 			// the length of the video or not
 			else if (passedOrNot) {
-				int convertedStartTime = convertToSeconds(AudioManipulator.getInstance().startTimeOverlay
+				int convertedStartTime = convertToSeconds(MainAudioManipulator.getInstance().startTimeOverlay
 						.getText().trim());
-				int convertedLength = convertToSeconds(AudioManipulator.getInstance().lengthOverlay.getText()
+				int convertedLength = convertToSeconds(MainAudioManipulator.getInstance().lengthOverlay.getText()
 						.trim());
 				int totalTime = convertedStartTime + convertedLength;
-				int lengthOfVideo = (int) (Double.parseDouble(AudioManipulator.getInstance().videoLength));
+				int lengthOfVideo = (int) (Double.parseDouble(MainAudioManipulator.getInstance().videoLength));
 
 				// if totalTime is more than the length of the video, inform the
 				// user and allow them to enter the start time and length again
@@ -357,14 +357,14 @@ public class AudioChecks {
 					.showMessageDialog(
 							null,
 							"ERROR: start time + length for Overlay can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-					AudioManipulator.getInstance().startTimeOverlay.setText("");
-					AudioManipulator.getInstance().lengthOverlay.setText("");
+					MainAudioManipulator.getInstance().startTimeOverlay.setText("");
+					MainAudioManipulator.getInstance().lengthOverlay.setText("");
 				}
 			}
 		}
 
 		// check for whether the audio list is empty
-		if (AudioManipulator.getInstance().audioFiles.isEmpty()) {
+		if (MainAudioManipulator.getInstance().audioFiles.isEmpty()) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please add audio files for overlay");
 
@@ -386,7 +386,7 @@ public class AudioChecks {
 
 		// check for whether the input audio file chosen by the user is an audio
 		// file or not
-		File file = new File(AudioManipulator.getInstance().inputFile);
+		File file = new File(MainAudioManipulator.getInstance().inputFile);
 		Path path = file.toPath();
 		String type = "";
 		try {
@@ -402,7 +402,7 @@ public class AudioChecks {
 			.showMessageDialog(
 					null,
 					"ERROR: "
-							+ AudioManipulator.getInstance().inputFile
+							+ MainAudioManipulator.getInstance().inputFile
 							+ " does not refer to a valid audio file. Please select a new input file!");
 			passedOrNot = false;
 		}
@@ -425,17 +425,17 @@ public class AudioChecks {
 
 
 		// do all the checks for extract
-		if (AudioManipulator.getInstance().extractEnable) {
+		if (MainAudioManipulator.getInstance().extractEnable) {
 			passedExtract = allChecksExtract();
 		}
 
 		// do all the checks for replace
-		if (AudioManipulator.getInstance().replaceEnable) {
+		if (MainAudioManipulator.getInstance().replaceEnable) {
 			passedReplace = allChecksReplace();
 		}
 
 		// do all the checks for overlay
-		if (AudioManipulator.getInstance().overlayEnable) {
+		if (MainAudioManipulator.getInstance().overlayEnable) {
 
 			passedOverlay = allChecksOverlay();
 

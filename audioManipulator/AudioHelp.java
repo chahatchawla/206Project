@@ -12,7 +12,7 @@ public class AudioHelp {
 		JFrame helpframe = new JFrame("Help - Audio Manipulator");
 		JPanel helpPanel = new JPanel(new BorderLayout());
 
-		helpPanel.add(AudioManipulator.getInstance().helpImage);
+		helpPanel.add(MainAudioManipulator.getInstance().helpImage);
 		helpframe.setContentPane(helpPanel);
 		helpframe.setLocation(450, 100);
 		helpframe.setResizable(false);

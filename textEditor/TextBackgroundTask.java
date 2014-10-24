@@ -12,7 +12,7 @@ public class TextBackgroundTask{
 		firstInput = input;
 		lastOutput = output;
 		// Get the video path and length
-		TextEditor.getInstance().tpf.setVideoInfo();
+		MainTextEditor.getInstance().tpf.setVideoInfo();
 		/*
 		 * Reference for all the avconv commands
 		 * https://libav.org/avconv.html and a combination of many
@@ -22,11 +22,11 @@ public class TextBackgroundTask{
 
 		// create text files for title screen and credit screen for the
 		// purposes of checking which screen the user wants to implement
-		File fileTitle = new File(TextEditor.getInstance().workingDir + "/.TitleText.txt");
-		File fileCredit = new File(TextEditor.getInstance().workingDir + "/.CreditText.txt");
+		File fileTitle = new File(MainTextEditor.getInstance().workingDir + "/.TitleText.txt");
+		File fileCredit = new File(MainTextEditor.getInstance().workingDir + "/.CreditText.txt");
 
 		// if the user wants to overlay
-		if (TextEditor.getInstance().backgroundImageOption == 0) {
+		if (MainTextEditor.getInstance().backgroundImageOption == 0) {
 
 			// if the user has saved title screen settings but does not
 			// want to implement credit screen
@@ -37,39 +37,39 @@ public class TextBackgroundTask{
 				.append("avconv -ss 0 -i "
 						+ firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().titleFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().titleFontName
 						+ "':textfile='"
 						+ fileTitle
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().titleFontSize + ":fontcolor="
-						+ TextEditor.getInstance().titleFontColour + "\" -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().titleFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().titleFontColour + "\" -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4");
 				finalTitleCommand.append(";");
 				// concatenate the videos together = gives the final
 				// output
 				finalTitleCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts ; avconv -ss "
-						+ TextEditor.getInstance().titleDuration
+						+ MainTextEditor.getInstance().titleDuration
 						+ " -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalTitleCommand.append(";");
-				TextEditor.getInstance().titleCommand = finalTitleCommand.toString();
-				System.out.println(TextEditor.getInstance().titleCommand);
-				return TextEditor.getInstance().titleCommand;
+				MainTextEditor.getInstance().titleCommand = finalTitleCommand.toString();
+				System.out.println(MainTextEditor.getInstance().titleCommand);
+				return MainTextEditor.getInstance().titleCommand;
 			}
 
 			// if the user has saved credit screen settings but does not
@@ -77,8 +77,8 @@ public class TextBackgroundTask{
 			else if (!fileTitle.exists() && fileCredit.exists()) {
 				StringBuilder finalCreditCommand = new StringBuilder();
 				// calculates the start time for credit screen
-				int time = (int) (Double.parseDouble(TextEditor.getInstance().videoLength) - Integer
-						.parseInt(TextEditor.getInstance().creditDuration));
+				int time = (int) (Double.parseDouble(MainTextEditor.getInstance().videoLength) - Integer
+						.parseInt(MainTextEditor.getInstance().creditDuration));
 				String startTime = "" + time;
 				// add text to video
 				finalCreditCommand
@@ -87,14 +87,14 @@ public class TextBackgroundTask{
 						+ " -i "
 						+ firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().creditFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().creditFontName
 						+ "':textfile='"
 						+ fileCredit
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().creditFontSize + ":fontcolor="
-						+ TextEditor.getInstance().creditFontColour + "\" -t "
-						+ TextEditor.getInstance().creditDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().creditFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().creditFontColour + "\" -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4");
 				finalCreditCommand.append(";");
 				// concatenate the videos together = gives the final
@@ -105,22 +105,22 @@ public class TextBackgroundTask{
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -t "
 						+ startTime
 						+ " -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts ; avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalCreditCommand.append(";");
-				TextEditor.getInstance().creditCommand = finalCreditCommand.toString();
+				MainTextEditor.getInstance().creditCommand = finalCreditCommand.toString();
 
-				System.out.println(TextEditor.getInstance().creditCommand);
-				return TextEditor.getInstance().creditCommand;
+				System.out.println(MainTextEditor.getInstance().creditCommand);
+				return MainTextEditor.getInstance().creditCommand;
 			}
 
 			// if the user has saved settings for both title screen and
@@ -129,9 +129,9 @@ public class TextBackgroundTask{
 				StringBuilder finalBothCommand = new StringBuilder();
 
 				// calculates the start time and the stop times
-				int time = (int) (Double.parseDouble(TextEditor.getInstance().videoLength) - Integer
-						.parseInt(TextEditor.getInstance().creditDuration));
-				int time1 = time - Integer.parseInt(TextEditor.getInstance().titleDuration);
+				int time = (int) (Double.parseDouble(MainTextEditor.getInstance().videoLength) - Integer
+						.parseInt(MainTextEditor.getInstance().creditDuration));
+				int time1 = time - Integer.parseInt(MainTextEditor.getInstance().titleDuration);
 				String startTime = "" + time;
 				String stopTime = "" + time1;
 				// add text to title video
@@ -139,14 +139,14 @@ public class TextBackgroundTask{
 				.append("avconv -ss 0 -i "
 						+ firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().titleFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().titleFontName
 						+ "':textfile='"
 						+ fileTitle
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().titleFontSize + ":fontcolor="
-						+ TextEditor.getInstance().titleFontColour + "\" -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().titleFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().titleFontColour + "\" -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4");
 				finalBothCommand.append(";");
 				// add text to credit video
@@ -156,48 +156,48 @@ public class TextBackgroundTask{
 						+ " -i "
 						+ firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().creditFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().creditFontName
 						+ "':textfile='"
 						+ fileCredit
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().creditFontSize + ":fontcolor="
-						+ TextEditor.getInstance().creditFontColour + "\" -t "
-						+ TextEditor.getInstance().creditDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().creditFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().creditFontColour + "\" -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4");
 				finalBothCommand.append(";");
 				// concatenate the videos together = gives the final
 				// output
 				finalBothCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file3.ts ; avconv -ss "
-						+ TextEditor.getInstance().titleDuration
+						+ MainTextEditor.getInstance().titleDuration
 						+ " -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y -t "
 						+ stopTime
 						+ " "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file5.ts; avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file6.ts ; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file3.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file5.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file6.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalBothCommand.append(";");
-				TextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand.toString();
+				MainTextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand.toString();
 
-				System.out.println(TextEditor.getInstance().bothTitleAndCreditCommand);
-				return TextEditor.getInstance().bothTitleAndCreditCommand;
+				System.out.println(MainTextEditor.getInstance().bothTitleAndCreditCommand);
+				return MainTextEditor.getInstance().bothTitleAndCreditCommand;
 			}
 		}
 
@@ -213,7 +213,7 @@ public class TextBackgroundTask{
 			if (fileTitle.exists() && !fileCredit.exists()) {
 				StringBuilder finalTitleCommand = new StringBuilder();
 				// if they choose to use a defaultFrame
-				if (TextEditor.getInstance().backgroundImageOption == 1) {
+				if (MainTextEditor.getInstance().backgroundImageOption == 1) {
 					// screenshot will be taken at 00:00:01
 					inputFrameTime = "00:00:01";
 				}
@@ -221,36 +221,36 @@ public class TextBackgroundTask{
 				else {
 					// screenshot will be taken at the time specified by
 					// the user
-					inputFrameTime = TextEditor.getInstance().titleFrameTime;
+					inputFrameTime = MainTextEditor.getInstance().titleFrameTime;
 				}
 				// take a screenshot from the video at the given
 				// inputFrametime
 				finalTitleCommand.append("avconv -i " + firstInput
 						+ " -ss " + inputFrameTime
-						+ " -f image2 -vframes 1 " + TextEditor.getInstance().hiddenDir
+						+ " -f image2 -vframes 1 " + MainTextEditor.getInstance().hiddenDir
 						+ "/out.png");
 				finalTitleCommand.append(";");
 				// create a video from image for the duration given by
 				// the user
 				finalTitleCommand
 				.append("avconv -loop 1 -shortest -y -i "
-						+ TextEditor.getInstance().hiddenDir + "/out.png -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir + "/out.png -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4");
 				finalTitleCommand.append(";");
 				// add text
 				finalTitleCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4 -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().titleFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().titleFontName
 						+ "':textfile='"
 						+ fileTitle
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().titleFontSize + ":fontcolor="
-						+ TextEditor.getInstance().titleFontColour + "\" -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().titleFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().titleFontColour + "\" -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4");
 				finalTitleCommand.append(";");
 
@@ -258,31 +258,31 @@ public class TextBackgroundTask{
 				// output
 				finalTitleCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts ; avconv -ss 0"
 						+ " -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalTitleCommand.append(";");
 
-				TextEditor.getInstance().titleCommand = finalTitleCommand.toString();
-				return TextEditor.getInstance().titleCommand;
+				MainTextEditor.getInstance().titleCommand = finalTitleCommand.toString();
+				return MainTextEditor.getInstance().titleCommand;
 			}
 			// if the user has saved credit screen settings but does not
 			// want to implement title screen
 			else if (!fileTitle.exists() && fileCredit.exists()) {
 				StringBuilder finalCreditCommand = new StringBuilder();
 				// if they choose to use a defaultFrame
-				if (TextEditor.getInstance().backgroundImageOption == 1) {
+				if (MainTextEditor.getInstance().backgroundImageOption == 1) {
 					// screenshot will be taken at 00:00:01
 					inputFrameTime = "00:00:01";
 				}
@@ -290,36 +290,36 @@ public class TextBackgroundTask{
 				else {
 					// screenshot will be taken at the time specified by
 					// the user
-					inputFrameTime = TextEditor.getInstance().creditFrameTime;
+					inputFrameTime = MainTextEditor.getInstance().creditFrameTime;
 				}
 				// take a screenshot from the video at the given
 				// inputFrametime
 				finalCreditCommand.append("avconv -i " + firstInput
 						+ " -ss " + inputFrameTime
-						+ " -f image2 -vframes 1 " + TextEditor.getInstance().hiddenDir
+						+ " -f image2 -vframes 1 " + MainTextEditor.getInstance().hiddenDir
 						+ "/out.png");
 				finalCreditCommand.append(";");
 				// create a video from image for the duration given by
 				// the user
 				finalCreditCommand
 				.append("avconv -loop 1 -shortest -y -i "
-						+ TextEditor.getInstance().hiddenDir + "/out.png -t "
-						+ TextEditor.getInstance().creditDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir + "/out.png -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4");
 				finalCreditCommand.append(";");
 				// add text
 				finalCreditCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4 -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().creditFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().creditFontName
 						+ "':textfile='"
 						+ fileCredit
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().creditFontSize + ":fontcolor="
-						+ TextEditor.getInstance().creditFontColour + "\" -t "
-						+ TextEditor.getInstance().creditDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().creditFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().creditFontColour + "\" -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4");
 				finalCreditCommand.append(";");
 				// concatenate the videos together = gives the final
@@ -328,20 +328,20 @@ public class TextBackgroundTask{
 				.append("avconv -ss 0 -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts ; avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file1.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file2.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalCreditCommand.append(";");
-				TextEditor.getInstance().creditCommand = finalCreditCommand.toString();
-				return TextEditor.getInstance().creditCommand;
+				MainTextEditor.getInstance().creditCommand = finalCreditCommand.toString();
+				return MainTextEditor.getInstance().creditCommand;
 			}
 
 			// if the user has saved settings for both title screen and
@@ -349,7 +349,7 @@ public class TextBackgroundTask{
 			else {
 				StringBuilder finalBothCommand = new StringBuilder();
 				// if they choose to use a defaultFrame
-				if (TextEditor.getInstance().backgroundImageOption == 1) {
+				if (MainTextEditor.getInstance().backgroundImageOption == 1) {
 					// screenshot will be taken at 00:00:01 for both
 					// title screen and credit screen
 					inputFrameTime = "00:00:01";
@@ -359,67 +359,67 @@ public class TextBackgroundTask{
 				else {
 					// screenshots will be taken at the time specified
 					// by the user
-					inputFrameTime = TextEditor.getInstance().titleFrameTime;
-					inputFrameTime1 = TextEditor.getInstance().creditFrameTime;
+					inputFrameTime = MainTextEditor.getInstance().titleFrameTime;
+					inputFrameTime1 = MainTextEditor.getInstance().creditFrameTime;
 				}
 				// take a screenshot from the video at the given
 				// inputFrametime for title screen
 				finalBothCommand.append("avconv -i " + firstInput
 						+ " -ss " + inputFrameTime
-						+ " -f image2 -vframes 1 " + TextEditor.getInstance().hiddenDir
+						+ " -f image2 -vframes 1 " + MainTextEditor.getInstance().hiddenDir
 						+ "/out.png");
 				finalBothCommand.append(";");
 				// take a screenshot from the video at the given
 				// inputFrametime for credit screen
 				finalBothCommand.append("avconv -i " + firstInput
 						+ " -ss " + inputFrameTime1
-						+ " -f image2 -vframes 1 " + TextEditor.getInstance().hiddenDir
+						+ " -f image2 -vframes 1 " + MainTextEditor.getInstance().hiddenDir
 						+ "/out1.png");
 				finalBothCommand.append(";");
 				// create video from image for the duration given by the
 				// user for title screen
 				finalBothCommand
 				.append("avconv -loop 1 -shortest -y -i "
-						+ TextEditor.getInstance().hiddenDir + "/out.png -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir + "/out.png -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4");
 				finalBothCommand.append(";");
 				// create video from image for the duration given by the
 				// user for credit screen
 				finalBothCommand
 				.append("avconv -loop 1 -shortest -y -i "
-						+ TextEditor.getInstance().hiddenDir + "/out1.png -t "
-						+ TextEditor.getInstance().creditDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir + "/out1.png -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/result1.mp4");
 				finalBothCommand.append(";");
 				// add text for title screen
 				finalBothCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4 -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().titleFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().titleFontName
 						+ "':textfile='"
 						+ fileTitle
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().titleFontSize + ":fontcolor="
-						+ TextEditor.getInstance().titleFontColour + "\" -t "
-						+ TextEditor.getInstance().titleDuration + " -y " + TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().titleFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().titleFontColour + "\" -t "
+						+ MainTextEditor.getInstance().titleDuration + " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4");
 				finalBothCommand.append(";");
 				// add text for credit screen
 				finalBothCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result1.mp4 -strict experimental -vf \"drawtext=fontfile='"
-						+ TextEditor.getInstance().fontDir
-						+ TextEditor.getInstance().creditFontName
+						+ MainTextEditor.getInstance().fontDir
+						+ MainTextEditor.getInstance().creditFontName
 						+ "':textfile='"
 						+ fileCredit
 						+ "':x=(main_w-text_w)/3:y=(main_h-text_h)/2:fontsize="
-						+ TextEditor.getInstance().creditFontSize + ":fontcolor="
-						+ TextEditor.getInstance().creditFontColour + "\" -t "
-						+ TextEditor.getInstance().creditDuration + " -y " +TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().creditFontSize + ":fontcolor="
+						+ MainTextEditor.getInstance().creditFontColour + "\" -t "
+						+ MainTextEditor.getInstance().creditDuration + " -y " +MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4");
 				finalBothCommand.append(";");
 
@@ -427,30 +427,30 @@ public class TextBackgroundTask{
 				// output
 				finalBothCommand
 				.append("avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file3.ts ; avconv -ss 0 -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file5.ts; avconv -ss 0 -i "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/text1.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file6.ts ; avconv -i concat:\""
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file3.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file5.ts|"
-						+ TextEditor.getInstance().hiddenDir
+						+ MainTextEditor.getInstance().hiddenDir
 						+ "/file6.ts\" -c copy -bsf:a aac_adtstoasc -y "
 						+ lastOutput);
 				finalBothCommand.append(";");
 
-				TextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand.toString();
+				MainTextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand.toString();
 
-				return TextEditor.getInstance().bothTitleAndCreditCommand;
+				return MainTextEditor.getInstance().bothTitleAndCreditCommand;
 			}
 		}
 

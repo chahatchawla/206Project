@@ -18,12 +18,12 @@ public class VideoBackgroundTask{
 		
 			// if filter is enabled, constructs the command for adding the
 			// filter to the input video
-			if (VideoManipulator.getInstance().filterEnable) {
+			if (MainVideoManipulator.getInstance().filterEnable) {
 
 				StringBuilder bigFilterCmd = new StringBuilder();
 
 				// if the filter is negate
-				if (VideoManipulator.getInstance().filter.equals("Negate")) {
+				if (MainVideoManipulator.getInstance().filter.equals("Negate")) {
 
 					bigFilterCmd.append("avconv -i " + firstInput
 							+ " -vf \"negate=5\" -strict experimental -y "
@@ -31,7 +31,7 @@ public class VideoBackgroundTask{
 
 				}
 				// if the filter is blur
-				else if (VideoManipulator.getInstance().filter.equals("Blur")) {
+				else if (MainVideoManipulator.getInstance().filter.equals("Blur")) {
 
 					bigFilterCmd
 					.append("avconv -i "
@@ -41,7 +41,7 @@ public class VideoBackgroundTask{
 
 				}
 				// if the filter is horizontal flip
-				else if (VideoManipulator.getInstance().filter.equals("Horizontal Flip")) {
+				else if (MainVideoManipulator.getInstance().filter.equals("Horizontal Flip")) {
 
 					bigFilterCmd.append("avconv -i " + firstInput
 							+ " -vf \"hflip\" -strict experimental -y "
@@ -49,7 +49,7 @@ public class VideoBackgroundTask{
 
 				}
 				// if the filter is vertical flip
-				else if (VideoManipulator.getInstance().filter.equals("Vertical Flip")) {
+				else if (MainVideoManipulator.getInstance().filter.equals("Vertical Flip")) {
 
 					bigFilterCmd.append("avconv -i " + firstInput
 							+ " -vf \"vflip\" -strict experimental -y "
@@ -57,7 +57,7 @@ public class VideoBackgroundTask{
 
 				}
 				// if the filter is fade in
-				else if (VideoManipulator.getInstance().filter.equals("Fade In")) {
+				else if (MainVideoManipulator.getInstance().filter.equals("Fade In")) {
 
 					bigFilterCmd
 					.append("avconv -i "
@@ -67,7 +67,7 @@ public class VideoBackgroundTask{
 
 				}
 				// if the filter is transpose
-				else if (VideoManipulator.getInstance().filter.equals("Transpose")) {
+				else if (MainVideoManipulator.getInstance().filter.equals("Transpose")) {
 
 					bigFilterCmd
 					.append("avconv -i "
@@ -77,23 +77,23 @@ public class VideoBackgroundTask{
 
 				}
 				bigFilterCmd.append(";");
-				VideoManipulator.getInstance().filterCmd = bigFilterCmd.toString();
+				MainVideoManipulator.getInstance().filterCmd = bigFilterCmd.toString();
 			}
 
 			// if snapshot is enabled, constructs the command for snapshot
-			if (VideoManipulator.getInstance().snapshotEnable) {
+			if (MainVideoManipulator.getInstance().snapshotEnable) {
 
 				StringBuilder bigsSnapshotCmd = new StringBuilder();
 
 				// take a screen shot
 				bigsSnapshotCmd.append("avconv -i " + firstInput + " -ss "
-						+ VideoManipulator.getInstance().timeSnapshot.getText()
-						+ " -f image2 -vframes 1 -y " + VideoManipulator.getInstance().workingDir + "/"
-						+ VideoManipulator.getInstance().outputSnapshotName.getText() + ".png");
+						+ MainVideoManipulator.getInstance().timeSnapshot.getText()
+						+ " -f image2 -vframes 1 -y " + MainVideoManipulator.getInstance().workingDir + "/"
+						+ MainVideoManipulator.getInstance().outputSnapshotName.getText() + ".png");
 				bigsSnapshotCmd.append(";");
-				VideoManipulator.getInstance().snapshotCmd = bigsSnapshotCmd.toString();
+				MainVideoManipulator.getInstance().snapshotCmd = bigsSnapshotCmd.toString();
 
-				if (!VideoManipulator.getInstance().filterEnable){
+				if (!MainVideoManipulator.getInstance().filterEnable){
 
 					bigsSnapshotCmd.append("avconv -i ");
 					bigsSnapshotCmd.append(firstInput);
@@ -107,22 +107,22 @@ public class VideoBackgroundTask{
 
 			// if loopVideo is enabled, constructs the command for making a
 			// loop video of a chosen frame
-			if (VideoManipulator.getInstance().loopVideoEnable) {
+			if (MainVideoManipulator.getInstance().loopVideoEnable) {
 
 				StringBuilder bigLoopVideoCmd = new StringBuilder();
 
 
 
-				int loopNumber = Integer.parseInt(VideoManipulator.getInstance().loop.getText());
+				int loopNumber = Integer.parseInt(MainVideoManipulator.getInstance().loop.getText());
 
 				StringBuilder loop = new StringBuilder();
 				for (int i = 0; i < loopNumber; i++) {
 
 					if (loopNumber - 1 == i) {
-						loop.append(VideoManipulator.getInstance().hiddenDir + "/file1.ts\"");
+						loop.append(MainVideoManipulator.getInstance().hiddenDir + "/file1.ts\"");
 
 					} else {
-						loop.append(VideoManipulator.getInstance().hiddenDir + "/file1.ts");
+						loop.append(MainVideoManipulator.getInstance().hiddenDir + "/file1.ts");
 						loop.append("|");
 					}
 				}
@@ -131,11 +131,11 @@ public class VideoBackgroundTask{
 				// extract the video and make a .ts file for it
 				bigLoopVideoCmd
 				.append("avconv -ss "
-						+ VideoManipulator.getInstance().timeStart.getText()
+						+ MainVideoManipulator.getInstance().timeStart.getText()
 						+ " -i "
 						+ firstInput
 						+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -t "
-						+ VideoManipulator.getInstance().timeLength.getText() + " -y " + VideoManipulator.getInstance().hiddenDir
+						+ MainVideoManipulator.getInstance().timeLength.getText() + " -y " + MainVideoManipulator.getInstance().hiddenDir
 						+ "/file1.ts");
 				bigLoopVideoCmd.append(";");
 
@@ -143,11 +143,11 @@ public class VideoBackgroundTask{
 				bigLoopVideoCmd.append("avconv -i concat:\"");
 				bigLoopVideoCmd.append(loopString);
 				bigLoopVideoCmd.append(" -c copy -bsf:a aac_adtstoasc -y "
-						+ VideoManipulator.getInstance().workingDir + "/" + VideoManipulator.getInstance().outputLoopVideoName.getText()
+						+ MainVideoManipulator.getInstance().workingDir + "/" + MainVideoManipulator.getInstance().outputLoopVideoName.getText()
 						+ ".mp4");
 				bigLoopVideoCmd.append(";");
 
-				if (!VideoManipulator.getInstance().filterEnable){
+				if (!MainVideoManipulator.getInstance().filterEnable){
 
 					bigLoopVideoCmd.append("avconv -i ");
 					bigLoopVideoCmd.append(firstInput);
@@ -158,20 +158,20 @@ public class VideoBackgroundTask{
 				}
 
 
-				VideoManipulator.getInstance().loopVideoCmd = bigLoopVideoCmd.toString();
+				MainVideoManipulator.getInstance().loopVideoCmd = bigLoopVideoCmd.toString();
 			}
 
 			// construct the final command for video manipulation
 			StringBuilder finalCommand = new StringBuilder();
 
-			if (VideoManipulator.getInstance().snapshotEnable) {
-				finalCommand.append(VideoManipulator.getInstance().snapshotCmd);
+			if (MainVideoManipulator.getInstance().snapshotEnable) {
+				finalCommand.append(MainVideoManipulator.getInstance().snapshotCmd);
 			}
-			if (VideoManipulator.getInstance().loopVideoEnable) {
-				finalCommand.append(VideoManipulator.getInstance().loopVideoCmd);
+			if (MainVideoManipulator.getInstance().loopVideoEnable) {
+				finalCommand.append(MainVideoManipulator.getInstance().loopVideoCmd);
 			}
-			if (VideoManipulator.getInstance().filterEnable) {
-				finalCommand.append(VideoManipulator.getInstance().filterCmd);
+			if (MainVideoManipulator.getInstance().filterEnable) {
+				finalCommand.append(MainVideoManipulator.getInstance().filterCmd);
 			}
 			// start the builder for the bash command so it is executed
 			String cmd = finalCommand.toString();

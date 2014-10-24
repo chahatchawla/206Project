@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import audioManipulator.AudioManipulator;
+import audioManipulator.MainAudioManipulator;
 
 import com.sun.jna.platform.FileUtils;
 

@@ -83,17 +83,17 @@ public class VideoChecks {
 
 	private boolean allChecksSnapshot() {
 		// Get the video path and length
-		VideoManipulator.getInstance().vpf.setVideoInfo();
+		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 		boolean passedOrNot = true;
 
 		// check whether the input frame time is in the right format or not,
 		// using timeChecks()
-		boolean passedTimeCheckSnap = timeChecks(VideoManipulator.getInstance().timeSnapshot.getText().trim());
+		boolean passedTimeCheckSnap = timeChecks(MainVideoManipulator.getInstance().timeSnapshot.getText().trim());
 
 		// if it is in the wrong format, inform the user and allow them
 		// to enter the time again
 		if (passedTimeCheckSnap == false) {
-			VideoManipulator.getInstance().timeSnapshot.setText("");
+			MainVideoManipulator.getInstance().timeSnapshot.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -104,9 +104,9 @@ public class VideoChecks {
 		else if (passedOrNot) {
 
 			// convert the time from hh:mm:ss format to seconds
-			int convertedTime = convertToSeconds(VideoManipulator.getInstance().timeSnapshot.getText().trim());
+			int convertedTime = convertToSeconds(MainVideoManipulator.getInstance().timeSnapshot.getText().trim());
 
-			int lengthOfVideo = (int) (Double.parseDouble(VideoManipulator.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator.getInstance().videoLength));
 
 			// if convertedTime is more than the length of the video, inform the
 			// user and allow them to enter the snapshot frame time again
@@ -115,12 +115,12 @@ public class VideoChecks {
 				JOptionPane
 				.showMessageDialog(null,
 						"ERROR: snapshot frame time can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-				VideoManipulator.getInstance().timeSnapshot.setText("");
+				MainVideoManipulator.getInstance().timeSnapshot.setText("");
 			}
 		}
 
 		// check for whether the outputSnapshotName field is empty
-		if (VideoManipulator.getInstance().outputSnapshotName.getText().trim().equals("")) {
+		if (MainVideoManipulator.getInstance().outputSnapshotName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output snapshot name");
 			passedOrNot = false;
@@ -130,7 +130,7 @@ public class VideoChecks {
 		// check whether the outputSnapshotName specified user already exists in
 		// the
 		// project directory
-		String outputFile = VideoManipulator.getInstance().workingDir + "/" + VideoManipulator.getInstance().outputSnapshotName.getText()
+		String outputFile = MainVideoManipulator.getInstance().workingDir + "/" + MainVideoManipulator.getInstance().outputSnapshotName.getText()
 				+ ".png";
 		File f = new File(outputFile);
 		if (f.exists()) {
@@ -141,7 +141,7 @@ public class VideoChecks {
 			// change the output file name
 			Object[] existOptions = { "Cancel", "Overwrite" };
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ VideoManipulator.getInstance().outputSnapshotName.getText() + ".png already exists. "
+					+ MainVideoManipulator.getInstance().outputSnapshotName.getText() + ".png already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
@@ -149,7 +149,7 @@ public class VideoChecks {
 			if (optionChosen == 1) {
 				f.delete(); // Delete the existing file
 			} else {
-				VideoManipulator.getInstance().outputSnapshotName.setText("");
+				MainVideoManipulator.getInstance().outputSnapshotName.setText("");
 				passedOrNot = false;
 			}
 		}
@@ -163,21 +163,21 @@ public class VideoChecks {
 	private boolean allChecksLoop() {
 		boolean passedOrNot = true;
 		// Get the video path and length
-		VideoManipulator.getInstance().vpf.setVideoInfo();
+		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 
 		// check whether the start time is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckStart = timeChecks(VideoManipulator.getInstance().timeStart.getText().trim());
+		boolean passedTimeCheckStart = timeChecks(MainVideoManipulator.getInstance().timeStart.getText().trim());
 
 		// check whether the length is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckLength = timeChecks(VideoManipulator.getInstance().timeLength.getText().trim());
+		boolean passedTimeCheckLength = timeChecks(MainVideoManipulator.getInstance().timeLength.getText().trim());
 
 		// if the start time is in the wrong format, inform the user and allow
 		// them
 		// to enter the time again
 		if (passedTimeCheckStart == false) {
-			VideoManipulator.getInstance().timeStart.setText("");
+			MainVideoManipulator.getInstance().timeStart.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -187,7 +187,7 @@ public class VideoChecks {
 		// if the length is in the wrong format, inform the user and allow them
 		// to enter the time again
 		if (passedTimeCheckLength == false) {
-			VideoManipulator.getInstance().timeLength.setText("");
+			MainVideoManipulator.getInstance().timeLength.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -197,11 +197,11 @@ public class VideoChecks {
 		// check for whether the given length + start time is smaller than
 		// the length of the video or not
 		else if (passedOrNot) {
-			int convertedStartTime = convertToSeconds(VideoManipulator.getInstance().timeStart.getText()
+			int convertedStartTime = convertToSeconds(MainVideoManipulator.getInstance().timeStart.getText()
 					.trim());
-			int convertedLength = convertToSeconds(VideoManipulator.getInstance().timeLength.getText().trim());
+			int convertedLength = convertToSeconds(MainVideoManipulator.getInstance().timeLength.getText().trim());
 			int totalTime = convertedStartTime + convertedLength;
-			int lengthOfVideo = (int) (Double.parseDouble(VideoManipulator.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator.getInstance().videoLength));
 
 			// if totalTime is more than the length of the video, inform the
 			// user and allow them to enter the start time and length again
@@ -211,13 +211,13 @@ public class VideoChecks {
 				.showMessageDialog(
 						null,
 						"ERROR: start time + length for loop video can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-				VideoManipulator.getInstance().timeStart.setText("");
-				VideoManipulator.getInstance().timeLength.setText("");
+				MainVideoManipulator.getInstance().timeStart.setText("");
+				MainVideoManipulator.getInstance().timeLength.setText("");
 			}
 		}
 
 		// check for whether the loop field is empty
-		if (VideoManipulator.getInstance().loop.getText().trim().equals("")) {
+		if (MainVideoManipulator.getInstance().loop.getText().trim().equals("")) {
 			JOptionPane
 			.showMessageDialog(
 					null,
@@ -226,7 +226,7 @@ public class VideoChecks {
 		}
 		else {
 			Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
-			Matcher matchesInteger = integerPattern.matcher(VideoManipulator.getInstance().loop.getText());
+			Matcher matchesInteger = integerPattern.matcher(MainVideoManipulator.getInstance().loop.getText());
 			boolean isInteger = matchesInteger.matches();
 
 			if (!isInteger){         
@@ -237,7 +237,7 @@ public class VideoChecks {
 		}
 
 		// check for whether the outputLoopVideoName field is empty
-		if (VideoManipulator.getInstance().outputLoopVideoName.getText().trim().equals("")) {
+		if (MainVideoManipulator.getInstance().outputLoopVideoName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output loop video name");
 			passedOrNot = false;
@@ -246,7 +246,7 @@ public class VideoChecks {
 		// check whether the outputLoopVideoName specified user already exists
 		// in the
 		// project directory
-		String outputFile = VideoManipulator.getInstance().workingDir + "/" + VideoManipulator.getInstance().outputLoopVideoName.getText()
+		String outputFile = MainVideoManipulator.getInstance().workingDir + "/" + MainVideoManipulator.getInstance().outputLoopVideoName.getText()
 				+ ".mp4";
 		File f = new File(outputFile);
 		if (f.exists()) {
@@ -257,7 +257,7 @@ public class VideoChecks {
 			// change the output file name
 			Object[] existOptions = { "Cancel", "Overwrite" };
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ VideoManipulator.getInstance().outputLoopVideoName.getText() + ".mp4 already exists. "
+					+ MainVideoManipulator.getInstance().outputLoopVideoName.getText() + ".mp4 already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
@@ -265,7 +265,7 @@ public class VideoChecks {
 			if (optionChosen == 1) {
 				f.delete(); // Delete the existing file
 			} else {
-				VideoManipulator.getInstance().outputLoopVideoName.setText("");
+				MainVideoManipulator.getInstance().outputLoopVideoName.setText("");
 				passedOrNot = false;
 			}
 		}
@@ -280,7 +280,7 @@ public class VideoChecks {
 	private boolean allChecksFilter() {
 		boolean passedOrNot = true;
 
-		if (VideoManipulator.getInstance().filter.equals("")) {
+		if (MainVideoManipulator.getInstance().filter.equals("")) {
 
 			// if none of the six are selected, show an error message to
 			// the user and allow them to choose one
@@ -304,17 +304,17 @@ public class VideoChecks {
 		boolean passedFilter = true;
 
 		// do all the checks for snapshot
-		if (VideoManipulator.getInstance().snapshotEnable) {
+		if (MainVideoManipulator.getInstance().snapshotEnable) {
 			passedSnapshot = allChecksSnapshot();
 		}
 
 		// do all the checks for loopVideo
-		if (VideoManipulator.getInstance().loopVideoEnable) {
+		if (MainVideoManipulator.getInstance().loopVideoEnable) {
 			passedLoop = allChecksLoop();
 		}
 
 		// do all the checks for filter
-		if (VideoManipulator.getInstance().filterEnable) {
+		if (MainVideoManipulator.getInstance().filterEnable) {
 			passedFilter = allChecksFilter();
 		}
 		

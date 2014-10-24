@@ -12,7 +12,7 @@ public class SubtitleHelp {
 		JFrame helpframe = new JFrame("Help - Subtitles");
 		JPanel helpPanel = new JPanel(new BorderLayout());
 
-		helpPanel.add(Subtitles.getInstance().helpImage);
+		helpPanel.add(MainSubtitles.getInstance().helpImage);
 		helpframe.setContentPane(helpPanel);
 		helpframe.setLocation(450, 100);
 		helpframe.setResizable(false);

@@ -18,17 +18,17 @@ public class TextProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		TextEditor.getInstance().projectPath = Menu.getProjectPath();
-		File f = new File(TextEditor.getInstance().projectPath);
+		MainTextEditor.getInstance().projectPath = Menu.getProjectPath();
+		File f = new File(MainTextEditor.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
 			reader.readLine(); // project path
-			TextEditor.getInstance().hiddenDir = reader.readLine();
-			TextEditor.getInstance().workingDir = reader.readLine();
-			TextEditor.getInstance().videoPath = reader.readLine();
-			TextEditor.getInstance().videoLength = reader.readLine();
+			MainTextEditor.getInstance().hiddenDir = reader.readLine();
+			MainTextEditor.getInstance().workingDir = reader.readLine();
+			MainTextEditor.getInstance().videoPath = reader.readLine();
+			MainTextEditor.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -44,34 +44,34 @@ public class TextProjectFunctions {
 	public void setTitleFontSettings() {
 		StringBuilder font = new StringBuilder();
 		// fontType options
-		if (TextEditor.getInstance().fontType == 0) {
+		if (MainTextEditor.getInstance().fontType == 0) {
 			font.append("Arial");
-		} else if (TextEditor.getInstance().fontType == 1) {
+		} else if (MainTextEditor.getInstance().fontType == 1) {
 			font.append("Courier_New");
-		} else if (TextEditor.getInstance().fontType == 2) {
+		} else if (MainTextEditor.getInstance().fontType == 2) {
 			font.append("Georgia");
-		} else if (TextEditor.getInstance().fontType == 2) {
+		} else if (MainTextEditor.getInstance().fontType == 2) {
 			font.append("Times_New_Roman");
 		} else {
 			font.append("Verdana");
 		}
 		// fontStyle options
-		if (TextEditor.getInstance().fontStyle == 1) {
+		if (MainTextEditor.getInstance().fontStyle == 1) {
 			font.append("_Bold");
-		} else if (TextEditor.getInstance().fontStyle == 2) {
+		} else if (MainTextEditor.getInstance().fontStyle == 2) {
 			font.append("_Italic");
-		} else if (TextEditor.getInstance().fontStyle == 3) {
+		} else if (MainTextEditor.getInstance().fontStyle == 3) {
 			font.append("_Bold_Italic");
 		}
 		// append .ttf as font types are ttf files
 		font.append(".ttf");
-		TextEditor.getInstance().fontName = font.toString();
+		MainTextEditor.getInstance().fontName = font.toString();
 		// set font variables for title screen
-		TextEditor.getInstance().titleFontSize = TextEditor.getInstance().fontSize;
-		TextEditor.getInstance().titleFontColour = TextEditor.getInstance().fontColour;
-		TextEditor.getInstance().titleFontName = TextEditor.getInstance().fontName;
-		TextEditor.getInstance().titleFontStyle = TextEditor.getInstance().fontStyle;
-		TextEditor.getInstance().titlePreviewFont = TextEditor.getInstance().prevFont;
+		MainTextEditor.getInstance().titleFontSize = MainTextEditor.getInstance().fontSize;
+		MainTextEditor.getInstance().titleFontColour = MainTextEditor.getInstance().fontColour;
+		MainTextEditor.getInstance().titleFontName = MainTextEditor.getInstance().fontName;
+		MainTextEditor.getInstance().titleFontStyle = MainTextEditor.getInstance().fontStyle;
+		MainTextEditor.getInstance().titlePreviewFont = MainTextEditor.getInstance().prevFont;
 	}
 
 	/**
@@ -81,34 +81,34 @@ public class TextProjectFunctions {
 	public void setCreditFontSettings() {
 		StringBuilder font = new StringBuilder();
 		// fontType options
-		if (TextEditor.getInstance().fontType == 0) {
+		if (MainTextEditor.getInstance().fontType == 0) {
 			font.append("Arial");
-		} else if (TextEditor.getInstance().fontType == 1) {
+		} else if (MainTextEditor.getInstance().fontType == 1) {
 			font.append("Courier_New");
-		} else if (TextEditor.getInstance().fontType == 2) {
+		} else if (MainTextEditor.getInstance().fontType == 2) {
 			font.append("Georgia");
-		} else if (TextEditor.getInstance().fontType == 2) {
+		} else if (MainTextEditor.getInstance().fontType == 2) {
 			font.append("Times_New_Roman");
 		} else {
 			font.append("Verdana");
 		}
 		// fontStyle options
-		if (TextEditor.getInstance().fontStyle == 1) {
+		if (MainTextEditor.getInstance().fontStyle == 1) {
 			font.append("_Bold");
-		} else if (TextEditor.getInstance().fontStyle == 2) {
+		} else if (MainTextEditor.getInstance().fontStyle == 2) {
 			font.append("_Italic");
-		} else if (TextEditor.getInstance().fontStyle == 3) {
+		} else if (MainTextEditor.getInstance().fontStyle == 3) {
 			font.append("_Bold_Italic");
 		}
 		// append .ttf as font types are ttf files
 		font.append(".ttf");
-		TextEditor.getInstance().fontName = font.toString();
+		MainTextEditor.getInstance().fontName = font.toString();
 		// set font variables for credit screen
-		TextEditor.getInstance().creditFontSize = TextEditor.getInstance().fontSize;
-		TextEditor.getInstance().creditFontColour = TextEditor.getInstance().fontColour;
-		TextEditor.getInstance().creditFontName = TextEditor.getInstance().fontName;
-		TextEditor.getInstance().creditFontStyle = TextEditor.getInstance().fontStyle;
-		TextEditor.getInstance().creditPreviewFont = TextEditor.getInstance().prevFont;
+		MainTextEditor.getInstance().creditFontSize = MainTextEditor.getInstance().fontSize;
+		MainTextEditor.getInstance().creditFontColour = MainTextEditor.getInstance().fontColour;
+		MainTextEditor.getInstance().creditFontName = MainTextEditor.getInstance().fontName;
+		MainTextEditor.getInstance().creditFontStyle = MainTextEditor.getInstance().fontStyle;
+		MainTextEditor.getInstance().creditPreviewFont = MainTextEditor.getInstance().prevFont;
 	}
 	/**
 	 * enableTextEdit Method enables or disable all the fields in the text
@@ -119,30 +119,30 @@ public class TextProjectFunctions {
 
 	public void enableTextEdit(boolean state) {
 
-		TextEditor.getInstance().textEditorLabel.setEnabled(state);
-		TextEditor.getInstance().screenLabel.setEnabled(state);
-		TextEditor.getInstance().durationLabel.setEnabled(state);
-		TextEditor.getInstance().addTextLabel.setEnabled(state);
-		TextEditor.getInstance().backgroundImageLabel.setEnabled(state);
-		TextEditor.getInstance().wordLimitLabel.setEnabled(state);
-		TextEditor.getInstance().chooseFontLabel.setEnabled(state);
-		TextEditor.getInstance().chooseFontStyleLabel.setEnabled(state);
-		TextEditor.getInstance().chooseFontSizeLabel.setEnabled(state);
-		TextEditor.getInstance().chooseColorLabel.setEnabled(state);
-		TextEditor.getInstance().addDuration.setEnabled(state);
-		TextEditor.getInstance().addTextArea.setEnabled(state);
+		MainTextEditor.getInstance().textEditorLabel.setEnabled(state);
+		MainTextEditor.getInstance().screenLabel.setEnabled(state);
+		MainTextEditor.getInstance().durationLabel.setEnabled(state);
+		MainTextEditor.getInstance().addTextLabel.setEnabled(state);
+		MainTextEditor.getInstance().backgroundImageLabel.setEnabled(state);
+		MainTextEditor.getInstance().wordLimitLabel.setEnabled(state);
+		MainTextEditor.getInstance().chooseFontLabel.setEnabled(state);
+		MainTextEditor.getInstance().chooseFontStyleLabel.setEnabled(state);
+		MainTextEditor.getInstance().chooseFontSizeLabel.setEnabled(state);
+		MainTextEditor.getInstance().chooseColorLabel.setEnabled(state);
+		MainTextEditor.getInstance().addDuration.setEnabled(state);
+		MainTextEditor.getInstance().addTextArea.setEnabled(state);
 
-		TextEditor.getInstance().overlayCheck.setEnabled(state);
-		TextEditor.getInstance().screenList.setEnabled(state);
-		TextEditor.getInstance().fontsList.setEnabled(state);
-		TextEditor.getInstance().stylesList.setEnabled(state);
-		TextEditor.getInstance().sizesList.setEnabled(state);
-		TextEditor.getInstance().coloursList.setEnabled(state);
+		MainTextEditor.getInstance().overlayCheck.setEnabled(state);
+		MainTextEditor.getInstance().screenList.setEnabled(state);
+		MainTextEditor.getInstance().fontsList.setEnabled(state);
+		MainTextEditor.getInstance().stylesList.setEnabled(state);
+		MainTextEditor.getInstance().sizesList.setEnabled(state);
+		MainTextEditor.getInstance().coloursList.setEnabled(state);
 
-		TextEditor.getInstance().deleteBtn.setEnabled(state);
-		TextEditor.getInstance().prevBtn.setEnabled(state);
-		TextEditor.getInstance().saveButton.setEnabled(state);
-		TextEditor.getInstance().helpButton.setEnabled(state);
+		MainTextEditor.getInstance().deleteBtn.setEnabled(state);
+		MainTextEditor.getInstance().prevBtn.setEnabled(state);
+		MainTextEditor.getInstance().saveButton.setEnabled(state);
+		MainTextEditor.getInstance().helpButton.setEnabled(state);
 
 
 	}
@@ -154,81 +154,81 @@ public class TextProjectFunctions {
 	 *            : the path of the stored text fields
 	 */
 	public void setTitleFields(String textFieldsPath) {
-		TextEditor.getInstance().titleFields = textFieldsPath;
-		File f = new File(TextEditor.getInstance().workingDir + "/.titleFields");
+		MainTextEditor.getInstance().titleFields = textFieldsPath;
+		File f = new File(MainTextEditor.getInstance().workingDir + "/.titleFields");
 		if (f.exists()) {
 			try {
 				BufferedReader reader;
 				reader = new BufferedReader(new FileReader(f)); // Read the file
 				// that saved
 				// the fields
-				TextEditor.getInstance().screenList.setSelectedItem(reader.readLine());
-				TextEditor.getInstance().titleDuration = reader.readLine();
+				MainTextEditor.getInstance().screenList.setSelectedItem(reader.readLine());
+				MainTextEditor.getInstance().titleDuration = reader.readLine();
 
-				TextEditor.getInstance().addDuration.setText(TextEditor.getInstance().titleDuration);
-				TextEditor.getInstance().overlayCheck
+				MainTextEditor.getInstance().addDuration.setText(MainTextEditor.getInstance().titleDuration);
+				MainTextEditor.getInstance().overlayCheck
 				.setSelected(Boolean.parseBoolean(reader.readLine()));
 
-				if (TextEditor.getInstance().overlayCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageTitle = 0;
+				if (MainTextEditor.getInstance().overlayCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageTitle = 0;
 
 				}
-				TextEditor.getInstance().defaultCheck
+				MainTextEditor.getInstance().defaultCheck
 				.setSelected(Boolean.parseBoolean(reader.readLine()));
 
-				if (TextEditor.getInstance().defaultCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageTitle = 1;
+				if (MainTextEditor.getInstance().defaultCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageTitle = 1;
 
 				}
-				TextEditor.getInstance().frameCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+				MainTextEditor.getInstance().frameCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
 
-				if (TextEditor.getInstance().frameCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageTitle = 2;
+				if (MainTextEditor.getInstance().frameCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageTitle = 2;
 
 				}
-				TextEditor.getInstance().titleFrameTime = reader.readLine();
-				TextEditor.getInstance().addTimeFrame.setText(TextEditor.getInstance().titleFrameTime);
-				TextEditor.getInstance().titleFontSize = Integer.parseInt(reader.readLine());
-				TextEditor.getInstance().sizesList.setSelectedItem("" + TextEditor.getInstance().titleFontSize);
-				TextEditor.getInstance().titleFontColour = reader.readLine();
-				TextEditor.getInstance().coloursList.setSelectedItem(TextEditor.getInstance().titleFontColour);
-				switch (TextEditor.getInstance().titleFontColour) {
+				MainTextEditor.getInstance().titleFrameTime = reader.readLine();
+				MainTextEditor.getInstance().addTimeFrame.setText(MainTextEditor.getInstance().titleFrameTime);
+				MainTextEditor.getInstance().titleFontSize = Integer.parseInt(reader.readLine());
+				MainTextEditor.getInstance().sizesList.setSelectedItem("" + MainTextEditor.getInstance().titleFontSize);
+				MainTextEditor.getInstance().titleFontColour = reader.readLine();
+				MainTextEditor.getInstance().coloursList.setSelectedItem(MainTextEditor.getInstance().titleFontColour);
+				switch (MainTextEditor.getInstance().titleFontColour) {
 				case "black":
-					TextEditor.getInstance().addTextArea.setForeground(Color.black);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.black);
 					break;
 				case "green":
-					TextEditor.getInstance().addTextArea.setForeground(Color.green);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.green);
 					break;
 				case "blue":
-					TextEditor.getInstance().addTextArea.setForeground(Color.blue);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.blue);
 					break;
 				case "yellow":
-					TextEditor.getInstance().addTextArea.setForeground(Color.yellow);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.yellow);
 					break;
 				case "red":
-					TextEditor.getInstance().addTextArea.setForeground(Color.red);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.red);
 					break;
 				case "white":
-					TextEditor.getInstance().addTextArea.setForeground(Color.white);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.white);
 					break;
 				case "pink":
-					TextEditor.getInstance().addTextArea.setForeground(Color.pink);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.pink);
 					break;
 				}
-				TextEditor.getInstance().titleFontName = reader.readLine();
-				TextEditor.getInstance().titleFontStyle = Integer.parseInt(reader.readLine());
-				TextEditor.getInstance().stylesList.setSelectedIndex(TextEditor.getInstance().titleFontStyle);
-				TextEditor.getInstance().titlePreviewFont = reader.readLine();
-				TextEditor.getInstance().fontsList.setSelectedItem(TextEditor.getInstance().titlePreviewFont);
+				MainTextEditor.getInstance().titleFontName = reader.readLine();
+				MainTextEditor.getInstance().titleFontStyle = Integer.parseInt(reader.readLine());
+				MainTextEditor.getInstance().stylesList.setSelectedIndex(MainTextEditor.getInstance().titleFontStyle);
+				MainTextEditor.getInstance().titlePreviewFont = reader.readLine();
+				MainTextEditor.getInstance().fontsList.setSelectedItem(MainTextEditor.getInstance().titlePreviewFont);
 				String line;
 				StringBuilder allText = new StringBuilder();
 				while (((line = reader.readLine()) != null)) {
 					allText.append(line);
 					allText.append(System.getProperty("line.separator"));
 				}
-				TextEditor.getInstance().addTextArea.setText(allText.toString());
-				TextEditor.getInstance().addTextArea.setFont(new Font(TextEditor.getInstance().titlePreviewFont, TextEditor.getInstance().titleFontStyle,
-						TextEditor.getInstance().titleFontSize));
+				MainTextEditor.getInstance().addTextArea.setText(allText.toString());
+				MainTextEditor.getInstance().addTextArea.setFont(new Font(MainTextEditor.getInstance().titlePreviewFont, MainTextEditor.getInstance().titleFontStyle,
+						MainTextEditor.getInstance().titleFontSize));
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -244,75 +244,75 @@ public class TextProjectFunctions {
 	 *            : the path of the stored text fields
 	 */
 	public void setCreditFields(String textFieldsPath) {
-		TextEditor.getInstance().titleFields = textFieldsPath;
-		File f = new File(TextEditor.getInstance().workingDir + "/.creditFields");
+		MainTextEditor.getInstance().titleFields = textFieldsPath;
+		File f = new File(MainTextEditor.getInstance().workingDir + "/.creditFields");
 		if (f.exists()) {
 			try {
 				BufferedReader reader;
 				reader = new BufferedReader(new FileReader(f));
-				TextEditor.getInstance().screenList.setSelectedItem(reader.readLine()); // Credit Screen
-				TextEditor.getInstance().creditDuration = reader.readLine();
-				TextEditor.getInstance().addDuration.setText(TextEditor.getInstance().creditDuration);
-				TextEditor.getInstance().overlayCheck
+				MainTextEditor.getInstance().screenList.setSelectedItem(reader.readLine()); // Credit Screen
+				MainTextEditor.getInstance().creditDuration = reader.readLine();
+				MainTextEditor.getInstance().addDuration.setText(MainTextEditor.getInstance().creditDuration);
+				MainTextEditor.getInstance().overlayCheck
 				.setSelected(Boolean.parseBoolean(reader.readLine()));
-				if (TextEditor.getInstance().overlayCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageCredit = 0;
+				if (MainTextEditor.getInstance().overlayCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageCredit = 0;
 
 				}
-				TextEditor.getInstance().defaultCheck
+				MainTextEditor.getInstance().defaultCheck
 				.setSelected(Boolean.parseBoolean(reader.readLine()));
-				if (TextEditor.getInstance().defaultCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageCredit = 1;
+				if (MainTextEditor.getInstance().defaultCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageCredit = 1;
 
 				}
-				TextEditor.getInstance().frameCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-				if (TextEditor.getInstance().frameCheck.isSelected()){
-					TextEditor.getInstance().backgroundImageCredit = 2;
+				MainTextEditor.getInstance().frameCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+				if (MainTextEditor.getInstance().frameCheck.isSelected()){
+					MainTextEditor.getInstance().backgroundImageCredit = 2;
 
 				}
-				TextEditor.getInstance().creditFrameTime = reader.readLine();
-				TextEditor.getInstance().addTimeFrame.setText(TextEditor.getInstance().creditFrameTime);
-				TextEditor.getInstance().creditFontSize = Integer.parseInt(reader.readLine());
-				TextEditor.getInstance().sizesList.setSelectedItem("" + TextEditor.getInstance().creditFontSize);
-				TextEditor.getInstance().creditFontColour = reader.readLine();
-				TextEditor.getInstance().coloursList.setSelectedItem(TextEditor.getInstance().creditFontColour);
-				switch (TextEditor.getInstance().creditFontColour) {
+				MainTextEditor.getInstance().creditFrameTime = reader.readLine();
+				MainTextEditor.getInstance().addTimeFrame.setText(MainTextEditor.getInstance().creditFrameTime);
+				MainTextEditor.getInstance().creditFontSize = Integer.parseInt(reader.readLine());
+				MainTextEditor.getInstance().sizesList.setSelectedItem("" + MainTextEditor.getInstance().creditFontSize);
+				MainTextEditor.getInstance().creditFontColour = reader.readLine();
+				MainTextEditor.getInstance().coloursList.setSelectedItem(MainTextEditor.getInstance().creditFontColour);
+				switch (MainTextEditor.getInstance().creditFontColour) {
 				case "black":
-					TextEditor.getInstance().addTextArea.setForeground(Color.black);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.black);
 					break;
 				case "green":
-					TextEditor.getInstance().addTextArea.setForeground(Color.green);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.green);
 					break;
 				case "blue":
-					TextEditor.getInstance().addTextArea.setForeground(Color.blue);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.blue);
 					break;
 				case "yellow":
-					TextEditor.getInstance().addTextArea.setForeground(Color.yellow);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.yellow);
 					break;
 				case "red":
-					TextEditor.getInstance().addTextArea.setForeground(Color.red);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.red);
 					break;
 				case "white":
-					TextEditor.getInstance().addTextArea.setForeground(Color.white);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.white);
 					break;
 				case "pink":
-					TextEditor.getInstance().addTextArea.setForeground(Color.pink);
+					MainTextEditor.getInstance().addTextArea.setForeground(Color.pink);
 					break;
 				}
-				TextEditor.getInstance().creditFontName = reader.readLine();
-				TextEditor.getInstance().creditFontStyle = Integer.parseInt(reader.readLine());
-				TextEditor.getInstance().stylesList.setSelectedIndex(TextEditor.getInstance().creditFontStyle);
-				TextEditor.getInstance().creditPreviewFont = reader.readLine();
-				TextEditor.getInstance().fontsList.setSelectedItem(TextEditor.getInstance().creditPreviewFont);
+				MainTextEditor.getInstance().creditFontName = reader.readLine();
+				MainTextEditor.getInstance().creditFontStyle = Integer.parseInt(reader.readLine());
+				MainTextEditor.getInstance().stylesList.setSelectedIndex(MainTextEditor.getInstance().creditFontStyle);
+				MainTextEditor.getInstance().creditPreviewFont = reader.readLine();
+				MainTextEditor.getInstance().fontsList.setSelectedItem(MainTextEditor.getInstance().creditPreviewFont);
 				String line;
 				StringBuilder allText = new StringBuilder();
 				while (((line = reader.readLine()) != null)) {
 					allText.append(line);
 					allText.append(System.getProperty("line.separator"));
 				}
-				TextEditor.getInstance().addTextArea.setText(allText.toString());
-				TextEditor.getInstance().addTextArea.setFont(new Font(TextEditor.getInstance().creditPreviewFont,
-						TextEditor.getInstance().creditFontStyle, TextEditor.getInstance().creditFontSize));
+				MainTextEditor.getInstance().addTextArea.setText(allText.toString());
+				MainTextEditor.getInstance().addTextArea.setFont(new Font(MainTextEditor.getInstance().creditPreviewFont,
+						MainTextEditor.getInstance().creditFontStyle, MainTextEditor.getInstance().creditFontSize));
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -324,35 +324,35 @@ public class TextProjectFunctions {
 	 * Method refreshes all the title fields in the text editing tab
 	 */
 	public void refreshTitleScreen() {
-		TextEditor.getInstance().addDuration.setText("");
-		TextEditor.getInstance().addTextArea.setText("");
-		TextEditor.getInstance().addTimeFrame.setText("hh:mm:ss");
-		TextEditor.getInstance().overlayCheck.setSelected(true);
-		TextEditor.getInstance().defaultCheck.setSelected(false);
-		TextEditor.getInstance().frameCheck.setSelected(false);
-		TextEditor.getInstance().defaultCheck.setEnabled(false);
-		TextEditor.getInstance().addTimeFrame.setEnabled(false);
-		TextEditor.getInstance().frameCheck.setEnabled(false);
-		if ((TextEditor.getInstance().projectPath != null) && (!TextEditor.getInstance().projectPath.isEmpty())) {
-			TextEditor.getInstance().fontsList.setSelectedIndex(0);
-			TextEditor.getInstance().stylesList.setSelectedIndex(0);
-			TextEditor.getInstance().sizesList.setSelectedIndex(6);
-			TextEditor.getInstance().coloursList.setSelectedIndex(0);
+		MainTextEditor.getInstance().addDuration.setText("");
+		MainTextEditor.getInstance().addTextArea.setText("");
+		MainTextEditor.getInstance().addTimeFrame.setText("hh:mm:ss");
+		MainTextEditor.getInstance().overlayCheck.setSelected(true);
+		MainTextEditor.getInstance().defaultCheck.setSelected(false);
+		MainTextEditor.getInstance().frameCheck.setSelected(false);
+		MainTextEditor.getInstance().defaultCheck.setEnabled(false);
+		MainTextEditor.getInstance().addTimeFrame.setEnabled(false);
+		MainTextEditor.getInstance().frameCheck.setEnabled(false);
+		if ((MainTextEditor.getInstance().projectPath != null) && (!MainTextEditor.getInstance().projectPath.isEmpty())) {
+			MainTextEditor.getInstance().fontsList.setSelectedIndex(0);
+			MainTextEditor.getInstance().stylesList.setSelectedIndex(0);
+			MainTextEditor.getInstance().sizesList.setSelectedIndex(6);
+			MainTextEditor.getInstance().coloursList.setSelectedIndex(0);
 		}
-		TextEditor.getInstance().backgroundImageOption = 0;
-		TextEditor.getInstance().titleDuration = "";
-		TextEditor.getInstance().titleFrameTime = "";
-		TextEditor.getInstance().fontType = 0;
-		TextEditor.getInstance().fontStyle = 0;
-		TextEditor.getInstance().titleFontSize = 30;
-		TextEditor.getInstance().fontSize = 30;
-		TextEditor.getInstance().titleFontColour = "black";
-		TextEditor.getInstance().fontColour = "black";
-		TextEditor.getInstance().titleFontName = "";
-		TextEditor.getInstance().fontName = "";
-		TextEditor.getInstance().titleFontStyle = 0;
-		TextEditor.getInstance().titlePreviewFont = "Arial";
-		TextEditor.getInstance().prevFont = "Arial";
+		MainTextEditor.getInstance().backgroundImageOption = 0;
+		MainTextEditor.getInstance().titleDuration = "";
+		MainTextEditor.getInstance().titleFrameTime = "";
+		MainTextEditor.getInstance().fontType = 0;
+		MainTextEditor.getInstance().fontStyle = 0;
+		MainTextEditor.getInstance().titleFontSize = 30;
+		MainTextEditor.getInstance().fontSize = 30;
+		MainTextEditor.getInstance().titleFontColour = "black";
+		MainTextEditor.getInstance().fontColour = "black";
+		MainTextEditor.getInstance().titleFontName = "";
+		MainTextEditor.getInstance().fontName = "";
+		MainTextEditor.getInstance().titleFontStyle = 0;
+		MainTextEditor.getInstance().titlePreviewFont = "Arial";
+		MainTextEditor.getInstance().prevFont = "Arial";
 	}
 
 	/**
@@ -360,23 +360,23 @@ public class TextProjectFunctions {
 	 * except the screen list
 	 */
 	public void setFieldsEnabled(boolean state) {
-		TextEditor.getInstance().deleteBtn.setEnabled(state);
-		TextEditor.getInstance().saveButton.setEnabled(state);
-		TextEditor.getInstance().helpButton.setEnabled(state);
-		TextEditor.getInstance().prevBtn.setEnabled(state);
+		MainTextEditor.getInstance().deleteBtn.setEnabled(state);
+		MainTextEditor.getInstance().saveButton.setEnabled(state);
+		MainTextEditor.getInstance().helpButton.setEnabled(state);
+		MainTextEditor.getInstance().prevBtn.setEnabled(state);
 
-		TextEditor.getInstance().addDuration.setEnabled(state);
-		TextEditor.getInstance().addTextArea.setEnabled(state);
-		TextEditor.getInstance().addTimeFrame.setEnabled(state);
+		MainTextEditor.getInstance().addDuration.setEnabled(state);
+		MainTextEditor.getInstance().addTextArea.setEnabled(state);
+		MainTextEditor.getInstance().addTimeFrame.setEnabled(state);
 
 		if (!state){
-			TextEditor.getInstance().getTime1Button.setEnabled(state);
+			MainTextEditor.getInstance().getTime1Button.setEnabled(state);
 		}
 
-		TextEditor.getInstance().fontsList.setEnabled(state);
-		TextEditor.getInstance().stylesList.setEnabled(state);
-		TextEditor.getInstance().sizesList.setEnabled(state);
-		TextEditor.getInstance().coloursList.setEnabled(state);
+		MainTextEditor.getInstance().fontsList.setEnabled(state);
+		MainTextEditor.getInstance().stylesList.setEnabled(state);
+		MainTextEditor.getInstance().sizesList.setEnabled(state);
+		MainTextEditor.getInstance().coloursList.setEnabled(state);
 
 	}
 
@@ -384,51 +384,51 @@ public class TextProjectFunctions {
 	 * Method refreshes all the credits fields in the text editing tab
 	 */
 	public void refreshCreditScreen() {
-		TextEditor.getInstance().addDuration.setText("");
-		TextEditor.getInstance().addTextArea.setText("");
-		TextEditor.getInstance().addTimeFrame.setText("hh:mm:ss");
-		TextEditor.getInstance().addTimeFrame.setEnabled(false);
-		TextEditor.getInstance().overlayCheck.setSelected(true);
-		TextEditor.getInstance().defaultCheck.setSelected(false);
-		TextEditor.getInstance().frameCheck.setSelected(false);
-		TextEditor.getInstance().defaultCheck.setEnabled(false);
-		TextEditor.getInstance().frameCheck.setEnabled(false);
-		if ((TextEditor.getInstance().projectPath != null) && (!TextEditor.getInstance().projectPath.isEmpty())) {
-			TextEditor.getInstance().fontsList.setSelectedIndex(0);
-			TextEditor.getInstance().stylesList.setSelectedIndex(0);
-			TextEditor.getInstance().sizesList.setSelectedIndex(6);
-			TextEditor.getInstance().coloursList.setSelectedIndex(0);
+		MainTextEditor.getInstance().addDuration.setText("");
+		MainTextEditor.getInstance().addTextArea.setText("");
+		MainTextEditor.getInstance().addTimeFrame.setText("hh:mm:ss");
+		MainTextEditor.getInstance().addTimeFrame.setEnabled(false);
+		MainTextEditor.getInstance().overlayCheck.setSelected(true);
+		MainTextEditor.getInstance().defaultCheck.setSelected(false);
+		MainTextEditor.getInstance().frameCheck.setSelected(false);
+		MainTextEditor.getInstance().defaultCheck.setEnabled(false);
+		MainTextEditor.getInstance().frameCheck.setEnabled(false);
+		if ((MainTextEditor.getInstance().projectPath != null) && (!MainTextEditor.getInstance().projectPath.isEmpty())) {
+			MainTextEditor.getInstance().fontsList.setSelectedIndex(0);
+			MainTextEditor.getInstance().stylesList.setSelectedIndex(0);
+			MainTextEditor.getInstance().sizesList.setSelectedIndex(6);
+			MainTextEditor.getInstance().coloursList.setSelectedIndex(0);
 		}
-		TextEditor.getInstance().backgroundImageOption = 0;
-		TextEditor.getInstance().creditDuration = "";
-		TextEditor.getInstance().creditFrameTime = "";
-		TextEditor.getInstance().fontType = 0;
-		TextEditor.getInstance().fontStyle = 0;
-		TextEditor.getInstance().fontSize = 30;
-		TextEditor.getInstance().creditFontSize = 30;
-		TextEditor.getInstance().fontColour = "black";
-		TextEditor.getInstance().creditFontColour = "black";
-		TextEditor.getInstance().fontName = "";
-		TextEditor.getInstance().creditFontName = "";
-		TextEditor.getInstance().creditFontStyle = 0;
-		TextEditor.getInstance().creditPreviewFont = "Arial";
-		TextEditor.getInstance().prevFont = "Arial";
+		MainTextEditor.getInstance().backgroundImageOption = 0;
+		MainTextEditor.getInstance().creditDuration = "";
+		MainTextEditor.getInstance().creditFrameTime = "";
+		MainTextEditor.getInstance().fontType = 0;
+		MainTextEditor.getInstance().fontStyle = 0;
+		MainTextEditor.getInstance().fontSize = 30;
+		MainTextEditor.getInstance().creditFontSize = 30;
+		MainTextEditor.getInstance().fontColour = "black";
+		MainTextEditor.getInstance().creditFontColour = "black";
+		MainTextEditor.getInstance().fontName = "";
+		MainTextEditor.getInstance().creditFontName = "";
+		MainTextEditor.getInstance().creditFontStyle = 0;
+		MainTextEditor.getInstance().creditPreviewFont = "Arial";
+		MainTextEditor.getInstance().prevFont = "Arial";
 	}
 
 	/**
 	 * Method refreshes all the project fields in the text editing tab
 	 */
 	public void refreshtextEdit() {
-		if ((TextEditor.getInstance().projectPath != null) && (!TextEditor.getInstance().projectPath.isEmpty())) {
-			TextEditor.getInstance().screenList.setSelectedIndex(0);
+		if ((MainTextEditor.getInstance().projectPath != null) && (!MainTextEditor.getInstance().projectPath.isEmpty())) {
+			MainTextEditor.getInstance().screenList.setSelectedIndex(0);
 		}
-		TextEditor.getInstance().screenType = "";
-		TextEditor.getInstance().projectPath = "";
-		TextEditor.getInstance().hiddenDir = "";
-		TextEditor.getInstance().videoPath = "";
-		TextEditor.getInstance().videoLength = "";
-		TextEditor.getInstance().workingDir = "";
-		TextEditor.getInstance().titleFields = "";
-		TextEditor.getInstance().creditFields = "";
+		MainTextEditor.getInstance().screenType = "";
+		MainTextEditor.getInstance().projectPath = "";
+		MainTextEditor.getInstance().hiddenDir = "";
+		MainTextEditor.getInstance().videoPath = "";
+		MainTextEditor.getInstance().videoLength = "";
+		MainTextEditor.getInstance().workingDir = "";
+		MainTextEditor.getInstance().titleFields = "";
+		MainTextEditor.getInstance().creditFields = "";
 	}
 }

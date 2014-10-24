@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
-import audioManipulator.AudioManipulator;
+import audioManipulator.MainAudioManipulator;
 
 public class TextChecks {
 	
@@ -19,22 +19,22 @@ public class TextChecks {
 		boolean passed = false;
 
 		// If no background option was specified
-		if (!TextEditor.getInstance().defaultCheck.isSelected() && !TextEditor.getInstance().overlayCheck.isSelected()
-				&& !TextEditor.getInstance().frameCheck.isSelected()) {
+		if (!MainTextEditor.getInstance().defaultCheck.isSelected() && !MainTextEditor.getInstance().overlayCheck.isSelected()
+				&& !MainTextEditor.getInstance().frameCheck.isSelected()) {
 			passed = false;
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please select of the background options");
 		}
 
-		else if (TextEditor.getInstance().backgroundImageTitle == 3 && TextEditor.getInstance().backgroundImageCredit != 3) {
+		else if (MainTextEditor.getInstance().backgroundImageTitle == 3 && MainTextEditor.getInstance().backgroundImageCredit != 3) {
 			passed = true;
-		} else if (TextEditor.getInstance().backgroundImageCredit == 3 && TextEditor.getInstance().backgroundImageTitle != 3) {
+		} else if (MainTextEditor.getInstance().backgroundImageCredit == 3 && MainTextEditor.getInstance().backgroundImageTitle != 3) {
 			passed = true;
 		}
 
-		else if (TextEditor.getInstance().backgroundImageTitle == 3 && TextEditor.getInstance().backgroundImageCredit == 3) {
+		else if (MainTextEditor.getInstance().backgroundImageTitle == 3 && MainTextEditor.getInstance().backgroundImageCredit == 3) {
 			passed = true;
-		} else if (TextEditor.getInstance().backgroundImageTitle == TextEditor.getInstance().backgroundImageCredit) {
+		} else if (MainTextEditor.getInstance().backgroundImageTitle == MainTextEditor.getInstance().backgroundImageCredit) {
 			passed = true;
 		} else {
 			passed = false;
@@ -44,9 +44,9 @@ public class TextChecks {
 					null,
 					"ERROR: background image option needs to be the same if both title and credit screen are selected");
 
-			TextEditor.getInstance().overlayCheck.setSelected(false);
-			TextEditor.getInstance().defaultCheck.setSelected(false);
-			TextEditor.getInstance().frameCheck.setSelected(false);
+			MainTextEditor.getInstance().overlayCheck.setSelected(false);
+			MainTextEditor.getInstance().defaultCheck.setSelected(false);
+			MainTextEditor.getInstance().frameCheck.setSelected(false);
 		}
 
 		return passed;
@@ -74,17 +74,17 @@ public class TextChecks {
 		boolean passedOrNot = true;
 		boolean passedBackgroundCheck;
 
-		if (TextEditor.getInstance().screenType.equals("Title Screen")) {
+		if (MainTextEditor.getInstance().screenType.equals("Title Screen")) {
 
 			// set the backgroundImageTitle;
-			TextEditor.getInstance().backgroundImageTitle = TextEditor.getInstance().backgroundImageOption;
+			MainTextEditor.getInstance().backgroundImageTitle = MainTextEditor.getInstance().backgroundImageOption;
 
 			// check for the backgroundImageOption
 			passedBackgroundCheck = backgroundImageCheck();
 
 		} else {
 			// set the backgroundImageCredit;
-			TextEditor.getInstance().backgroundImageCredit = TextEditor.getInstance().backgroundImageOption;
+			MainTextEditor.getInstance().backgroundImageCredit = MainTextEditor.getInstance().backgroundImageOption;
 
 			// check for the backgroundImageOption
 			passedBackgroundCheck = backgroundImageCheck();
@@ -93,18 +93,18 @@ public class TextChecks {
 		if (passedBackgroundCheck) {
 
 			// If no duration was specified
-			if (TextEditor.getInstance().addDuration.getText().trim().equals("")) {
+			if (MainTextEditor.getInstance().addDuration.getText().trim().equals("")) {
 				passedOrNot = false;
 				JOptionPane.showMessageDialog(null,
 						"ERROR: please specify the duration");
 
 		
-			} else if (!TextEditor.getInstance().addDuration.getText().trim().equals("")){
+			} else if (!MainTextEditor.getInstance().addDuration.getText().trim().equals("")){
 				Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
-				Matcher matchesInteger = integerPattern.matcher(TextEditor.getInstance().addDuration.getText());
+				Matcher matchesInteger = integerPattern.matcher(MainTextEditor.getInstance().addDuration.getText());
 				boolean isInteger = matchesInteger.matches();
-				int duration = Integer.parseInt(TextEditor.getInstance().addDuration.getText().trim());
-				int lengthOfVideo = (int)(Double.parseDouble(TextEditor.getInstance().videoLength));
+				int duration = Integer.parseInt(MainTextEditor.getInstance().addDuration.getText().trim());
+				int lengthOfVideo = (int)(Double.parseDouble(MainTextEditor.getInstance().videoLength));
 				
 				if (!isInteger){
 					JOptionPane.showMessageDialog(null,
@@ -122,26 +122,26 @@ public class TextChecks {
 
 				// If a frame background was chosen without specifying the frame
 				// time
-			} else if (TextEditor.getInstance().backgroundImageOption == 2) {
-				int passedTimeCheck = timeChecks(TextEditor.getInstance().addTimeFrame.getText().trim());
+			} else if (MainTextEditor.getInstance().backgroundImageOption == 2) {
+				int passedTimeCheck = timeChecks(MainTextEditor.getInstance().addTimeFrame.getText().trim());
 				if (passedTimeCheck == 1) {
-					TextEditor.getInstance().addTimeFrame.setText("");
+					MainTextEditor.getInstance().addTimeFrame.setText("");
 					passedOrNot = false;
 					JOptionPane.showMessageDialog(null,
 							"ERROR: please specify the frame time in hh:mm:ss");
 				}
 
 				if (passedOrNot) {
-					int convertedFrameTime = convertToSeconds(TextEditor.getInstance().addTimeFrame
+					int convertedFrameTime = convertToSeconds(MainTextEditor.getInstance().addTimeFrame
 							.getText().trim());
-					int lengthOfVideo = (int) (Double.parseDouble(TextEditor.getInstance().videoLength));
+					int lengthOfVideo = (int) (Double.parseDouble(MainTextEditor.getInstance().videoLength));
 					// Check the time of frame is within the range of the video
 					if (convertedFrameTime > lengthOfVideo) {
 						passedOrNot = false;
 						JOptionPane
 						.showMessageDialog(null,
 								"ERROR: frame time can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-						TextEditor.getInstance().addTimeFrame.setText("");
+						MainTextEditor.getInstance().addTimeFrame.setText("");
 					}
 				}
 			}

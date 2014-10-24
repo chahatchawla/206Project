@@ -31,7 +31,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import audioManipulator.AudioManipulator;
+import audioManipulator.MainAudioManipulator;
 
 import mainPackage.VideoPlayer;
 
@@ -45,10 +45,10 @@ import mainPackage.VideoPlayer;
  * 
  */
 
-public class Subtitles extends JPanel implements ItemListener,
+public class MainSubtitles extends JPanel implements ItemListener,
 ActionListener {
 
-	private static Subtitles instance = new Subtitles();
+	private static MainSubtitles instance = new MainSubtitles();
 	protected SubtitleChecks sc = new SubtitleChecks();
 	protected SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
 	protected SubtitleHelp sh = new SubtitleHelp();
@@ -152,14 +152,14 @@ ActionListener {
 	protected String subtitlesFields;
 
 	// Initializing the swing worker AudioBackgroundTask
-	protected Subtitles longTask;
+	protected MainSubtitles longTask;
 
 	/**
 	 * Constructor for AudioManipulator() -Sets up the GUI for audio
 	 * manipulation tab -Sets up the default layout
 	 */
 
-	private Subtitles() {
+	private MainSubtitles() {
 
 
 		// Create a couple of columns 
@@ -304,7 +304,7 @@ ActionListener {
 	}
 
 
-	public static Subtitles getInstance() {
+	public static MainSubtitles getInstance() {
 		return instance;
 	}
 

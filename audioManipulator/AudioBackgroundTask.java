@@ -19,10 +19,10 @@ public class AudioBackgroundTask{
 			// if remove is enabled and replace is not enabled, constructs
 			// the
 			// command for removing the audio from the input file
-			if (AudioManipulator.getInstance().removeEnable) {
+			if (MainAudioManipulator.getInstance().removeEnable) {
 
 				String tempName = "";
-				if (!AudioManipulator.getInstance().replaceEnable) {
+				if (!MainAudioManipulator.getInstance().replaceEnable) {
 
 					// remove audio
 					StringBuilder bigRemoveCmd = new StringBuilder();
@@ -31,7 +31,7 @@ public class AudioBackgroundTask{
 
 					bigRemoveCmd.append(";");
 
-					AudioManipulator.getInstance().removeCmd = bigRemoveCmd
+					MainAudioManipulator.getInstance().removeCmd = bigRemoveCmd
 							.toString();
 
 				}
@@ -39,20 +39,20 @@ public class AudioBackgroundTask{
 			}
 
 			// if extract is enabled, constructs the command for extract
-			if (AudioManipulator.getInstance().extractEnable) {
+			if (MainAudioManipulator.getInstance().extractEnable) {
 
 				StringBuilder bigExtractCmd = new StringBuilder();
 
 				// if duration is not enabled - extract the .mp3 file
 				// without a start time and a length
-				if (!AudioManipulator.getInstance().extractDurationEnable) {
+				if (!MainAudioManipulator.getInstance().extractDurationEnable) {
 					bigExtractCmd.append("avconv -i " + firstInput
 							+ " -vcodec copy -y -vn ");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().workingDir
+					.append(MainAudioManipulator.getInstance().workingDir
 							+ "/");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().outputFileName
+					.append(MainAudioManipulator.getInstance().outputFileName
 							.getText());
 					bigExtractCmd.append(".mp3");
 					bigExtractCmd.append(";");
@@ -65,27 +65,27 @@ public class AudioBackgroundTask{
 					bigExtractCmd.append("avconv -i " + firstInput
 							+ " -vcodec copy -ss ");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().startTimeExtract
+					.append(MainAudioManipulator.getInstance().startTimeExtract
 							.getText());
 					bigExtractCmd.append(" -t ");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().lengthExtract
+					.append(MainAudioManipulator.getInstance().lengthExtract
 							.getText());
 					bigExtractCmd.append(" -y -vn ");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().workingDir
+					.append(MainAudioManipulator.getInstance().workingDir
 							+ "/");
 					bigExtractCmd
-					.append(AudioManipulator.getInstance().outputFileName
+					.append(MainAudioManipulator.getInstance().outputFileName
 							.getText());
 					bigExtractCmd.append(".mp3");
 					bigExtractCmd.append(";");
 
 				}
 
-				if (!AudioManipulator.getInstance().removeEnable
-						&& !AudioManipulator.getInstance().overlayEnable
-						&& !AudioManipulator.getInstance().replaceEnable) {
+				if (!MainAudioManipulator.getInstance().removeEnable
+						&& !MainAudioManipulator.getInstance().overlayEnable
+						&& !MainAudioManipulator.getInstance().replaceEnable) {
 
 					bigExtractCmd.append("avconv -i ");
 					bigExtractCmd.append(firstInput);
@@ -95,16 +95,16 @@ public class AudioBackgroundTask{
 
 				}
 
-				AudioManipulator.getInstance().extractCmd = bigExtractCmd
+				MainAudioManipulator.getInstance().extractCmd = bigExtractCmd
 						.toString();
 			}
 
 			// if extract is enabled, constructs the command for replace
-			if (AudioManipulator.getInstance().replaceEnable) {
+			if (MainAudioManipulator.getInstance().replaceEnable) {
 				String tempName = "";
-				if (AudioManipulator.getInstance().overlayEnable) {
+				if (MainAudioManipulator.getInstance().overlayEnable) {
 					tempName = lastOutput;
-					lastOutput = AudioManipulator.getInstance().hiddenDir
+					lastOutput = MainAudioManipulator.getInstance().hiddenDir
 							+ "/r.mp4";
 
 				}
@@ -113,46 +113,46 @@ public class AudioBackgroundTask{
 				// replace the audio stream
 
 				bigReplaceCmd.append("avconv -i " + firstInput + " -i ");
-				bigReplaceCmd.append(AudioManipulator.getInstance().inputFile);
+				bigReplaceCmd.append(MainAudioManipulator.getInstance().inputFile);
 				bigReplaceCmd
 				.append(" -ss 0 -map 0:0 -map 1:0 -c:v copy -c:a copy -t ");
 				bigReplaceCmd
-				.append(AudioManipulator.getInstance().videoLength);
+				.append(MainAudioManipulator.getInstance().videoLength);
 				bigReplaceCmd.append(" -y " + lastOutput);
 				bigReplaceCmd.append(";");
 
-				AudioManipulator.getInstance().replaceCmd = bigReplaceCmd
+				MainAudioManipulator.getInstance().replaceCmd = bigReplaceCmd
 						.toString();
 
-				if (AudioManipulator.getInstance().overlayEnable) {
+				if (MainAudioManipulator.getInstance().overlayEnable) {
 					lastOutput = tempName;
 				}
 			}
 
 			// if overlay is enabled, constructs the command for overlay
 
-			if (AudioManipulator.getInstance().overlayEnable) {
+			if (MainAudioManipulator.getInstance().overlayEnable) {
 
 				String tempName = "";
 
-				if (AudioManipulator.getInstance().replaceEnable) {
+				if (MainAudioManipulator.getInstance().replaceEnable) {
 					tempName = firstInput;
-					firstInput = AudioManipulator.getInstance().hiddenDir
+					firstInput = MainAudioManipulator.getInstance().hiddenDir
 							+ "/r.mp4";
 				}
 
 				StringBuilder bigOverlayCmd = new StringBuilder();
 
 				// get the number of input audio files
-				int num = AudioManipulator.getInstance().fullNames.getSize() + 1;
+				int num = MainAudioManipulator.getInstance().fullNames.getSize() + 1;
 				String number = "" + num;
 
 				StringBuilder s = new StringBuilder();
 				// append their file names together
-				for (int i = 0; i < AudioManipulator.getInstance().fullNames
+				for (int i = 0; i < MainAudioManipulator.getInstance().fullNames
 						.getSize(); i++) {
 					s.append("-i ");
-					s.append(AudioManipulator.getInstance().fullNames.get(i)
+					s.append(MainAudioManipulator.getInstance().fullNames.get(i)
 							.toString());
 					s.append(" ");
 				}
@@ -160,7 +160,7 @@ public class AudioBackgroundTask{
 
 				StringBuilder m = new StringBuilder();
 				// append their map functions together
-				for (int i = 1; i <= AudioManipulator.getInstance().fullNames
+				for (int i = 1; i <= MainAudioManipulator.getInstance().fullNames
 						.getSize(); i++) {
 					m.append("-map ");
 					m.append(i);
@@ -171,7 +171,7 @@ public class AudioBackgroundTask{
 				// if duration is not enabled - merge the audio streams using
 				// the filter amix=inputs
 				// Reference to Nasser's slides
-				if (!AudioManipulator.getInstance().overlayDurationEnable) {
+				if (!MainAudioManipulator.getInstance().overlayDurationEnable) {
 					bigOverlayCmd.append("avconv -i " + firstInput + " ");
 					bigOverlayCmd.append(inputFileNames);
 					bigOverlayCmd
@@ -180,7 +180,7 @@ public class AudioBackgroundTask{
 							+ " -codec:v libx264 -preset medium -crf 23 -codec:a aac -strict experimental -b:a 192k -filter_complex amix=inputs="
 							+ number + " -t ");
 					bigOverlayCmd
-					.append(AudioManipulator.getInstance().videoLength);
+					.append(MainAudioManipulator.getInstance().videoLength);
 					bigOverlayCmd.append(" -y " + lastOutput);
 					bigOverlayCmd.append(";");
 
@@ -195,12 +195,12 @@ public class AudioBackgroundTask{
 				else {
 
 					// convert the start time from hh:mm:ss to seconds
-					int startTimeInSeconds = AudioManipulator.getInstance().ac
-							.convertToSeconds(AudioManipulator.getInstance().startTimeOverlay
+					int startTimeInSeconds = MainAudioManipulator.getInstance().ac
+							.convertToSeconds(MainAudioManipulator.getInstance().startTimeOverlay
 									.getText());
 					// convert the length from hh:mm:ss to seconds
-					int lengthInSeconds = AudioManipulator.getInstance().ac
-							.convertToSeconds(AudioManipulator.getInstance().lengthOverlay
+					int lengthInSeconds = MainAudioManipulator.getInstance().ac
+							.convertToSeconds(MainAudioManipulator.getInstance().lengthOverlay
 									.getText());
 
 					// add the start time and length to get the stopTime
@@ -223,9 +223,9 @@ public class AudioBackgroundTask{
 					bigOverlayCmd.append(" -t ");
 					bigOverlayCmd.append(length);
 					bigOverlayCmd.append(" -strict experimental -y "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/Selection.mp4; avconv -i "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/Selection.mp4 ");
 					bigOverlayCmd.append(inputFileNames);
 					bigOverlayCmd
@@ -236,32 +236,32 @@ public class AudioBackgroundTask{
 							+ " -t "
 							+ length
 							+ " -y "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/out.mp4; avconv -ss 0 -i "
 							+ firstInput
 							+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -t ");
 					bigOverlayCmd.append(startTime);
 					bigOverlayCmd
 					.append(" -y "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file1.ts ; avconv -ss 0 -i "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/out.mp4 -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -t "
 							+ length + " -y "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file2.ts; avconv -ss ");
 					bigOverlayCmd.append(stopTime); // start+duration
 					bigOverlayCmd
 					.append(" -i "
 							+ firstInput
 							+ " -vcodec libx264 -acodec aac -bsf:v h264_mp4toannexb -f mpegts -strict experimental -y "
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file3.ts ; avconv -i concat:\""
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file1.ts|"
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file2.ts|"
-							+ AudioManipulator.getInstance().hiddenDir
+							+ MainAudioManipulator.getInstance().hiddenDir
 							+ "/file3.ts\" -c copy -bsf:a aac_adtstoasc -y "
 							+ lastOutput);
 					bigOverlayCmd.append(";");
@@ -269,11 +269,11 @@ public class AudioBackgroundTask{
 
 
 				}
-				if (AudioManipulator.getInstance().replaceEnable) {
+				if (MainAudioManipulator.getInstance().replaceEnable) {
 					firstInput = tempName;
 				}
 
-				AudioManipulator.getInstance().overlayCmd = bigOverlayCmd
+				MainAudioManipulator.getInstance().overlayCmd = bigOverlayCmd
 						.toString();
 
 			}
@@ -281,21 +281,21 @@ public class AudioBackgroundTask{
 			// construct the final command for audio
 			StringBuilder finalCommand = new StringBuilder();
 
-			if (AudioManipulator.getInstance().removeEnable
-					&& !AudioManipulator.getInstance().replaceEnable) {
-				finalCommand.append(AudioManipulator.getInstance().removeCmd);
+			if (MainAudioManipulator.getInstance().removeEnable
+					&& !MainAudioManipulator.getInstance().replaceEnable) {
+				finalCommand.append(MainAudioManipulator.getInstance().removeCmd);
 				
 			}
-			if (AudioManipulator.getInstance().extractEnable) {
-				finalCommand.append(AudioManipulator.getInstance().extractCmd);
+			if (MainAudioManipulator.getInstance().extractEnable) {
+				finalCommand.append(MainAudioManipulator.getInstance().extractCmd);
 				
 			}
-			if (AudioManipulator.getInstance().replaceEnable) {
-				finalCommand.append(AudioManipulator.getInstance().replaceCmd);
+			if (MainAudioManipulator.getInstance().replaceEnable) {
+				finalCommand.append(MainAudioManipulator.getInstance().replaceCmd);
 				
 			}
-			if (AudioManipulator.getInstance().overlayEnable) {
-				finalCommand.append(AudioManipulator.getInstance().overlayCmd);
+			if (MainAudioManipulator.getInstance().overlayEnable) {
+				finalCommand.append(MainAudioManipulator.getInstance().overlayCmd);
 			
 			}
 

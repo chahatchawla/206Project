@@ -11,7 +11,7 @@ public class TextHelp {
 		JFrame helpframe = new JFrame("Help - Text Editor");
 		JPanel helpPanel = new JPanel(new BorderLayout());
 		
-		helpPanel.add(TextEditor.getInstance().helpImage);
+		helpPanel.add(MainTextEditor.getInstance().helpImage);
 		helpframe.setContentPane(helpPanel);
 		helpframe.setLocation(450, 100);
 		helpframe.setResizable(false);

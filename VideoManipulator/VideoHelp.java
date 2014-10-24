@@ -13,7 +13,7 @@ public class VideoHelp {
 		JFrame helpframe = new JFrame("Help - Video Manipulator");
 		JPanel helpPanel = new JPanel(new BorderLayout());
 		
-		helpPanel.add(VideoManipulator.getInstance().helpImage);
+		helpPanel.add(MainVideoManipulator.getInstance().helpImage);
 		helpframe.setContentPane(helpPanel);
 		helpframe.setLocation(450, 100);
 		helpframe.setResizable(false);

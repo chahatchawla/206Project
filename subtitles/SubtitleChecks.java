@@ -92,20 +92,20 @@ public class SubtitleChecks {
 
 	protected boolean allChecksAdd() {
 		// Get the video path and length
-		Subtitles.getInstance().spf.setVideoInfo();
+		MainSubtitles.getInstance().spf.setVideoInfo();
 		boolean passedOrNot = true;
 
 
 		// check whether the input startTime and lengthTime is in the right
 		// format or not using timeChecks()
-		int passedTimeCheckExtract = timeChecks(Subtitles.getInstance().startTime.getText()
-				.trim(), Subtitles.getInstance().endTime.getText().trim());
+		int passedTimeCheckExtract = timeChecks(MainSubtitles.getInstance().startTime.getText()
+				.trim(), MainSubtitles.getInstance().endTime.getText().trim());
 
 		// if both are in the wrong format, inform the user and allow them
 		// to enter the start time and length again
 		if (passedTimeCheckExtract == 3) {
-			Subtitles.getInstance().startTime.setText("");
-			Subtitles.getInstance().endTime.setText("");
+			MainSubtitles.getInstance().startTime.setText("");
+			MainSubtitles.getInstance().endTime.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(
@@ -116,7 +116,7 @@ public class SubtitleChecks {
 		// if start time is in the wrong format, inform the user and allow
 		// them to enter the start time again
 		else if (passedTimeCheckExtract == 1) {
-			Subtitles.getInstance().startTime.setText("");
+			MainSubtitles.getInstance().startTime.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -127,7 +127,7 @@ public class SubtitleChecks {
 		// if length is in the wrong format, inform the user and allow them
 		// to enter the length again
 		else if (passedTimeCheckExtract == 2) {
-			Subtitles.getInstance().endTime.setText("");
+			MainSubtitles.getInstance().endTime.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -139,13 +139,13 @@ public class SubtitleChecks {
 		else if (passedOrNot) {
 
 
-			int startTime = convertToSeconds(Subtitles.getInstance().startTime.getText()
+			int startTime = convertToSeconds(MainSubtitles.getInstance().startTime.getText()
 					.trim());
 
-			int endTime = convertToSeconds(Subtitles.getInstance().endTime.getText()
+			int endTime = convertToSeconds(MainSubtitles.getInstance().endTime.getText()
 					.trim());
 
-			int lengthOfVideo = (int) (Double.parseDouble(Subtitles.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainSubtitles.getInstance().videoLength));
 
 			// if totalTime is more than the length of the video, inform the
 			// user and allow them to enter the start time and length again
@@ -155,7 +155,7 @@ public class SubtitleChecks {
 				.showMessageDialog(
 						null,
 						"ERROR: end time can not be more than the length of the video");
-				Subtitles.getInstance().endTime.setText("");
+				MainSubtitles.getInstance().endTime.setText("");
 
 			}
 
@@ -165,11 +165,11 @@ public class SubtitleChecks {
 				.showMessageDialog(
 						null,
 						"ERROR: start time can not be more than the end time selected");
-				Subtitles.getInstance().startTime.setText("");	
+				MainSubtitles.getInstance().startTime.setText("");	
 			}
 
 			// check for whether the text field is empty
-			else if (Subtitles.getInstance().text.getText().trim().equals("")) {
+			else if (MainSubtitles.getInstance().text.getText().trim().equals("")) {
 				JOptionPane.showMessageDialog(null,
 						"ERROR: please specify some text for subtitles");
 				passedOrNot = false;
@@ -190,12 +190,12 @@ public class SubtitleChecks {
 
 	protected boolean allChecksGenerate() {
 		// Get the video path and length
-		Subtitles.getInstance().spf.setVideoInfo();
+		MainSubtitles.getInstance().spf.setVideoInfo();
 		boolean passedOrNot = true;
 
 
 		// check for whether the outputFileName field is empty
-		if (Subtitles.getInstance().outputFileName.getText().trim().equals("")) {
+		if (MainSubtitles.getInstance().outputFileName.getText().trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output .srt file name");
 			passedOrNot = false;
@@ -203,7 +203,7 @@ public class SubtitleChecks {
 
 		// check whether the outputFileName specified user already exists in the
 		// project directory
-		String outputFile = Subtitles.getInstance().workingDir + "/" + Subtitles.getInstance().outputFileName.getText()
+		String outputFile = MainSubtitles.getInstance().workingDir + "/" + MainSubtitles.getInstance().outputFileName.getText()
 				+ ".srt";
 		File f = new File(outputFile);
 		if (f.exists()) {
@@ -214,7 +214,7 @@ public class SubtitleChecks {
 			// change the output file name
 			Object[] existOptions = {"Overwrite", "Cancel"};
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ Subtitles.getInstance().outputFileName.getText() + ".srt already exists. "
+					+ MainSubtitles.getInstance().outputFileName.getText() + ".srt already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
@@ -222,7 +222,7 @@ public class SubtitleChecks {
 			if (optionChosen == 0) {
 				f.delete(); // Delete the existing file
 			} else {
-				Subtitles.getInstance().outputFileName.setText("");
+				MainSubtitles.getInstance().outputFileName.setText("");
 				passedOrNot = false;
 			}
 		}

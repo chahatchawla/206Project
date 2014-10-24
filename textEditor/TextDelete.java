@@ -8,9 +8,9 @@ public class TextDelete {
 	protected void textDelete() {
 
 		// Get the video path and length
-		TextEditor.getInstance().tpf.setVideoInfo();
+		MainTextEditor.getInstance().tpf.setVideoInfo();
 
-		if (TextEditor.getInstance().screenType.equals("")) { 
+		if (MainTextEditor.getInstance().screenType.equals("")) { 
 			// chosen
 			JOptionPane
 			.showMessageDialog(null,
@@ -19,12 +19,12 @@ public class TextDelete {
 		}
 
 	
-		else if (TextEditor.getInstance().screenType.equals("Title Screen")) {
-			File f = new File(TextEditor.getInstance().workingDir + "/.titleFields");
-			File t = new File(TextEditor.getInstance().workingDir + "/.TitleText.txt");
+		else if (MainTextEditor.getInstance().screenType.equals("Title Screen")) {
+			File f = new File(MainTextEditor.getInstance().workingDir + "/.titleFields");
+			File t = new File(MainTextEditor.getInstance().workingDir + "/.TitleText.txt");
 			f.delete();
 			t.delete();
-			TextEditor.getInstance().tpf.refreshTitleScreen();
+			MainTextEditor.getInstance().tpf.refreshTitleScreen();
 			JOptionPane
 			.showMessageDialog(null,
 					"Title Screen has been deleted");
@@ -33,11 +33,11 @@ public class TextDelete {
 		}
 		
 		else {
-			File f = new File(TextEditor.getInstance().workingDir + "/.creditFields");
-			File t = new File(TextEditor.getInstance().workingDir + "/.CreditText.txt");
+			File f = new File(MainTextEditor.getInstance().workingDir + "/.creditFields");
+			File t = new File(MainTextEditor.getInstance().workingDir + "/.CreditText.txt");
 			f.delete();
 			t.delete();
-			TextEditor.getInstance().tpf.refreshCreditScreen();
+			MainTextEditor.getInstance().tpf.refreshCreditScreen();
 			JOptionPane
 			.showMessageDialog(null,
 					"Credit Screen has been deleted");

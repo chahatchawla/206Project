@@ -13,7 +13,7 @@ public class LoopPreview {
 
 	protected void loopPreview(){
 		// Get the video path and length
-		VideoManipulator.getInstance().vpf.setVideoInfo();
+		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 
 
 
@@ -21,19 +21,19 @@ public class LoopPreview {
 
 		// check whether the start time is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckStart = VideoManipulator.getInstance().vc.timeChecks(VideoManipulator.getInstance().timeStart.getText()
+		boolean passedTimeCheckStart = MainVideoManipulator.getInstance().vc.timeChecks(MainVideoManipulator.getInstance().timeStart.getText()
 				.trim());
 
 		// check whether the length is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckLength = VideoManipulator.getInstance().vc.timeChecks(VideoManipulator.getInstance().timeLength.getText()
+		boolean passedTimeCheckLength = MainVideoManipulator.getInstance().vc.timeChecks(MainVideoManipulator.getInstance().timeLength.getText()
 				.trim());
 
 		// if the start time is in the wrong format, inform the user and
 		// allow them
 		// to enter the time again
 		if (passedTimeCheckStart == false) {
-			VideoManipulator.getInstance().timeStart.setText("");
+			MainVideoManipulator.getInstance().timeStart.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -44,7 +44,7 @@ public class LoopPreview {
 		// them
 		// to enter the time again
 		if (passedTimeCheckLength == false) {
-			VideoManipulator.getInstance().timeLength.setText("");
+			MainVideoManipulator.getInstance().timeLength.setText("");
 			passedOrNot = false;
 			JOptionPane
 			.showMessageDialog(null,
@@ -54,12 +54,12 @@ public class LoopPreview {
 		// check for whether the given length + start time is smaller than
 		// the length of the video or not
 		else if (passedOrNot) {
-			int convertedStartTime = VideoManipulator.getInstance().vc.convertToSeconds(VideoManipulator.getInstance().timeStart.getText()
+			int convertedStartTime = MainVideoManipulator.getInstance().vc.convertToSeconds(MainVideoManipulator.getInstance().timeStart.getText()
 					.trim());
-			int convertedLength = VideoManipulator.getInstance().vc.convertToSeconds(VideoManipulator.getInstance().timeLength.getText()
+			int convertedLength = MainVideoManipulator.getInstance().vc.convertToSeconds(MainVideoManipulator.getInstance().timeLength.getText()
 					.trim());
 			int totalTime = convertedStartTime + convertedLength;
-			int lengthOfVideo = (int) (Double.parseDouble(VideoManipulator.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator.getInstance().videoLength));
 
 			// if totalTime is more than the length of the video, inform the
 			// user and allow them to enter the start time and length again
@@ -69,8 +69,8 @@ public class LoopPreview {
 				.showMessageDialog(
 						null,
 						"ERROR: start time + length for loop video can not be more than the length of the video - " + lengthOfVideo+ " seconds");
-				VideoManipulator.getInstance().timeStart.setText("");
-				VideoManipulator.getInstance().timeLength.setText("");
+				MainVideoManipulator.getInstance().timeStart.setText("");
+				MainVideoManipulator.getInstance().timeLength.setText("");
 			}
 		}
 
@@ -90,12 +90,12 @@ public class LoopPreview {
 		protected Void doInBackground() throws Exception {
 			StringBuilder cmd = new StringBuilder();
 			// command to preview extracted video
-			cmd.append("avplay -ss " + VideoManipulator.getInstance().timeStart.getText() + " -i "
-					+ VideoManipulator.getInstance().videoPath + " -t " + VideoManipulator.getInstance().timeLength.getText()
+			cmd.append("avplay -ss " + MainVideoManipulator.getInstance().timeStart.getText() + " -i "
+					+ MainVideoManipulator.getInstance().videoPath + " -t " + MainVideoManipulator.getInstance().timeLength.getText()
 					+ " -window_title previewScreen -x 500 -y 350");
 			cmd.append(";");
 
-			VideoManipulator.getInstance().previewFrameCmd = cmd.toString();
+			MainVideoManipulator.getInstance().previewFrameCmd = cmd.toString();
 
 
 
@@ -104,7 +104,7 @@ public class LoopPreview {
 		ProcessBuilder builder;
 		try {
 			
-			builder = new ProcessBuilder("/bin/bash", "-c", VideoManipulator.getInstance().previewFrameCmd);
+			builder = new ProcessBuilder("/bin/bash", "-c", MainVideoManipulator.getInstance().previewFrameCmd);
 			process = builder.start();
 			process.waitFor();
 			return null;

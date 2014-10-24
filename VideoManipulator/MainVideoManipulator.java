@@ -32,10 +32,10 @@ import mainPackage.VideoPlayer;
  * 
  */
 
-public class VideoManipulator extends JPanel implements ItemListener,
+public class MainVideoManipulator extends JPanel implements ItemListener,
 ActionListener {
 
-	private static VideoManipulator instance = new VideoManipulator();
+	private static MainVideoManipulator instance = new MainVideoManipulator();
 	protected VideoChecks vc = new VideoChecks();
 	protected VideoProjectFunctions vpf = new VideoProjectFunctions();
 	protected VideoHelp vh = new VideoHelp();
@@ -146,7 +146,7 @@ ActionListener {
 	 * manipulation tab -Sets up the default layout
 	 */
 
-	private VideoManipulator() {
+	private MainVideoManipulator() {
 		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
 
@@ -277,7 +277,7 @@ ActionListener {
 
 	}
 
-	public static VideoManipulator getInstance() {
+	public static MainVideoManipulator getInstance() {
 		return instance;
 	}
 

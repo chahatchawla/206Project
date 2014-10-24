@@ -11,18 +11,18 @@ public class VideoSave {
 	
 	protected void videoSave(){
 
-		boolean passedAllChecks = VideoManipulator.getInstance().vc.allChecksVideo();
+		boolean passedAllChecks = MainVideoManipulator.getInstance().vc.allChecksVideo();
 
 		if (passedAllChecks) {
 
 			// Get the video path and length
-			VideoManipulator.getInstance().vpf.setVideoInfo();
+			MainVideoManipulator.getInstance().vpf.setVideoInfo();
 
 			// Reference for JOptionPane():
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
 
 			// check if the file videoFields exists in the working directory
-			File f = new File(VideoManipulator.getInstance().workingDir + "/.videoFields");
+			File f = new File(MainVideoManipulator.getInstance().workingDir + "/.videoFields");
 			if (f.exists()) {
 
 				// Allow user to choose either overwriting the existing
@@ -35,7 +35,7 @@ public class VideoSave {
 						JOptionPane.QUESTION_MESSAGE, null, existOptions,
 						existOptions[0]);
 				if (optionChosen == 1) { // If cancel, go back to main menu
-					VideoManipulator.getInstance().vpf.setAllFields(VideoManipulator.getInstance().workingDir + "/.videoFields");
+					MainVideoManipulator.getInstance().vpf.setAllFields(MainVideoManipulator.getInstance().workingDir + "/.videoFields");
 					return;
 				}
 			}
@@ -46,20 +46,20 @@ public class VideoSave {
 				BufferedWriter bw = new BufferedWriter(fw);
 
 				// Add snapshot fields
-				bw.write(VideoManipulator.getInstance().snapshotEnable + "\n");
-				bw.write(VideoManipulator.getInstance().timeSnapshot.getText() + "\n");
-				bw.write(VideoManipulator.getInstance().outputSnapshotName.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().snapshotEnable + "\n");
+				bw.write(MainVideoManipulator.getInstance().timeSnapshot.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().outputSnapshotName.getText() + "\n");
 
 				// Add loop video fields
-				bw.write(VideoManipulator.getInstance().loopVideoEnable + "\n");
-				bw.write(VideoManipulator.getInstance().timeStart.getText() + "\n");
-				bw.write(VideoManipulator.getInstance().timeLength.getText() + "\n");
-				bw.write(VideoManipulator.getInstance().outputLoopVideoName.getText() + "\n");
-				bw.write(VideoManipulator.getInstance().loop.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().loopVideoEnable + "\n");
+				bw.write(MainVideoManipulator.getInstance().timeStart.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().timeLength.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().outputLoopVideoName.getText() + "\n");
+				bw.write(MainVideoManipulator.getInstance().loop.getText() + "\n");
 
 				// Add filter fields
-				bw.write(VideoManipulator.getInstance().filterEnable + "\n");
-				bw.write(VideoManipulator.getInstance().filter + "\n");
+				bw.write(MainVideoManipulator.getInstance().filterEnable + "\n");
+				bw.write(MainVideoManipulator.getInstance().filter + "\n");
 
 				bw.close();
 				

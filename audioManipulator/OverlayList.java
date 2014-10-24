@@ -23,14 +23,14 @@ public class OverlayList {
 		String audioFile;
 		String fullName;
 		// Show only correct extension type file by default
-		AudioManipulator.getInstance().chooser.setFileFilter(AudioManipulator.getInstance().filter);
-		int returnVal = AudioManipulator.getInstance().chooser.showOpenDialog(null);
+		MainAudioManipulator.getInstance().chooser.setFileFilter(MainAudioManipulator.getInstance().filter);
+		int returnVal = MainAudioManipulator.getInstance().chooser.showOpenDialog(null);
 		// Store the chosen file
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 
 			// get the name and the absolute path of the chosen audio file
-			audioFile = AudioManipulator.getInstance().chooser.getSelectedFile().getName();
-			fullName = AudioManipulator.getInstance().chooser.getSelectedFile().getAbsolutePath();
+			audioFile = MainAudioManipulator.getInstance().chooser.getSelectedFile().getName();
+			fullName = MainAudioManipulator.getInstance().chooser.getSelectedFile().getAbsolutePath();
 
 			// check for whether the input audio files chosen by the user
 			// are audio files
@@ -58,8 +58,8 @@ public class OverlayList {
 
 				// if the file is an audio file, add it to the list of audio
 				// files and the full name files
-				AudioManipulator.getInstance().audioFiles.addElement(audioFile);
-				AudioManipulator.getInstance().fullNames.addElement(fullName);
+				MainAudioManipulator.getInstance().audioFiles.addElement(audioFile);
+				MainAudioManipulator.getInstance().fullNames.addElement(fullName);
 			}
 
 		}
@@ -75,7 +75,7 @@ public class OverlayList {
 	protected void deleteOverlay(){
 
 		// check if the audio file list is empty 
-		if (AudioManipulator.getInstance().audioFiles.isEmpty()) {
+		if (MainAudioManipulator.getInstance().audioFiles.isEmpty()) {
 			JOptionPane
 			.showMessageDialog(null,
 					"ERROR: audio file list is empty, cannot perform DELETE");
@@ -84,14 +84,14 @@ public class OverlayList {
 		else {
 
 			// check if something is selected in the list
-			if (AudioManipulator.getInstance().audioFilesList.getSelectedIndex() != -1) {
+			if (MainAudioManipulator.getInstance().audioFilesList.getSelectedIndex() != -1) {
 
 				// find the index of the selected item
 				int index;
-				index = AudioManipulator.getInstance().audioFilesList.getSelectedIndex();
+				index = MainAudioManipulator.getInstance().audioFilesList.getSelectedIndex();
 				// remove the element from all the lists
-				AudioManipulator.getInstance().audioFiles.removeElementAt(index);
-				AudioManipulator.getInstance().fullNames.removeElementAt(index);
+				MainAudioManipulator.getInstance().audioFiles.removeElementAt(index);
+				MainAudioManipulator.getInstance().fullNames.removeElementAt(index);
 			}
 			// if nothing is selected, prompt the user and allow them to
 			// select a file
@@ -106,10 +106,10 @@ public class OverlayList {
 	// If the playOverlayButton is clicked
 	protected void playOverlay(){
 		// Get the video path and length
-		AudioManipulator.getInstance().apf.setVideoInfo();
+		MainAudioManipulator.getInstance().apf.setVideoInfo();
 
 		// check if the audio file list is empty 
-		if (AudioManipulator.getInstance().audioFiles.isEmpty()) {
+		if (MainAudioManipulator.getInstance().audioFiles.isEmpty()) {
 			JOptionPane
 			.showMessageDialog(null,
 					"ERROR: audio file list is empty , cannot perform PLAY AUDIO");
@@ -118,7 +118,7 @@ public class OverlayList {
 		// if the audio file list is not empty
 		else {
 			// check if something is selected in the list
-			if (AudioManipulator.getInstance().audioFilesList.getSelectedIndex() != -1) {
+			if (MainAudioManipulator.getInstance().audioFilesList.getSelectedIndex() != -1) {
 
 				longTask = new OverlayBackgroundTask();
 				longTask.execute();
@@ -143,8 +143,8 @@ public class OverlayList {
 		protected Void doInBackground() throws Exception {
 			String playFile;
 			int index;
-			index = AudioManipulator.getInstance().audioFilesList.getSelectedIndex();
-			playFile = AudioManipulator.getInstance().fullNames.get(index).toString();
+			index = MainAudioManipulator.getInstance().audioFilesList.getSelectedIndex();
+			playFile = MainAudioManipulator.getInstance().fullNames.get(index).toString();
 
 			String cmd = "avplay -i " + playFile
 					+ " -window_title playChosenAudio -x 400 -y 100";

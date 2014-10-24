@@ -38,9 +38,9 @@ import mainPackage.VideoPlayer;
  * @author Chahat Chawla and Zainab Al Lawati
  * 
  */
-public class TextEditor extends JPanel implements ActionListener, ItemListener {
+public class MainTextEditor extends JPanel implements ActionListener, ItemListener {
 
-	private static TextEditor instance = new TextEditor();
+	private static MainTextEditor instance = new MainTextEditor();
 	protected TextChecks tc = new TextChecks();
 	protected TextProjectFunctions tpf = new TextProjectFunctions();
 	protected TextHelp th = new TextHelp();
@@ -167,7 +167,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected TextBackgroundTask longTask;
 
 	// TextEditor constructor - sets the GUI for textEditor tab
-	private TextEditor() {
+	private MainTextEditor() {
 
 		help = new ImageIcon(
 				VideoPlayer.class.getResource("Resources/help.png"));
@@ -279,7 +279,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 
 	}
 
-	public static TextEditor getInstance() {
+	public static MainTextEditor getInstance() {
 		return instance;
 	}
 

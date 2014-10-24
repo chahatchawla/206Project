@@ -33,10 +33,10 @@ import mainPackage.VideoPlayer;
  * 
  */
 
-public class AudioManipulator extends JPanel implements ItemListener,
+public class MainAudioManipulator extends JPanel implements ItemListener,
 ActionListener {
 
-	private static AudioManipulator instance = new AudioManipulator();
+	private static MainAudioManipulator instance = new MainAudioManipulator();
 	protected AudioChecks ac = new AudioChecks();
 	protected AudioProjectFunctions apf = new AudioProjectFunctions();
 	protected AudioHelp ah = new AudioHelp();
@@ -155,7 +155,7 @@ ActionListener {
 	 * manipulation tab -Sets up the default layout
 	 */
 
-	private AudioManipulator() {
+	private MainAudioManipulator() {
 		
 		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
@@ -305,7 +305,7 @@ ActionListener {
 	}
 
 
-	public static AudioManipulator getInstance() {
+	public static MainAudioManipulator getInstance() {
 		return instance;
 	}
 

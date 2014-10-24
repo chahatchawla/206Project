@@ -13,12 +13,12 @@ public class ReplacePreview {
 	protected void replacePreview(){
 
 		// Get the video path and length
-		AudioManipulator.getInstance().apf.setVideoInfo();
+		MainAudioManipulator.getInstance().apf.setVideoInfo();
 
 		// Run the allChecksReplace() to check whether or not the user
 		// inputs
 		// are valid
-		boolean replaceChecksPassed = AudioManipulator.getInstance().ac.allChecksReplace();
+		boolean replaceChecksPassed = MainAudioManipulator.getInstance().ac.allChecksReplace();
 
 		// If all checks are passed, run a bash command avplay to enable the
 		// user to preview the audio file they chose
@@ -39,7 +39,7 @@ public class ReplacePreview {
 		protected Void doInBackground() throws Exception {
 			
 
-			String cmd = "avplay -i " + AudioManipulator.getInstance().inputFile
+			String cmd = "avplay -i " + MainAudioManipulator.getInstance().inputFile
 					+ " -window_title playChosenAudio -x 400 -y 100";
 			ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c",
 					cmd);

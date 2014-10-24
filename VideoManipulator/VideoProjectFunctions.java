@@ -19,12 +19,12 @@ public class VideoProjectFunctions {
 	 */
 
 	public void enableVideoMan(boolean state) {
-		VideoManipulator.getInstance().videoManipulatorLabel.setEnabled(state);
-		VideoManipulator.getInstance().filterCheck.setEnabled(state);
-		VideoManipulator.getInstance().snapshotCheck.setEnabled(state);
-		VideoManipulator.getInstance().loopVideoCheck.setEnabled(state);
-		VideoManipulator.getInstance().saveButton.setEnabled(state);
-		VideoManipulator.getInstance().helpButton.setEnabled(state);
+		MainVideoManipulator.getInstance().videoManipulatorLabel.setEnabled(state);
+		MainVideoManipulator.getInstance().filterCheck.setEnabled(state);
+		MainVideoManipulator.getInstance().snapshotCheck.setEnabled(state);
+		MainVideoManipulator.getInstance().loopVideoCheck.setEnabled(state);
+		MainVideoManipulator.getInstance().saveButton.setEnabled(state);
+		MainVideoManipulator.getInstance().helpButton.setEnabled(state);
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class VideoProjectFunctions {
 	 */
 	public void setAllFields(String videoFieldsPath) {
 
-		VideoManipulator.getInstance().videoFields = videoFieldsPath;
-		File f = new File(VideoManipulator.getInstance().videoFields);
+		MainVideoManipulator.getInstance().videoFields = videoFieldsPath;
+		File f = new File(MainVideoManipulator.getInstance().videoFields);
 		try {
 
 			// read the videoFields file and sets the fields for video
@@ -45,19 +45,19 @@ public class VideoProjectFunctions {
 
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
-			VideoManipulator.getInstance().snapshotCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			VideoManipulator.getInstance().timeSnapshot.setText(reader.readLine());
-			VideoManipulator.getInstance().outputSnapshotName.setText(reader.readLine());
+			MainVideoManipulator.getInstance().snapshotCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainVideoManipulator.getInstance().timeSnapshot.setText(reader.readLine());
+			MainVideoManipulator.getInstance().outputSnapshotName.setText(reader.readLine());
 
-			VideoManipulator.getInstance().loopVideoCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			VideoManipulator.getInstance().timeStart.setText(reader.readLine());
-			VideoManipulator.getInstance().timeLength.setText(reader.readLine());
-			VideoManipulator.getInstance().outputLoopVideoName.setText(reader.readLine());
-			VideoManipulator.getInstance().loop.setText(reader.readLine());
+			MainVideoManipulator.getInstance().loopVideoCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainVideoManipulator.getInstance().timeStart.setText(reader.readLine());
+			MainVideoManipulator.getInstance().timeLength.setText(reader.readLine());
+			MainVideoManipulator.getInstance().outputLoopVideoName.setText(reader.readLine());
+			MainVideoManipulator.getInstance().loop.setText(reader.readLine());
 
-			VideoManipulator.getInstance().filterCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			VideoManipulator.getInstance().filter = reader.readLine();
-			VideoManipulator.getInstance().filterList.setSelectedItem(VideoManipulator.getInstance().filter);
+			MainVideoManipulator.getInstance().filterCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainVideoManipulator.getInstance().filter = reader.readLine();
+			MainVideoManipulator.getInstance().filterList.setSelectedItem(MainVideoManipulator.getInstance().filter);
 
 			reader.close();
 		} catch (IOException e) {
@@ -73,17 +73,17 @@ public class VideoProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		VideoManipulator.getInstance().projectPath = Menu.getProjectPath();
-		File f = new File(VideoManipulator.getInstance().projectPath);
+		MainVideoManipulator.getInstance().projectPath = Menu.getProjectPath();
+		File f = new File(MainVideoManipulator.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
 			reader.readLine(); // project path
-			VideoManipulator.getInstance().hiddenDir = reader.readLine();
-			VideoManipulator.getInstance().workingDir = reader.readLine();
-			VideoManipulator.getInstance().videoPath = reader.readLine(); // video path
-			VideoManipulator.getInstance().videoLength = reader.readLine();
+			MainVideoManipulator.getInstance().hiddenDir = reader.readLine();
+			MainVideoManipulator.getInstance().workingDir = reader.readLine();
+			MainVideoManipulator.getInstance().videoPath = reader.readLine(); // video path
+			MainVideoManipulator.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -96,23 +96,23 @@ public class VideoProjectFunctions {
 	 */
 	public void refreshVideoMan() {
 
-		VideoManipulator.getInstance().timeSnapshot.setText("hh:mm:ss");
-		VideoManipulator.getInstance().timeStart.setText("hh:mm:ss");
-		VideoManipulator.getInstance().timeLength.setText("hh:mm:ss");
-		VideoManipulator.getInstance().outputSnapshotName.setText("");
-		VideoManipulator.getInstance().outputLoopVideoName.setText("");
-		VideoManipulator.getInstance().loop.setText("");
+		MainVideoManipulator.getInstance().timeSnapshot.setText("hh:mm:ss");
+		MainVideoManipulator.getInstance().timeStart.setText("hh:mm:ss");
+		MainVideoManipulator.getInstance().timeLength.setText("hh:mm:ss");
+		MainVideoManipulator.getInstance().outputSnapshotName.setText("");
+		MainVideoManipulator.getInstance().outputLoopVideoName.setText("");
+		MainVideoManipulator.getInstance().loop.setText("");
 
-		VideoManipulator.getInstance().filterCheck.setSelected(false);
-		VideoManipulator.getInstance().snapshotCheck.setSelected(false);
-		VideoManipulator.getInstance().loopVideoCheck.setSelected(false);
+		MainVideoManipulator.getInstance().filterCheck.setSelected(false);
+		MainVideoManipulator.getInstance().snapshotCheck.setSelected(false);
+		MainVideoManipulator.getInstance().loopVideoCheck.setSelected(false);
 
-		VideoManipulator.getInstance().projectPath = "";
-		VideoManipulator.getInstance().hiddenDir = "";
-		VideoManipulator.getInstance().videoPath = "";
-		VideoManipulator.getInstance().videoLength = "";
-		VideoManipulator.getInstance().videoFields = "";
-		VideoManipulator.getInstance().workingDir = "";
+		MainVideoManipulator.getInstance().projectPath = "";
+		MainVideoManipulator.getInstance().hiddenDir = "";
+		MainVideoManipulator.getInstance().videoPath = "";
+		MainVideoManipulator.getInstance().videoLength = "";
+		MainVideoManipulator.getInstance().videoFields = "";
+		MainVideoManipulator.getInstance().workingDir = "";
 
 	}
 

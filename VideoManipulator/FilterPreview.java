@@ -13,12 +13,12 @@ public class FilterPreview {
 
 	protected void filterPreview(){
 		// Get the video path and length
-		VideoManipulator.getInstance().vpf.setVideoInfo();
+		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 
 
 		boolean passedOrNot = true;
 		// check if one of the filter options are selected
-		if (VideoManipulator.getInstance().filter.equals("")) {
+		if (MainVideoManipulator.getInstance().filter.equals("")) {
 
 			// if none of the six are selected, show an error message to
 			// the user and allow them to choose one
@@ -45,7 +45,7 @@ public class FilterPreview {
 			StringBuilder cmd = new StringBuilder();
 
 			// if the filter is negate
-			if (VideoManipulator.getInstance().filter.equals("Negate")) {
+			if (MainVideoManipulator.getInstance().filter.equals("Negate")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo						
@@ -55,7 +55,7 @@ public class FilterPreview {
 				
 			}
 			// if the filter is blur
-			else if (VideoManipulator.getInstance().filter.equals("Blur")) {
+			else if (MainVideoManipulator.getInstance().filter.equals("Blur")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo				
@@ -63,7 +63,7 @@ public class FilterPreview {
 
 			}
 			// if the filter is horizontal flip
-			else if (VideoManipulator.getInstance().filter.equals("Horizontal Flip")) {
+			else if (MainVideoManipulator.getInstance().filter.equals("Horizontal Flip")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo			
@@ -71,7 +71,7 @@ public class FilterPreview {
 
 			}
 			// if the filter is vertical flip
-			else if (VideoManipulator.getInstance().filter.equals("Vertical Flip")) {
+			else if (MainVideoManipulator.getInstance().filter.equals("Vertical Flip")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo			
@@ -79,7 +79,7 @@ public class FilterPreview {
 
 			}
 			// if the filter is fade in
-			else if (VideoManipulator.getInstance().filter.equals("Fade In")) {
+			else if (MainVideoManipulator.getInstance().filter.equals("Fade In")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo			
@@ -87,7 +87,7 @@ public class FilterPreview {
 
 			}
 			// if the filter is transpose
-			else if (VideoManipulator.getInstance().filter.equals("Transpose")) {
+			else if (MainVideoManipulator.getInstance().filter.equals("Transpose")) {
 
 				cmd.append("avplay -i "
 						+ mainPackage.Menu.getInstance().inputVideo			
@@ -96,14 +96,14 @@ public class FilterPreview {
 			}
 
 			cmd.append(";");
-			VideoManipulator.getInstance().previewCmd = cmd.toString();
+			MainVideoManipulator.getInstance().previewCmd = cmd.toString();
 
 			// run the preview Command for the loop frame
 			Process process;
 			ProcessBuilder builder;
 			try {
 
-				builder = new ProcessBuilder("/bin/bash", "-c", VideoManipulator.getInstance().previewCmd);
+				builder = new ProcessBuilder("/bin/bash", "-c", MainVideoManipulator.getInstance().previewCmd);
 				process = builder.start();
 				process.waitFor();
 				return null;

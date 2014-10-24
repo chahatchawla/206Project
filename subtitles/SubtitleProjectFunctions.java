@@ -18,13 +18,13 @@ public class SubtitleProjectFunctions {
 	 */
 
 	public void enableSubtitle(boolean state) {
-		Subtitles.getInstance().subtitlesLabel.setEnabled(state);
-		Subtitles.getInstance().importCheck.setEnabled(state);
-		Subtitles.getInstance().srtCheck.setEnabled(state);
+		MainSubtitles.getInstance().subtitlesLabel.setEnabled(state);
+		MainSubtitles.getInstance().importCheck.setEnabled(state);
+		MainSubtitles.getInstance().srtCheck.setEnabled(state);
 
 
-		Subtitles.getInstance().saveButton.setEnabled(state);
-		Subtitles.getInstance().helpButton.setEnabled(state);
+		MainSubtitles.getInstance().saveButton.setEnabled(state);
+		MainSubtitles.getInstance().helpButton.setEnabled(state);
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class SubtitleProjectFunctions {
 	 */
 	public void setAllFields(String subtitlesFieldsPath) {
 
-		Subtitles.getInstance().subtitlesFields = subtitlesFieldsPath;
-		File f = new File(Subtitles.getInstance().subtitlesFields);
+		MainSubtitles.getInstance().subtitlesFields = subtitlesFieldsPath;
+		File f = new File(MainSubtitles.getInstance().subtitlesFields);
 		try {
 
 			// read the videoFields file and sets the fields for video
@@ -45,43 +45,43 @@ public class SubtitleProjectFunctions {
 
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
-			Subtitles.getInstance().srtCheck.setSelected(Boolean
+			MainSubtitles.getInstance().srtCheck.setSelected(Boolean
 					.parseBoolean(reader.readLine()));
-			Subtitles.getInstance().startTime.setText(reader
+			MainSubtitles.getInstance().startTime.setText(reader
 					.readLine());
-			Subtitles.getInstance().endTime.setText(reader
+			MainSubtitles.getInstance().endTime.setText(reader
 					.readLine());
-			Subtitles.getInstance().text.setText(reader
+			MainSubtitles.getInstance().text.setText(reader
 					.readLine());
 
 			String subtitles = reader.readLine();
 
-			int listRow = Subtitles.getInstance().model.getRowCount();
+			int listRow = MainSubtitles.getInstance().model.getRowCount();
 			for (int i = 0; i < listRow; i++){
-				Subtitles.getInstance().model.removeRow(0);
+				MainSubtitles.getInstance().model.removeRow(0);
 			}
 			if (subtitles !=null){
 				String[] splitList = subtitles.split(" ");
 
 				for (int i = 0; i< splitList.length; i = i +3) {
 
-					Subtitles.getInstance().model.addRow(new Object[]{splitList[i], splitList[i+1],splitList[i+2]} );
+					MainSubtitles.getInstance().model.addRow(new Object[]{splitList[i], splitList[i+1],splitList[i+2]} );
 
 				}
 			}
 
-			Subtitles.getInstance().outputFileName.setText(reader
+			MainSubtitles.getInstance().outputFileName.setText(reader
 					.readLine());
 
-			Subtitles.getInstance().importCheck.setSelected(Boolean
+			MainSubtitles.getInstance().importCheck.setSelected(Boolean
 					.parseBoolean(reader.readLine()));
-			Subtitles.getInstance().inputFile = (reader
+			MainSubtitles.getInstance().inputFile = (reader
 					.readLine());
 
-			if (Subtitles.getInstance().inputFile != null) { 
-				File subtitle = new File(Subtitles.getInstance().inputFile);
+			if (MainSubtitles.getInstance().inputFile != null) { 
+				File subtitle = new File(MainSubtitles.getInstance().inputFile);
 				if (subtitle.exists()) {
-					Subtitles.getInstance().playButton.setEnabled(true);
+					MainSubtitles.getInstance().playButton.setEnabled(true);
 				}
 			}
 
@@ -99,18 +99,18 @@ public class SubtitleProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		Subtitles.getInstance().projectPath = Menu.getProjectPath();
-		File f = new File(Subtitles.getInstance().projectPath);
+		MainSubtitles.getInstance().projectPath = Menu.getProjectPath();
+		File f = new File(MainSubtitles.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
 			reader.readLine(); // project path
-			Subtitles.getInstance().hiddenDir = reader.readLine();
-			Subtitles.getInstance().workingDir = reader.readLine();
-			Subtitles.getInstance().videoPath = reader.readLine(); // video
+			MainSubtitles.getInstance().hiddenDir = reader.readLine();
+			MainSubtitles.getInstance().workingDir = reader.readLine();
+			MainSubtitles.getInstance().videoPath = reader.readLine(); // video
 			// path
-			Subtitles.getInstance().videoLength = reader.readLine();
+			MainSubtitles.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -123,26 +123,26 @@ public class SubtitleProjectFunctions {
 	 */
 	public void refreshSubtitles() {
 
-		Subtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
-		Subtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
-		Subtitles.getInstance().text.setText("");
-		Subtitles.getInstance().outputFileName.setText("");
-		Subtitles.getInstance().inputFile="";
+		MainSubtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
+		MainSubtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
+		MainSubtitles.getInstance().text.setText("");
+		MainSubtitles.getInstance().outputFileName.setText("");
+		MainSubtitles.getInstance().inputFile="";
 
-		int listRow = Subtitles.getInstance().model.getRowCount();
+		int listRow = MainSubtitles.getInstance().model.getRowCount();
 		for (int i = 0; i < listRow; i++){
-			Subtitles.getInstance().model.removeRow(0);
+			MainSubtitles.getInstance().model.removeRow(0);
 		}
 
-		Subtitles.getInstance().importCheck.setSelected(false);
-		Subtitles.getInstance().srtCheck.setSelected(false);
+		MainSubtitles.getInstance().importCheck.setSelected(false);
+		MainSubtitles.getInstance().srtCheck.setSelected(false);
 
-		Subtitles.getInstance().projectPath = "";
-		Subtitles.getInstance().hiddenDir = "";
-		Subtitles.getInstance().videoPath = "";
-		Subtitles.getInstance().videoLength = "";
-		Subtitles.getInstance().subtitlesFields = "";
-		Subtitles.getInstance().workingDir = "";
+		MainSubtitles.getInstance().projectPath = "";
+		MainSubtitles.getInstance().hiddenDir = "";
+		MainSubtitles.getInstance().videoPath = "";
+		MainSubtitles.getInstance().videoLength = "";
+		MainSubtitles.getInstance().subtitlesFields = "";
+		MainSubtitles.getInstance().workingDir = "";
 
 	}
 
