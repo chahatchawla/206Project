@@ -54,9 +54,7 @@ ActionListener {
 	//	protected AudioHelp ah = new AudioHelp();
 	protected SubtitleSave ss = new SubtitleSave();
 	protected SubtitleList sl = new SubtitleList();
-	//	protected ReplacePreview rp = new ReplacePreview();
-	//	protected AudioBackgroundTask abt = new AudioBackgroundTask();
-
+	
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
 	protected final String TEXT_ADD = "Add Subtitle";

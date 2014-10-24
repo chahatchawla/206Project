@@ -14,16 +14,25 @@ public class OpenProject {
 	protected void openProject(){
 
 		//Refresh the project
-		
+		VideoPlayer.getInstance().video.stop();
+		VideoPlayer.getInstance().timeDisplay.setText("00:00:00");
+		VideoPlayer.getInstance().videoSlider.setValue(0);
+		VideoPlayer.getInstance().playBtn.setIcon(VideoPlayer.getInstance().play);
 		Main.vpf.refreshVideoMan();
 		Main.apf.refreshAudioMan();
 		Main.tpf.refreshtextEdit();
 		Main.tpf.refreshTitleScreen();
 		Main.tpf.refreshCreditScreen();
+		Main.spf.refreshSubtitles();
+		
+		
+		
 		Main.tabbedPane.setEnabled(false);
 		Main.apf.enableAudioMan(false);
 		Main.vpf.enableVideoMan(false);
 		Main.tpf.enableTextEdit(false);
+		Main.spf.enableSubtitle(false);
+		
 		
 
 
@@ -83,27 +92,36 @@ public class OpenProject {
 				Main.apf.enableExtractOnly();
 				Main.vpf.enableVideoMan(false);
 				Main.tpf.enableTextEdit(false);
+				Main.spf.enableSubtitle(false);
+				
 				
 			} else { //2> If it is a video enable all the editing options
 				Main.tabbedPane.setEnabled(true);
 				Main.vpf.enableVideoMan(true);
 				Main.apf.enableAudioMan(true);
 				Main.tpf.enableTextEdit(true);
+				Main.spf.enableSubtitle(true);
+				
 			}
-
-		
+			
+			VideoPlayer.getInstance().video.playMedia(Menu.getInstance().inputVideo);
+			VideoPlayer.getInstance().playBtn.setIcon(VideoPlayer.getInstance().pause);
 			Menu.getInstance().export.setEnabled(true);
+		
 
 			//Set the main project and video info in the editing tabs
 			Main.vpf.setVideoInfo();
 			Main.apf.setVideoInfo();
 			Main.tpf.setVideoInfo();
+			Main.spf.setVideoInfo();
+			
 
 			//Check what edits were performed previously
 			File f2 = new File(Menu.getInstance().workingDir+"/.videoFields");
 			File f3 = new File(Menu.getInstance().workingDir+"/.audioFields");
 			File f4 = new File(Menu.getInstance().workingDir+"/.creditFields");
 			File f5 = new File(Menu.getInstance().workingDir+"/.titleFields");
+			File f6 = new File(Menu.getInstance().workingDir+"/.subtitleFields");
 
 			if (f2.exists()){
 				Main.vpf.setAllFields(Menu.getInstance().workingDir + "/.videoFields");
@@ -111,6 +129,10 @@ public class OpenProject {
 			if (f3.exists()) {
 				Main.apf.setAllFields(Menu.getInstance().workingDir + "/.audioFields");
 			}
+			if (f6.exists()) {
+				Main.spf.setAllFields(Menu.getInstance().workingDir + "/.subtitleFields");
+			}
+			
 			if (f4.exists() && !f5.exists()) {
 				Main.tpf.setCreditFields(Menu.getInstance().workingDir + "/.creditFields");
 			} else if (!f4.exists() && f5.exists()){

@@ -44,6 +44,7 @@ public class ImportFromFolder {
 				Main.apf.enableExtractOnly();
 				Main.tpf.enableTextEdit(false);
 				Main.vpf.enableVideoMan(false);
+				Main.spf.enableSubtitle(false);
 
 
 			} else { //2> If it is a video enable all the editing options
@@ -51,6 +52,7 @@ public class ImportFromFolder {
 				Main.vpf.enableVideoMan(true);
 				Main.apf.enableAudioMan(true);
 				Main.tpf.enableTextEdit(true);
+				Main.spf.enableSubtitle(true);
 			}
 
 			Menu.getInstance().export.setEnabled(true);

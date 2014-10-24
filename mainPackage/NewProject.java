@@ -24,13 +24,15 @@ public class NewProject {
 		Main.apf.enableAudioMan(false);
 		Main.vpf.enableVideoMan(false);
 		Main.tpf.enableTextEdit(false);
+		Main.spf.enableSubtitle(false);
 		
 		Main.vpf.refreshVideoMan();
 		Main.apf.refreshAudioMan();
 		Main.tpf.refreshtextEdit();
 		Main.tpf.refreshTitleScreen();
 		Main.tpf.refreshCreditScreen();
-
+		Main.spf.refreshSubtitles();
+		
 		//Stop the played video
 		VideoPlayer.stopVideo();
 		Menu.getInstance().inputVideo = null;

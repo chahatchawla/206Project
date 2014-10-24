@@ -213,6 +213,7 @@ public class Download extends JPanel implements ActionListener {
 						Main.apf.enableExtractOnly();
 						Main.tpf.enableTextEdit(false);
 						Main.vpf.enableVideoMan(false);
+						Main.spf.enableSubtitle(false);
 						
 						
 					} else { //2> If it is a video enable all the editing options
@@ -220,6 +221,7 @@ public class Download extends JPanel implements ActionListener {
 						Main.vpf.enableVideoMan(true);
 						Main.apf.enableAudioMan(true);
 						Main.tpf.enableTextEdit(true);
+						Main.spf.enableSubtitle(true);
 					}
 
 					Menu.submenu.setEnabled(false);

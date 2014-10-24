@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import subtitles.SubtitleProjectFunctions;
 import subtitles.Subtitles;
 import textEditor.TextEditor;
 import textEditor.TextProjectFunctions;
@@ -61,7 +62,8 @@ public class Main {
 	protected static VideoProjectFunctions vpf = new VideoProjectFunctions();
 	protected static AudioProjectFunctions apf = new AudioProjectFunctions();
 	protected static TextProjectFunctions tpf = new TextProjectFunctions();
-
+	protected static SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
+	
 	private JLabel titleImage ;
 
 
@@ -96,11 +98,13 @@ public class Main {
 		tabbedPane.setEnabled(false);
 		apf.enableAudioMan(false);
 		vpf.enableVideoMan(false);
-
+		spf.enableSubtitle(false);
+		
+		
 		//Add the panels to a main panel
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(Menu.getInstance(), BorderLayout.NORTH);
-		panel.add(new VideoPlayer(), BorderLayout.EAST);
+		panel.add(VideoPlayer.getInstance(), BorderLayout.EAST);
 		panel.add(tabbedPane, BorderLayout.WEST);
 
 		//Set the frame

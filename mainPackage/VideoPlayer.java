@@ -41,36 +41,38 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
  */
 public class VideoPlayer extends JPanel implements ActionListener,
 		ChangeListener {
+	
+	private static VideoPlayer instance = new VideoPlayer();
 
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	public static EmbeddedMediaPlayer video;
 
-	private ImageIcon forward; 
-	private ImageIcon rewind;
-	private ImageIcon play;
-	private ImageIcon pause;
-	private ImageIcon stop;
-	private ImageIcon mute;
-	private ImageIcon unmute;
+	protected ImageIcon forward; 
+	protected ImageIcon rewind;
+	protected ImageIcon play;
+	protected ImageIcon pause;
+	protected ImageIcon stop;
+	protected ImageIcon mute;
+	protected ImageIcon unmute;
 
-	private JButton fastFwdBtn = new JButton();
-	private JButton backFwdBtn = new JButton();
-	private JButton playBtn = new JButton();
-	private JButton stopBtn = new JButton();
-	private JButton muteBtn = new JButton();
-	private JLabel timeDisplay = new JLabel("00:00:00");
-	private JSlider volume = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
+	protected JButton fastFwdBtn = new JButton();
+	protected JButton backFwdBtn = new JButton();
+	protected JButton playBtn = new JButton();
+	protected JButton stopBtn = new JButton();
+	protected JButton muteBtn = new JButton();
+	protected JLabel timeDisplay = new JLabel("00:00:00");
+	protected JSlider volume = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
 
-	private JSlider videoSlider = new JSlider(JSlider.HORIZONTAL, 0, 54900, 0);
+	protected JSlider videoSlider = new JSlider(JSlider.HORIZONTAL, 0, 54900, 0);
 
-	private SkipTask longTask;
-	private Download download;
-	private String inputVideo;
+	protected SkipTask longTask;
+	protected Download download;
+	protected String inputVideo;
 
 	/*
 	 * The class constructor
 	 */
-	public VideoPlayer() {
+	private VideoPlayer() {
 		
 		// set the images for the button
 		forward = new ImageIcon(VideoPlayer.class.getResource("Resources/forward.png"));
@@ -261,7 +263,9 @@ public class VideoPlayer extends JPanel implements ActionListener,
 		});
 
 	}
-
+	public static VideoPlayer getInstance() {
+		return instance;
+	}
 	/**
 	 * Activate the volume bar
 	 */

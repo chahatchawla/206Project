@@ -21,7 +21,8 @@ public class SubtitleProjectFunctions {
 		Subtitles.getInstance().subtitlesLabel.setEnabled(state);
 		Subtitles.getInstance().importCheck.setEnabled(state);
 		Subtitles.getInstance().srtCheck.setEnabled(state);
-	
+
+		
 		Subtitles.getInstance().saveButton.setEnabled(state);
 		Subtitles.getInstance().helpButton.setEnabled(state);
 	}
@@ -52,20 +53,23 @@ public class SubtitleProjectFunctions {
 					.readLine());
 			Subtitles.getInstance().text.setText(reader
 					.readLine());
-			
-			String subtitles = reader.readLine();
 
+			String subtitles = reader.readLine();
+			
+			int listRow = Subtitles.getInstance().model.getRowCount();
+			for (int i = 0; i < listRow; i++){
+				Subtitles.getInstance().model.removeRow(0);
+						}
 			if (subtitles !=null){
 				String[] splitList = subtitles.split(" ");
-				int row = 0;
+
 				for (int i = 0; i< splitList.length; i = i +3) {
-					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 0);
-					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 1);
-					 Subtitles.getInstance().model.setValueAt(splitList[i], row , 2);
-					 row++;
+
+					Subtitles.getInstance().model.addRow(new Object[]{splitList[i], splitList[i+1],splitList[i+2]} );
+
 				}
 			}
-			
+
 			Subtitles.getInstance().outputFileName.setText(reader
 					.readLine());
 
@@ -73,14 +77,14 @@ public class SubtitleProjectFunctions {
 					.parseBoolean(reader.readLine()));
 			Subtitles.getInstance().inputFile = (reader
 					.readLine());
-			
+
 			if (Subtitles.getInstance().inputFile != null) { 
 				File subtitle = new File(Subtitles.getInstance().inputFile);
 				if (subtitle.exists()) {
 					Subtitles.getInstance().playButton.setEnabled(true);
 				}
 			}
-			
+
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -105,7 +109,7 @@ public class SubtitleProjectFunctions {
 			Subtitles.getInstance().hiddenDir = reader.readLine();
 			Subtitles.getInstance().workingDir = reader.readLine();
 			Subtitles.getInstance().videoPath = reader.readLine(); // video
-																			// path
+			// path
 			Subtitles.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {
@@ -121,11 +125,13 @@ public class SubtitleProjectFunctions {
 
 		Subtitles.getInstance().startTime.setText("hh:mm:ss,mmm");
 		Subtitles.getInstance().endTime.setText("hh:mm:ss,mmm");
-		Subtitles.getInstance().text.setText("hh:mm:ss,mmm");
+		Subtitles.getInstance().text.setText("");
 		Subtitles.getInstance().outputFileName.setText("");
 		Subtitles.getInstance().inputFile="";
-		for (int i = 0; i < Subtitles.getInstance().model.getRowCount(); i++){
-			Subtitles.getInstance().model.removeRow(i);
+		
+		int listRow = Subtitles.getInstance().model.getRowCount();
+		for (int i = 0; i < listRow; i++){
+			Subtitles.getInstance().model.removeRow(0);
 		}
 
 		Subtitles.getInstance().importCheck.setSelected(false);
