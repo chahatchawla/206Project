@@ -1,51 +1,25 @@
 package VideoManipulator;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.TimeZone;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import mainPackage.VideoPlayer;
-
-import audioManipulator.AudioBackgroundTask;
 
 
 /**
@@ -76,6 +50,7 @@ ActionListener {
 	protected final String TEXT_PREVIEW = "Preview Filter";
 	protected final String TEXT_SNAPSHOT = "Preview Snapshot";
 	protected final String TEXT_LOOP = "Preview Extract Video";
+	protected final String TEXT_TIME = "Get Video Time";
 
 	// // Initializing the labels
 	protected JLabel videoManipulatorLabel = new JLabel("Video Manipulator");
@@ -107,6 +82,7 @@ ActionListener {
 	protected JButton prevButton = new JButton(TEXT_PREVIEW);
 	protected JButton snapshotPrevButton = new JButton(TEXT_SNAPSHOT);
 	protected JButton loopPrevButton = new JButton(TEXT_LOOP);
+	protected JButton getTime1Button = new JButton(TEXT_TIME);
 
 	// Initializing the check boxes
 	protected JCheckBox snapshotCheck = new JCheckBox("Snapshot a Frame");
@@ -132,6 +108,7 @@ ActionListener {
 	protected JLabel separator10 = new JLabel("");
 	protected JLabel separator11 = new JLabel("");
 	protected JLabel separator12 = new JLabel("");
+	protected JLabel separator13 = new JLabel("");
 
 	// Initializing the image for the icons
 	protected ImageIcon help;
@@ -172,7 +149,7 @@ ActionListener {
 	private VideoManipulator() {
 		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
-		
+
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -201,6 +178,7 @@ ActionListener {
 		prevButton.setPreferredSize(new Dimension(150, 20));
 		snapshotPrevButton.setPreferredSize(new Dimension(165, 20));
 		loopPrevButton.setPreferredSize(new Dimension(210, 20));
+		getTime1Button.setPreferredSize(new Dimension(150, 20));
 
 		// add item to the implemented listeners
 		filterCheck.addItemListener(this);
@@ -212,6 +190,7 @@ ActionListener {
 		prevButton.addActionListener(this);
 		snapshotPrevButton.addActionListener(this);
 		loopPrevButton.addActionListener(this);
+		getTime1Button.addActionListener(this);
 
 		// adding all components to the Panel
 		add(videoManipulatorLabel);
@@ -221,6 +200,8 @@ ActionListener {
 		add(separator3);
 		add(snapshotTimeLabel);
 		add(timeSnapshot);
+		add(getTime1Button);
+		add(separator13);
 		add(snapshotPrevButton);
 		add(separator4);
 		add(outputSnapshotLabel);
@@ -266,6 +247,7 @@ ActionListener {
 		separator10.setPreferredSize(new Dimension(525, 50));
 		separator11.setPreferredSize(new Dimension(525, 10));
 		separator12.setPreferredSize(new Dimension(525, 10));
+		separator12.setPreferredSize(new Dimension(525, 0));
 
 		// disabling components that are not accessible in the default screen
 		snapshotTimeLabel.setEnabled(false);
@@ -274,6 +256,7 @@ ActionListener {
 		timeSnapshot.setEnabled(false);
 		outputSnapshotName.setEnabled(false);
 		snapshotPrevButton.setEnabled(false);
+		getTime1Button.setEnabled(false);
 
 		startTimeLabel.setEnabled(false);
 		lengthLabel.setEnabled(false);
@@ -286,6 +269,7 @@ ActionListener {
 		loop.setEnabled(false);
 		loopLabel.setEnabled(false);
 		loop1Label.setEnabled(false);
+
 
 		selectFilterLabel.setEnabled(false);
 		filterList.setEnabled(false);
@@ -339,6 +323,7 @@ ActionListener {
 				timeSnapshot.setEnabled(true);
 				outputSnapshotName.setEnabled(true);
 				snapshotPrevButton.setEnabled(true);
+				getTime1Button.setEnabled(true);
 
 				snapshotEnable = true;
 
@@ -353,6 +338,7 @@ ActionListener {
 				timeSnapshot.setEnabled(false);
 				outputSnapshotName.setEnabled(false);
 				snapshotPrevButton.setEnabled(false);
+				getTime1Button.setEnabled(false);
 
 				snapshotEnable = false;
 			}
@@ -416,7 +402,24 @@ ActionListener {
 		else if (e.getSource() == filterList) {
 			filter = filterList.getSelectedItem().toString();
 		}
+		// If the getTime1Button is clicked
+		else if (e.getSource() == getTime1Button) {
 
+			if (mainPackage.VideoPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.VideoPlayer.video.getTime();
+				SimpleDateFormat df = new SimpleDateFormat(
+						"HH:mm:ss");
+				TimeZone tz = TimeZone.getTimeZone("UTC");
+				df.setTimeZone(tz);
+				String formatedTime = df.format(new Date(time));
+
+				timeSnapshot.setText(formatedTime);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+			}
+
+		}
 		// if the user wants to preview the filter
 		else if (e.getSource() == prevButton) {
 			fp.filterPreview();
