@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import subtitles.Subtitles;
 import textEditor.TextEditor;
 import textEditor.TextProjectFunctions;
 
@@ -55,6 +56,7 @@ public class Main {
 	protected static AudioManipulator audioMan;
 	protected static VideoManipulator videoMan;
 	protected static TextEditor textEdit;
+	protected static Subtitles subtitles;
 	
 	protected static VideoProjectFunctions vpf = new VideoProjectFunctions();
 	protected static AudioProjectFunctions apf = new AudioProjectFunctions();
@@ -84,6 +86,11 @@ public class Main {
 		tabbedPane.add("Audio Manipulator", audioMan);
 		textEdit = TextEditor.getInstance();
 		tabbedPane.add("Text Editor", textEdit);
+		subtitles = Subtitles.getInstance();
+		tabbedPane.add("Subtitles", subtitles);
+		
+		
+		
 		
 		//Disable the tabs when first loading the main window
 		tabbedPane.setEnabled(false);

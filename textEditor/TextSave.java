@@ -33,7 +33,7 @@ public class TextSave {
 				TextEditor.getInstance().textFile = new File(TextEditor.getInstance().workingDir + "/.TitleText.txt");
 				// get the duration for title screen
 				TextEditor.getInstance().titleDuration = TextEditor.getInstance().addDuration.getText().trim();
-				// get the inputFrameTime for tistle screen
+				// get the inputFrameTime for title screen
 				TextEditor.getInstance().titleFrameTime = TextEditor.getInstance().addTimeFrame.getText().trim();
 
 

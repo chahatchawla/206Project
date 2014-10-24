@@ -56,7 +56,7 @@ public class TextPreview {
 			filePreview.delete();
 		}
 		// if the user wants to preview the title screen
-		if (TextEditor.getInstance().screenType.equals("Title Screen")) {
+		else if (TextEditor.getInstance().screenType.equals("Title Screen")) {
 			// if they select a frame from the video
 			if (TextEditor.getInstance().backgroundImageOption == 2) {
 				// check for whether the frame time specified by the user is
