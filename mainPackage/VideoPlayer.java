@@ -50,14 +50,14 @@ public class VideoPlayer extends JPanel implements ActionListener,
 	protected ImageIcon forward; 
 	protected ImageIcon rewind;
 	protected ImageIcon play;
-	protected ImageIcon pause;
+	public ImageIcon pause;
 	protected ImageIcon stop;
 	protected ImageIcon mute;
 	protected ImageIcon unmute;
 
 	protected JButton fastFwdBtn = new JButton();
 	protected JButton backFwdBtn = new JButton();
-	protected JButton playBtn = new JButton();
+	public JButton playBtn = new JButton();
 	protected JButton stopBtn = new JButton();
 	protected JButton muteBtn = new JButton();
 	protected JLabel timeDisplay = new JLabel("00:00:00");

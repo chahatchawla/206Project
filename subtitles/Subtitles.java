@@ -525,8 +525,10 @@ ActionListener {
 		// If the playButton is clicked
 		else if (e.getSource() == playButton) {
 			
-				mainPackage.VideoPlayer.video.stop();
-				mainPackage.VideoPlayer.video.play();
+				mainPackage.VideoPlayer.getInstance().video.stop();
+				mainPackage.VideoPlayer.getInstance().video.play();
+				mainPackage.VideoPlayer.getInstance().playBtn.setIcon(mainPackage.VideoPlayer.getInstance().pause);
+				
 				mainPackage.VideoPlayer.video.setSubTitleFile(new File(inputFile));
 				JOptionPane
 				.showMessageDialog(null,
