@@ -12,7 +12,7 @@ import mainPackage.Menu;
 
 
 public class TextProjectFunctions {
-	
+
 	/**
 	 * Method stores the video info from the project file to the private fields
 	 */
@@ -131,7 +131,7 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().chooseColorLabel.setEnabled(state);
 		TextEditor.getInstance().addDuration.setEnabled(state);
 		TextEditor.getInstance().addTextArea.setEnabled(state);
-		
+
 		TextEditor.getInstance().overlayCheck.setEnabled(state);
 		TextEditor.getInstance().screenList.setEnabled(state);
 		TextEditor.getInstance().fontsList.setEnabled(state);
@@ -164,7 +164,7 @@ public class TextProjectFunctions {
 				// the fields
 				TextEditor.getInstance().screenList.setSelectedItem(reader.readLine());
 				TextEditor.getInstance().titleDuration = reader.readLine();
-				
+
 				TextEditor.getInstance().addDuration.setText(TextEditor.getInstance().titleDuration);
 				TextEditor.getInstance().overlayCheck
 				.setSelected(Boolean.parseBoolean(reader.readLine()));
@@ -368,6 +368,10 @@ public class TextProjectFunctions {
 		TextEditor.getInstance().addDuration.setEnabled(state);
 		TextEditor.getInstance().addTextArea.setEnabled(state);
 		TextEditor.getInstance().addTimeFrame.setEnabled(state);
+
+		if (!state){
+			TextEditor.getInstance().getTime1Button.setEnabled(state);
+		}
 
 		TextEditor.getInstance().fontsList.setEnabled(state);
 		TextEditor.getInstance().stylesList.setEnabled(state);

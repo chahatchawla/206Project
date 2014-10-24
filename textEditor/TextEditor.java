@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -51,12 +55,15 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 	protected final String TEXT_SAVE = "Save";
 	protected final String TEXT_PREVIEW = "Preview";
 	protected final String TEXT_DELETE = "Delete";
+	protected final String TEXT_TIME = "Get Video Time";
+
 
 	// Initializing the buttons
 	protected JButton saveButton = new JButton(TEXT_SAVE);
 	protected JButton prevBtn = new JButton(TEXT_PREVIEW);
 	protected JButton deleteBtn = new JButton(TEXT_DELETE);
 	protected JButton helpButton = new JButton();
+	protected JButton getTime1Button = new JButton(TEXT_TIME);
 
 	// Initializing the labels
 	protected JLabel textEditorLabel = new JLabel("Text Editor");
@@ -173,6 +180,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 
+
 		sizesList.setSelectedIndex(6);
 
 		addTextArea.setDocument(new JTextFieldLimit(250));
@@ -194,6 +202,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		stylesList.addActionListener(this);
 		sizesList.addActionListener(this);
 		coloursList.addActionListener(this);
+		getTime1Button.addActionListener(this);
 
 		// add all the buttons, labels, scrolls, comboBox, radioButtons and
 		// textFields to the panel
@@ -205,6 +214,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		add(defaultCheck);
 		add(frameCheck);
 		add(addTimeFrame);
+		add(getTime1Button);
 		add(separator4);
 		add(screenLabel);
 		add(screenList);
@@ -249,6 +259,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		prevBtn.setPreferredSize(new Dimension(150, 25));
 		deleteBtn.setPreferredSize(new Dimension(150, 25));
 		scroll.setPreferredSize(new Dimension(400, 130));
+		getTime1Button.setPreferredSize(new Dimension(150, 20));
 
 		// add ItemListner to the radio buttons, to check what happens when the
 		// radioButtons are checked or unchecked
@@ -257,13 +268,12 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 		overlayCheck.addItemListener(this);
 
 		// set the size for the text fields
-		addTimeFrame.setColumns(10);
+		addTimeFrame.setColumns(6);
 		addDuration.setColumns(3);
 
 		// disable the fields
 		addTimeFrame.setEnabled(false);
-		// tpf.refreshTitleScreen();
-		// tpf.refreshCreditScreen();
+		getTime1Button.setEnabled(false);
 		frameCheck.setEnabled(false);
 		defaultCheck.setEnabled(false);
 
@@ -350,6 +360,25 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 				break;
 			}
 		}
+		// If the getTime1Button is clicked
+		else if (e.getSource() == getTime1Button) {
+
+			if (mainPackage.VideoPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.VideoPlayer.video.getTime();
+				SimpleDateFormat df = new SimpleDateFormat(
+						"HH:mm:ss");
+				TimeZone tz = TimeZone.getTimeZone("UTC");
+				df.setTimeZone(tz);
+				String formatedTime = df.format(new Date(time));
+
+				addTimeFrame.setText(formatedTime);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+			}
+
+		}
+		
 		// if the preview button is clicked
 		else if (e.getSource() == prevBtn) {
 			tp.textPreview();
@@ -377,9 +406,12 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 				overlayCheck.setEnabled(false);
 				backgroundImageOption = 2;
 				addTimeFrame.setEnabled(true);
+				getTime1Button.setEnabled(true);
+				
 			} else {
 				addTimeFrame.setText("hh:mm:ss");
 				addTimeFrame.setEnabled(false);
+				getTime1Button.setEnabled(false);
 				defaultCheck.setEnabled(true);
 				overlayCheck.setEnabled(true);
 			}
@@ -389,6 +421,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 			if (e.getStateChange() == 1) {
 				frameCheck.setEnabled(false);
 				addTimeFrame.setEnabled(false);
+				getTime1Button.setEnabled(false);
 				defaultCheck.setEnabled(false);
 				backgroundImageOption = 0;
 			} else {
@@ -401,6 +434,7 @@ public class TextEditor extends JPanel implements ActionListener, ItemListener {
 			if (e.getStateChange() == 1) {
 				frameCheck.setEnabled(false);
 				addTimeFrame.setEnabled(false);
+				getTime1Button.setEnabled(false);
 				overlayCheck.setEnabled(false);
 				backgroundImageOption = 1;
 			} else {

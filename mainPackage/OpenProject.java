@@ -29,10 +29,7 @@ public class OpenProject {
 		Main.vpf.enableVideoMan(false);
 		Main.tpf.enableTextEdit(false);
 		Main.spf.enableSubtitle(false);
-		
-		
-
-
+	
 		//Prompt the user to choose a project
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(Menu.getInstance().projectFilter); //Show only correct extension type file by default
