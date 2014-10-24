@@ -57,8 +57,11 @@ public class Menu extends JMenuBar implements ActionListener {
 	protected JLabel audioImage ;
 
 	protected JLabel textEditImage ;
+	
+	protected JLabel subtitleImage; 
 
 	protected JLabel mainImage ;
+;
 
 
 	protected FileNameExtensionFilter mediaFilter = new FileNameExtensionFilter( "mp3, avi & mp4 Clips", "mp3", "mp4", "avi");
@@ -81,6 +84,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		
 		videoImage= new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
 		audioImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
+		subtitleImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/subtitle.png")));
 		textEditImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/textEdit.png")));
 		mainImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/title.png")));
 		//Build the file menu.

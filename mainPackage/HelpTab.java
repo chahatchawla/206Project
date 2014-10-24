@@ -15,6 +15,7 @@ public class HelpTab {
 		helpTips.add(Menu.getInstance().videoImage, "Video Manipulation"); 
 		helpTips.add(Menu.getInstance().audioImage, "Audio Manipulation"); 
 		helpTips.add(Menu.getInstance().textEditImage, "Text Editor"); 
+		helpTips.add(Menu.getInstance().subtitleImage, "Subtitles"); 
 
 		helpFrame.setContentPane(helpTips); 
 		helpFrame.setLocation(450, 100);

@@ -51,7 +51,7 @@ ActionListener {
 	private static Subtitles instance = new Subtitles();
 	protected SubtitleChecks sc = new SubtitleChecks();
 	protected SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
-	//	protected AudioHelp ah = new AudioHelp();
+	protected SubtitleHelp sh = new SubtitleHelp();
 	protected SubtitleSave ss = new SubtitleSave();
 	protected SubtitleList sl = new SubtitleList();
 	
@@ -170,7 +170,7 @@ ActionListener {
 
 
 		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
+		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/subtitle.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -543,7 +543,7 @@ ActionListener {
 
 
 		else if (e.getSource() == helpButton){
-			//ah.audioHelp();
+			sh.subtitleHelp();
 		}
 
 	}
