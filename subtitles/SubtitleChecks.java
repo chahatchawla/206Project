@@ -159,7 +159,7 @@ public class SubtitleChecks {
 
 			}
 
-			else if (endTime > startTime) {
+			else if (endTime < startTime) {
 				passedOrNot = false;
 				JOptionPane
 				.showMessageDialog(
@@ -167,12 +167,13 @@ public class SubtitleChecks {
 						"ERROR: start time can not be more than the end time selected");
 				Subtitles.getInstance().startTime.setText("");	
 			}
-		}
-		// check for whether the text field is empty
-		else if (Subtitles.getInstance().text.getText().trim().equals("")) {
-			JOptionPane.showMessageDialog(null,
-					"ERROR: please specify some text for subtitles");
-			passedOrNot = false;
+
+			// check for whether the text field is empty
+			else if (Subtitles.getInstance().text.getText().trim().equals("")) {
+				JOptionPane.showMessageDialog(null,
+						"ERROR: please specify some text for subtitles");
+				passedOrNot = false;
+			}
 		}
 
 

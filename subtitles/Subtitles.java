@@ -526,6 +526,9 @@ ActionListener {
 		}
 		// If the playButton is clicked
 		else if (e.getSource() == playButton) {
+			
+				mainPackage.VideoPlayer.video.stop();
+				mainPackage.VideoPlayer.video.play();
 				mainPackage.VideoPlayer.video.setSubTitleFile(new File(inputFile));
 		}
 
