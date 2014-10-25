@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,11 +23,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import mainPackage.VideoPlayer;
 
 /**
- * SoftEng206 Assignment3 - audio manipulator class
+ * SoftEng206 Assignment3 - main audio manipulator class
+ * 
+ * Purpose: The purpose of this class is to create the GUI for the audio
+ * manipulator tab and handle all the actions performed. This class is used in
+ * mainPackage.Main.java to initialize the audio manipulator tab.
+ * 
+ * This class is a singleton, as for our application, only one instance of the
+ * MainAudioManipulator class should be created, since the "tab" object should
+ * only be created once instead of having multiple instances being created as
+ * the application progresses.
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
- * Partial Code Extracted by Assignment 3 
+ *         Partial Code Extracted by Assignment 3
  * @author Chahat Chawla and Zainab Al Lawati
  * 
  */
@@ -36,14 +44,17 @@ import mainPackage.VideoPlayer;
 public class MainAudioManipulator extends JPanel implements ItemListener,
 ActionListener {
 
+	// Initializing the singleton instance of this class
 	private static MainAudioManipulator instance = new MainAudioManipulator();
+
+	// Initializing all the helper classes for audio manipulation
 	protected AudioChecks ac = new AudioChecks();
 	protected AudioProjectFunctions apf = new AudioProjectFunctions();
 	protected AudioHelp ah = new AudioHelp();
 	protected AudioSave as = new AudioSave();
 	protected OverlayList ol = new OverlayList();
 	protected ReplacePreview rp = new ReplacePreview();
-	protected AudioBackgroundTask abt = new AudioBackgroundTask();
+	protected AudioBackgroundCommand abt = new AudioBackgroundCommand();
 
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
@@ -63,7 +74,8 @@ ActionListener {
 	protected JLabel mp3Label = new JLabel(".mp3");
 	protected JLabel startTimeLabelOverlay = new JLabel("Start Time: ");
 	protected JLabel lengthLabelOverlay = new JLabel("Length: ");
-	protected JLabel listOverlayLabel = new JLabel("List of added audio files for overlay : ");
+	protected JLabel listOverlayLabel = new JLabel(
+			"List of added audio files for overlay : ");
 
 	// Initializing the textFields
 	protected JTextField startTimeExtract = new JTextField("hh:mm:ss");
@@ -130,9 +142,8 @@ ActionListener {
 	protected FileNameExtensionFilter filter = new FileNameExtensionFilter(
 			"mp3 files", "mp3");
 
-
 	// Initializing the image for the icons
-	protected ImageIcon help ;
+	protected ImageIcon help;
 	protected JLabel helpImage;
 
 	// Initializing the Strings
@@ -147,19 +158,24 @@ ActionListener {
 	protected String workingDir;
 	protected String audioFields;
 
-	// Initializing the swing worker AudioBackgroundTask
-	protected AudioBackgroundTask longTask;
-
 	/**
 	 * Constructor for AudioManipulator() -Sets up the GUI for audio
-	 * manipulation tab -Sets up the default layout
+	 * manipulation tab - sets up the default layout
 	 */
 
 	private MainAudioManipulator() {
-		
-		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/audio.png")));
-		// set the icons to the help button
+
+		// sets the images so they are imported from the resources folder in
+		// this package
+		// Reference:
+		// http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
+
+		help = new ImageIcon(
+				VideoPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(
+				VideoPlayer.class.getResource("Resources/audio.png")));
+
+		// set the icons to the help button and disable button background
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
 		helpButton.setOpaque(false);
@@ -167,8 +183,6 @@ ActionListener {
 		helpButton.setBorderPainted(false);
 
 		// change the font of the title, subTitles and starLabels
-		audioManipulatorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-
 		audioManipulatorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		starLabel2.setFont(new Font("TimesRoman", Font.BOLD, 18));
 		removeCheck.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -275,7 +289,6 @@ ActionListener {
 		separator13.setPreferredSize(new Dimension(525, 0));
 		separator14.setPreferredSize(new Dimension(525, 10));
 
-
 		// disabling components that are not accessible in the default screen
 		outputFileNameLabel.setEnabled(false);
 		outputFileName.setEnabled(false);
@@ -288,7 +301,6 @@ ActionListener {
 		lengthExtract.setEnabled(false);
 		inputAudioReplaceButton.setEnabled(false);
 		replacePlayButton.setEnabled(false);
-
 		starLabel3.setEnabled(false);
 		overlayDurationCheck.setEnabled(false);
 		startTimeLabelOverlay.setEnabled(false);
@@ -304,11 +316,15 @@ ActionListener {
 
 	}
 
-
+	/**
+	 * getInstance() returns the singleton instance of the MainAudioManipulator
+	 * class
+	 * 
+	 * @return
+	 */
 	public static MainAudioManipulator getInstance() {
 		return instance;
 	}
-
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -322,7 +338,6 @@ ActionListener {
 			// if the removeCheck is enabled, set removeEnable to true
 			if (e.getStateChange() == 1) {
 				removeEnable = true;
-
 
 			}
 
@@ -374,12 +389,8 @@ ActionListener {
 		else if (e.getItemSelectable() == overlayCheck) {
 
 			// if the overlayCheck is enabled, set overlayEnable to true and
-			// enable the user to choose an input .mp3 file
+			// enable the user to add .mp3 files
 			if (e.getStateChange() == 1) {
-
-				removeCheck.setEnabled(false);
-				removeCheck.setSelected(false);
-				removeEnable = false;
 
 				starLabel3.setEnabled(true);
 				overlayDurationCheck.setEnabled(true);
@@ -390,15 +401,17 @@ ActionListener {
 				audioFilesList.setEnabled(true);
 				listOverlayLabel.setEnabled(true);
 				overlayEnable = true;
+
+				// disable remove feature while overlay is enabled
+				removeCheck.setEnabled(false);
+				removeCheck.setSelected(false);
+				removeEnable = false;
 			}
 
 			// if the overlayCheck is disabled, set overlayEnable and
 			// overlayDurationEnable to false and set the overlay options to
 			// default
 			else {
-
-				removeCheck.setEnabled(true);
-
 				starLabel2.setEnabled(false);
 				overlayDurationCheck.setSelected(false);
 				inputOverlayButton.setEnabled(false);
@@ -415,6 +428,9 @@ ActionListener {
 				lengthLabelOverlay.setEnabled(false);
 				lengthOverlay.setEnabled(false);
 				lengthOverlay.setText("");
+
+				// enable remove feature while overlay is disabled
+				removeCheck.setEnabled(true);
 
 			}
 		}
@@ -511,6 +527,7 @@ ActionListener {
 			}
 
 		}
+
 		// If the inputOverlayButton is clicked
 		else if (e.getSource() == inputOverlayButton) {
 			ol.inputOverlay();
@@ -533,22 +550,23 @@ ActionListener {
 		else if (e.getSource() == replacePlayButton) {
 			rp.replacePreview();
 		}
-
-		else if (e.getSource() == helpButton){
+		// If the help button is clicked
+		else if (e.getSource() == helpButton) {
 			ah.audioHelp();
 		}
 
 	}
+
 	/**
-	 * Method run all the audio manipulating commands in a background thread
+	 * makeCommand Method creates the audio manipulating commands during export
 	 * 
 	 * @return exit status
 	 */
-	public String makeCommand(String input, String output){
-		
+	public String makeCommand(String input, String output) {
+
 		String cmd = abt.makeAudioCommand(input, output);
-		
+
 		return cmd;
-	
+
 	}
 }

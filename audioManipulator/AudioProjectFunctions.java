@@ -7,9 +7,25 @@ import java.io.IOException;
 
 import mainPackage.Menu;
 
-
+/**
+ * SoftEng206 Project - audio project function class
+ * 
+ * Purpose: The purpose of this class is to perform all the project functions.
+ * It has functions to enable/disable, set and refresh all the fields of audio
+ * manipulation tab. It also sets the main video info for audio manipulation.
+ * This class is used in MainAudioManipulator.java and also in multiple classes
+ * in the mainPackage for performing these functions while creating a new
+ * project or opening a new project etc.
+ * 
+ * @author Chahat Chawla ccha504 8492142
+ * 
+ *         Partial Code Extracted by Assignment 3
+ * @author Chahat Chawla and Zainab Al Lawati
+ * 
+ */
 
 public class AudioProjectFunctions {
+
 	/**
 	 * enableAudioMan Method enables or disable all the fields in the audio
 	 * manipulating tab depending on the state
@@ -49,6 +65,9 @@ public class AudioProjectFunctions {
 	 */
 	public void setAllFields(String audioFieldsPath) {
 
+		//Reference to BufferedReader :
+		//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
+		
 		MainAudioManipulator.getInstance().audioFields = audioFieldsPath;
 		File f = new File(MainAudioManipulator.getInstance().audioFields);
 		try {
@@ -58,36 +77,55 @@ public class AudioProjectFunctions {
 
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
-			MainAudioManipulator.getInstance().removeCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			MainAudioManipulator.getInstance().extractCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			MainAudioManipulator.getInstance().outputFileName.setText(reader.readLine());
-			MainAudioManipulator.getInstance().extractDurationCheck.setSelected(Boolean.parseBoolean(reader
-					.readLine()));
-			MainAudioManipulator.getInstance().startTimeExtract.setText(reader.readLine());
-			MainAudioManipulator.getInstance().lengthExtract.setText(reader.readLine());
-			MainAudioManipulator.getInstance().replaceCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().removeCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().extractCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().outputFileName.setText(reader
+					.readLine());
+			MainAudioManipulator.getInstance().extractDurationCheck
+					.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().startTimeExtract.setText(reader
+					.readLine());
+			MainAudioManipulator.getInstance().lengthExtract.setText(reader
+					.readLine());
+			MainAudioManipulator.getInstance().replaceCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
 			MainAudioManipulator.getInstance().inputFile = reader.readLine();
-			if (MainAudioManipulator.getInstance().inputFile != null) { // If audio was imported, enable playing it
-				File audio = new File(MainAudioManipulator.getInstance().inputFile);
+
+			// If audio was imported, enable the option of playing it
+			if (MainAudioManipulator.getInstance().inputFile != null) {
+				File audio = new File(
+						MainAudioManipulator.getInstance().inputFile);
 				if (audio.exists()) {
-					MainAudioManipulator.getInstance().replacePlayButton.setEnabled(true);
+					MainAudioManipulator.getInstance().replacePlayButton
+							.setEnabled(true);
 				}
 			}
-			MainAudioManipulator.getInstance().overlayCheck.setSelected(Boolean.parseBoolean(reader.readLine()));
-			MainAudioManipulator.getInstance().overlayDurationCheck.setSelected(Boolean.parseBoolean(reader
-					.readLine()));
-			MainAudioManipulator.getInstance().startTimeOverlay.setText(reader.readLine());
-			MainAudioManipulator.getInstance().lengthOverlay.setText(reader.readLine());
+			MainAudioManipulator.getInstance().overlayCheck.setSelected(Boolean
+					.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().overlayDurationCheck
+					.setSelected(Boolean.parseBoolean(reader.readLine()));
+			MainAudioManipulator.getInstance().startTimeOverlay.setText(reader
+					.readLine());
+			MainAudioManipulator.getInstance().lengthOverlay.setText(reader
+					.readLine());
 			MainAudioManipulator.getInstance().audioFiles.clear();
 			MainAudioManipulator.getInstance().fullNames.clear();
+
+			// read the line and split the sentence so every short file name can
+			// be added to the audioFiles list
 			String shortNames = reader.readLine();
 
-			if (shortNames !=null){
+			if (shortNames != null) {
 				String[] splitList = shortNames.split(" ");
 				for (String s : splitList) {
 					MainAudioManipulator.getInstance().audioFiles.addElement(s);
 				}
 
+				// read the line and split the sentence so every long file name
+				// can
+				// be added to the fullnames list
 				String longNames = reader.readLine();
 				String[] splitListLong = longNames.split(" ");
 				for (String s : splitListLong) {
@@ -97,7 +135,7 @@ public class AudioProjectFunctions {
 			}
 			reader.close();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
@@ -111,6 +149,9 @@ public class AudioProjectFunctions {
 	public void setVideoInfo() {
 		// Get the main project file
 		MainAudioManipulator.getInstance().projectPath = Menu.getProjectPath();
+		
+		//Reference to BufferedReader :
+		//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
 		File f = new File(MainAudioManipulator.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables
@@ -119,7 +160,7 @@ public class AudioProjectFunctions {
 			reader.readLine(); // project path
 			MainAudioManipulator.getInstance().hiddenDir = reader.readLine();
 			MainAudioManipulator.getInstance().workingDir = reader.readLine();
-			MainAudioManipulator.getInstance().videoPath = reader.readLine(); // video path
+			MainAudioManipulator.getInstance().videoPath = reader.readLine();
 			MainAudioManipulator.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {
@@ -141,8 +182,10 @@ public class AudioProjectFunctions {
 		MainAudioManipulator.getInstance().extractCheck.setSelected(false);
 		MainAudioManipulator.getInstance().replaceCheck.setSelected(false);
 		MainAudioManipulator.getInstance().overlayCheck.setSelected(false);
-		MainAudioManipulator.getInstance().extractDurationCheck.setSelected(false);
-		MainAudioManipulator.getInstance().overlayDurationCheck.setSelected(false);
+		MainAudioManipulator.getInstance().extractDurationCheck
+				.setSelected(false);
+		MainAudioManipulator.getInstance().overlayDurationCheck
+				.setSelected(false);
 		MainAudioManipulator.getInstance().audioFiles.clear();
 		MainAudioManipulator.getInstance().fullNames.clear();
 		MainAudioManipulator.getInstance().inputFile = "";
