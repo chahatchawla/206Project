@@ -57,7 +57,7 @@ public class TextBackgroundCommand {
 			// want to implement credit screen
 			if (fileTitle.exists() && !fileCredit.exists()) {
 				StringBuilder finalTitleCommand = new StringBuilder();
-				// add text to video
+				// add text to video bash command
 				finalTitleCommand.append("avconv -ss 0 -i " + firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
 						+ MainTextEditor.getInstance().fontDir
@@ -72,7 +72,7 @@ public class TextBackgroundCommand {
 						+ "/text.mp4");
 				finalTitleCommand.append(";");
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalTitleCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -105,7 +105,7 @@ public class TextBackgroundCommand {
 						.getInstance().videoLength) - Integer
 						.parseInt(MainTextEditor.getInstance().creditDuration));
 				String startTime = "" + time;
-				// add text to video
+				// add text to video bash command
 				finalCreditCommand
 						.append("avconv -ss "
 								+ startTime
@@ -127,7 +127,7 @@ public class TextBackgroundCommand {
 								+ "/text1.mp4");
 				finalCreditCommand.append(";");
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalCreditCommand
 						.append("avconv -ss 0 -i "
 								+ firstInput
@@ -166,7 +166,7 @@ public class TextBackgroundCommand {
 								.parseInt(MainTextEditor.getInstance().titleDuration);
 				String startTime = "" + time;
 				String stopTime = "" + time1;
-				// add text to title video
+				// add text to title video bash command
 				finalBothCommand.append("avconv -ss 0 -i " + firstInput
 						+ " -strict experimental -vf \"drawtext=fontfile='"
 						+ MainTextEditor.getInstance().fontDir
@@ -180,7 +180,7 @@ public class TextBackgroundCommand {
 						+ " -y " + MainTextEditor.getInstance().hiddenDir
 						+ "/text.mp4");
 				finalBothCommand.append(";");
-				// add text to credit video
+				// add text to credit video bash command
 				finalBothCommand
 						.append("avconv -ss "
 								+ startTime
@@ -202,7 +202,7 @@ public class TextBackgroundCommand {
 								+ "/text1.mp4");
 				finalBothCommand.append(";");
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalBothCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -258,13 +258,13 @@ public class TextBackgroundCommand {
 					inputFrameTime = MainTextEditor.getInstance().titleFrameTime;
 				}
 				// take a screenshot from the video at the given
-				// inputFrametime
+				// inputFrametime bash command
 				finalTitleCommand.append("avconv -i " + firstInput + " -ss "
 						+ inputFrameTime + " -f image2 -vframes 1 "
 						+ MainTextEditor.getInstance().hiddenDir + "/out.png");
 				finalTitleCommand.append(";");
 				// create a video from image for the duration given by
-				// the user
+				// the user bash command
 				finalTitleCommand.append("avconv -loop 1 -shortest -y -i "
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/out.png -t "
@@ -272,7 +272,7 @@ public class TextBackgroundCommand {
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4");
 				finalTitleCommand.append(";");
-				// add text
+				// add text bash command
 				finalTitleCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -293,7 +293,7 @@ public class TextBackgroundCommand {
 				finalTitleCommand.append(";");
 
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalTitleCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -332,13 +332,13 @@ public class TextBackgroundCommand {
 					inputFrameTime = MainTextEditor.getInstance().creditFrameTime;
 				}
 				// take a screenshot from the video at the given
-				// inputFrametime
+				// inputFrametime bash command
 				finalCreditCommand.append("avconv -i " + firstInput + " -ss "
 						+ inputFrameTime + " -f image2 -vframes 1 "
 						+ MainTextEditor.getInstance().hiddenDir + "/out.png");
 				finalCreditCommand.append(";");
 				// create a video from image for the duration given by
-				// the user
+				// the user bash command
 				finalCreditCommand.append("avconv -loop 1 -shortest -y -i "
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/out.png -t "
@@ -346,7 +346,7 @@ public class TextBackgroundCommand {
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result.mp4");
 				finalCreditCommand.append(";");
-				// add text
+				// add text bash command
 				finalCreditCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -366,7 +366,7 @@ public class TextBackgroundCommand {
 								+ "/text1.mp4");
 				finalCreditCommand.append(";");
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalCreditCommand
 						.append("avconv -ss 0 -i "
 								+ firstInput
@@ -407,19 +407,19 @@ public class TextBackgroundCommand {
 					inputFrameTime1 = MainTextEditor.getInstance().creditFrameTime;
 				}
 				// take a screenshot from the video at the given
-				// inputFrametime for title screen
+				// inputFrametime for title screen bash command
 				finalBothCommand.append("avconv -i " + firstInput + " -ss "
 						+ inputFrameTime + " -f image2 -vframes 1 "
 						+ MainTextEditor.getInstance().hiddenDir + "/out.png");
 				finalBothCommand.append(";");
 				// take a screenshot from the video at the given
-				// inputFrametime for credit screen
+				// inputFrametime for credit screen bash command
 				finalBothCommand.append("avconv -i " + firstInput + " -ss "
 						+ inputFrameTime1 + " -f image2 -vframes 1 "
 						+ MainTextEditor.getInstance().hiddenDir + "/out1.png");
 				finalBothCommand.append(";");
 				// create video from image for the duration given by the
-				// user for title screen
+				// user for title screen bash command
 				finalBothCommand.append("avconv -loop 1 -shortest -y -i "
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/out.png -t "
@@ -428,7 +428,7 @@ public class TextBackgroundCommand {
 						+ "/result.mp4");
 				finalBothCommand.append(";");
 				// create video from image for the duration given by the
-				// user for credit screen
+				// user for credit screen bash command
 				finalBothCommand.append("avconv -loop 1 -shortest -y -i "
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/out1.png -t "
@@ -436,7 +436,7 @@ public class TextBackgroundCommand {
 						+ MainTextEditor.getInstance().hiddenDir
 						+ "/result1.mp4");
 				finalBothCommand.append(";");
-				// add text for title screen
+				// add text for title screen bash command
 				finalBothCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -455,7 +455,7 @@ public class TextBackgroundCommand {
 								+ MainTextEditor.getInstance().hiddenDir
 								+ "/text.mp4");
 				finalBothCommand.append(";");
-				// add text for credit screen
+				// add text for credit screen bash command
 				finalBothCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -476,7 +476,7 @@ public class TextBackgroundCommand {
 				finalBothCommand.append(";");
 
 				// concatenate the videos together = gives the final
-				// output
+				// output bash command
 				finalBothCommand
 						.append("avconv -ss 0 -i "
 								+ MainTextEditor.getInstance().hiddenDir
@@ -502,7 +502,8 @@ public class TextBackgroundCommand {
 
 				MainTextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand
 						.toString();
-
+				
+				// return the final command 
 				return MainTextEditor.getInstance().bothTitleAndCreditCommand;
 			}
 		}

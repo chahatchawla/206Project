@@ -177,8 +177,6 @@ public class MainTextEditor extends JPanel implements ActionListener,
 	protected String prevFont = "Arial";
 	protected String creditFields;
 
-	protected TextBackgroundCommand longTask;
-
 	/**
 	 * Constructor for MainTextEditor() -Sets up the GUI for text editing tab -
 	 * sets up the default layout

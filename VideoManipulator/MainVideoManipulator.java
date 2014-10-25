@@ -21,9 +21,20 @@ import javax.swing.JTextField;
 
 import mainPackage.MediaPlayer;
 
-
 /**
- * SoftEng206 Assignment3 - video manipulator class
+ * SoftEng206 Project - main video manipulator class
+ * 
+ * Purpose: The purpose of this class is to create the GUI for the video
+ * manipulator tab and handle all the actions performed. This class is used in
+ * mainPackage.Main.java to initialize the video manipulator tab.
+ * 
+ * This class is a singleton, as for our application, only one instance of the
+ * MainVideoManipulator class should be created, since the "tab" object should
+ * only be created once instead of having multiple instances being created as
+ * the application progresses.
+ * 
+ * Video Manipulation provides the functionality to take a snapshot, extract and
+ * loop video and/or add a filter to the imported video.
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
@@ -35,7 +46,10 @@ import mainPackage.MediaPlayer;
 public class MainVideoManipulator extends JPanel implements ItemListener,
 ActionListener {
 
+	// Initializing the singleton instance of this class
 	private static MainVideoManipulator instance = new MainVideoManipulator();
+
+	// Initializing all the helper classes for audio manipulation
 	protected VideoChecks vc = new VideoChecks();
 	protected VideoProjectFunctions vpf = new VideoProjectFunctions();
 	protected VideoHelp vh = new VideoHelp();
@@ -120,14 +134,12 @@ ActionListener {
 	protected boolean loopVideoEnable = false;
 
 	// Initializing the Strings
-
 	protected String snapshotCmd = "";
 	protected String loopVideoCmd = "";
 	protected String filterCmd = "";
 	protected String previewCmd = "";
 	protected String previewSnapCmd = "";
 	protected String previewFrameCmd = "";
-
 	protected String filter = "";
 
 	protected String projectPath;
@@ -138,17 +150,21 @@ ActionListener {
 
 	protected String videoFields;
 
-	// Initializing the swing worker BackgroundTask
-	private VideoBackgroundCommand longTask;
-
 	/**
 	 * Constructor for VideoManipulator() -Sets up the GUI for video
 	 * manipulation tab -Sets up the default layout
 	 */
 
 	private MainVideoManipulator() {
-		help = new ImageIcon(MediaPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(MediaPlayer.class.getResource("Resources/video.png")));
+
+		// sets the images so they are imported from the resources folder in
+		// this package
+		// Reference:
+		// http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
+		help = new ImageIcon(
+				MediaPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(
+				MediaPlayer.class.getResource("Resources/video.png")));
 
 		// set the icons to the help button
 		helpButton.setIcon(help);
@@ -159,7 +175,6 @@ ActionListener {
 
 		// change the font of the title, subTitles and starLabels
 		videoManipulatorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-
 		snapshotCheck.setFont(new Font("Dialog", Font.BOLD, 15));
 		loopVideoCheck.setFont(new Font("Dialog", Font.BOLD, 15));
 		filterCheck.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -257,7 +272,6 @@ ActionListener {
 		outputSnapshotName.setEnabled(false);
 		snapshotPrevButton.setEnabled(false);
 		getTime1Button.setEnabled(false);
-
 		startTimeLabel.setEnabled(false);
 		lengthLabel.setEnabled(false);
 		outputLoopVideoLabel.setEnabled(false);
@@ -269,18 +283,26 @@ ActionListener {
 		loop.setEnabled(false);
 		loopLabel.setEnabled(false);
 		loop1Label.setEnabled(false);
-
-
 		selectFilterLabel.setEnabled(false);
 		filterList.setEnabled(false);
 		prevButton.setEnabled(false);
 
 	}
 
+	/**
+	 * getInstance() returns the singleton instance of the MainVideoManipulator
+	 * class
+	 * 
+	 * @return
+	 */
 	public static MainVideoManipulator getInstance() {
 		return instance;
 	}
 
+	/**
+	 * itemStateChanged method responds to all the item events done by the user
+	 * on the GUI
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 
@@ -329,8 +351,7 @@ ActionListener {
 
 			}
 			// if the snapshotCheck is disabled, set snapshotEnable to false and
-			// the
-			// snapshot options to default
+			// the snapshot options to default
 			else {
 				snapshotTimeLabel.setEnabled(false);
 				outputSnapshotLabel.setEnabled(false);
@@ -390,6 +411,10 @@ ActionListener {
 		}
 	}
 
+	/**
+	 * actionPerformed method responds to all the actions done by the user on
+	 * the GUI
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -405,18 +430,17 @@ ActionListener {
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.MediaPlayer.video.getTime() != -1){
+			if (mainPackage.MediaPlayer.video.getTime() != -1) {
 				int time = (int) mainPackage.MediaPlayer.video.getTime();
-				SimpleDateFormat df = new SimpleDateFormat(
-						"HH:mm:ss");
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
 				String formatedTime = df.format(new Date(time));
 
 				timeSnapshot.setText(formatedTime);
-			}
-			else {
-				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Please play the imported video once!");
 			}
 
 		}
@@ -436,13 +460,20 @@ ActionListener {
 			lp.loopPreview();
 
 		}
-
+		// if the user clicks on the help button
 		else if (e.getSource() == helpButton) {
 			vh.videoHelp();
 		}
 	}
 
-	public String makeCommand(String input, String output){
+	/**
+	 * makeCommand Method creates the video manipulating commands during export
+	 * 
+	 * @param input
+	 * @param output
+	 * @return
+	 */
+	public String makeCommand(String input, String output) {
 		String cmd = vbt.makeVideoCommand(input, output);
 
 		return cmd;

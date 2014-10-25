@@ -11,6 +11,20 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+/**
+ * SoftEng206 Project - video checks class
+ * 
+ * Purpose: The purpose of this class is to perform all the error checks for the
+ * features snapshot, extract then loop video and filter. It also provides some
+ * helper methods that are necessary for these checks. This class is used in
+ * VideoSave.java.
+ * 
+ * @author Chahat Chawla ccha504 8492142
+ * 
+ *         Partial Code Extracted by Assignment 3
+ * @author Chahat Chawla and Zainab Al Lawati
+ * 
+ */
 public class VideoChecks {
 
 	/**
@@ -58,7 +72,7 @@ public class VideoChecks {
 	 * in the hh:mm:ss format or not
 	 * 
 	 * @param startTime
-	 *          
+	 * 
 	 */
 
 	protected boolean timeChecks(String time) {
@@ -78,17 +92,25 @@ public class VideoChecks {
 	}
 
 	/**
-	 * allChecksSnapShot Method does all the checks for snapshot option
+	 * allChecksSnapshot Method does all the checks for snapshot such as check
+	 * time formats, check whether times are within video range, detect empty
+	 * fields and also checks for existing files.
+	 * 
 	 */
 
 	private boolean allChecksSnapshot() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		// Get the video path and length
 		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 		boolean passedOrNot = true;
 
 		// check whether the input frame time is in the right format or not,
 		// using timeChecks()
-		boolean passedTimeCheckSnap = timeChecks(MainVideoManipulator.getInstance().timeSnapshot.getText().trim());
+		boolean passedTimeCheckSnap = timeChecks(MainVideoManipulator
+				.getInstance().timeSnapshot.getText().trim());
 
 		// if it is in the wrong format, inform the user and allow them
 		// to enter the time again
@@ -96,42 +118,47 @@ public class VideoChecks {
 			MainVideoManipulator.getInstance().timeSnapshot.setText("");
 			passedOrNot = false;
 			JOptionPane
-			.showMessageDialog(null,
-					"ERROR: snapshot frame time can only be in the format hh:mm:ss");
+					.showMessageDialog(null,
+							"ERROR: snapshot frame time can only be in the format hh:mm:ss");
 		}
 
 		// check for whether the given time smaller than the length of the video
 		else if (passedOrNot) {
 
 			// convert the time from hh:mm:ss format to seconds
-			int convertedTime = convertToSeconds(MainVideoManipulator.getInstance().timeSnapshot.getText().trim());
+			int convertedTime = convertToSeconds(MainVideoManipulator
+					.getInstance().timeSnapshot.getText().trim());
 
-			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator
+					.getInstance().videoLength));
 
 			// if convertedTime is more than the length of the video, inform the
 			// user and allow them to enter the snapshot frame time again
 			if (convertedTime > lengthOfVideo) {
 				passedOrNot = false;
-				JOptionPane
-				.showMessageDialog(null,
-						"ERROR: snapshot frame time can not be more than the length of the video - " + lengthOfVideo+ " seconds");
+				JOptionPane.showMessageDialog(null,
+						"ERROR: snapshot frame time can not be more than the length of the video - "
+								+ lengthOfVideo + " seconds");
 				MainVideoManipulator.getInstance().timeSnapshot.setText("");
 			}
 		}
 
 		// check for whether the outputSnapshotName field is empty
-		if (MainVideoManipulator.getInstance().outputSnapshotName.getText().trim().equals("")) {
+		if (MainVideoManipulator.getInstance().outputSnapshotName.getText()
+				.trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output snapshot name");
 			passedOrNot = false;
-			
+
 		}
 
 		// check whether the outputSnapshotName specified user already exists in
 		// the
 		// project directory
-		String outputFile = MainVideoManipulator.getInstance().workingDir + "/" + MainVideoManipulator.getInstance().outputSnapshotName.getText()
-				+ ".png";
+		String outputFile = MainVideoManipulator.getInstance().workingDir
+				+ "/"
+				+ MainVideoManipulator.getInstance().outputSnapshotName
+						.getText() + ".png";
 		File f = new File(outputFile);
 		if (f.exists()) {
 
@@ -139,17 +166,23 @@ public class VideoChecks {
 
 			// Allow user to choose either overwriting the current file or
 			// change the output file name
-			Object[] existOptions = { "Cancel", "Overwrite" };
-			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ MainVideoManipulator.getInstance().outputSnapshotName.getText() + ".png already exists. "
-					+ "Do you want to overwrite the existing file?",
-					"File Exists!", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, existOptions,
-					existOptions[0]);
-			if (optionChosen == 1) {
+			Object[] existOptions = { "Overwrite", "Cancel" };
+			int optionChosen = JOptionPane
+					.showOptionDialog(
+							null,
+							"ERROR: "
+									+ MainVideoManipulator.getInstance().outputSnapshotName
+											.getText()
+									+ ".png already exists. "
+									+ "Do you want to overwrite the existing file?",
+							"File Exists!", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, existOptions,
+							existOptions[0]);
+			if (optionChosen == 0) {
 				f.delete(); // Delete the existing file
 			} else {
-				MainVideoManipulator.getInstance().outputSnapshotName.setText("");
+				MainVideoManipulator.getInstance().outputSnapshotName
+						.setText("");
 				passedOrNot = false;
 			}
 		}
@@ -157,21 +190,28 @@ public class VideoChecks {
 	}
 
 	/**
-	 * allChecksLoop Method does all the checks for loop video option
+	 * allChecksLoop Method does all the checks for loop such as check time
+	 * formats, check whether times are within video range, whether loop input
+	 * is an integer, checks for existing files and detects empty fields.
 	 */
-
 	private boolean allChecksLoop() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		boolean passedOrNot = true;
 		// Get the video path and length
 		MainVideoManipulator.getInstance().vpf.setVideoInfo();
 
 		// check whether the start time is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckStart = timeChecks(MainVideoManipulator.getInstance().timeStart.getText().trim());
+		boolean passedTimeCheckStart = timeChecks(MainVideoManipulator
+				.getInstance().timeStart.getText().trim());
 
 		// check whether the length is in the right format or not, using
 		// timeChecks()
-		boolean passedTimeCheckLength = timeChecks(MainVideoManipulator.getInstance().timeLength.getText().trim());
+		boolean passedTimeCheckLength = timeChecks(MainVideoManipulator
+				.getInstance().timeLength.getText().trim());
 
 		// if the start time is in the wrong format, inform the user and allow
 		// them
@@ -180,8 +220,8 @@ public class VideoChecks {
 			MainVideoManipulator.getInstance().timeStart.setText("");
 			passedOrNot = false;
 			JOptionPane
-			.showMessageDialog(null,
-					"ERROR: loop video start time can only be in the format hh:mm:ss");
+					.showMessageDialog(null,
+							"ERROR: loop video start time can only be in the format hh:mm:ss");
 		}
 
 		// if the length is in the wrong format, inform the user and allow them
@@ -190,27 +230,30 @@ public class VideoChecks {
 			MainVideoManipulator.getInstance().timeLength.setText("");
 			passedOrNot = false;
 			JOptionPane
-			.showMessageDialog(null,
-					"ERROR: loop video length can only be in the format hh:mm:ss");
+					.showMessageDialog(null,
+							"ERROR: loop video length can only be in the format hh:mm:ss");
 		}
 
 		// check for whether the given length + start time is smaller than
 		// the length of the video or not
 		else if (passedOrNot) {
-			int convertedStartTime = convertToSeconds(MainVideoManipulator.getInstance().timeStart.getText()
-					.trim());
-			int convertedLength = convertToSeconds(MainVideoManipulator.getInstance().timeLength.getText().trim());
+			int convertedStartTime = convertToSeconds(MainVideoManipulator
+					.getInstance().timeStart.getText().trim());
+			int convertedLength = convertToSeconds(MainVideoManipulator
+					.getInstance().timeLength.getText().trim());
 			int totalTime = convertedStartTime + convertedLength;
-			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator.getInstance().videoLength));
+			int lengthOfVideo = (int) (Double.parseDouble(MainVideoManipulator
+					.getInstance().videoLength));
 
 			// if totalTime is more than the length of the video, inform the
 			// user and allow them to enter the start time and length again
 			if (totalTime > lengthOfVideo) {
 				passedOrNot = false;
 				JOptionPane
-				.showMessageDialog(
-						null,
-						"ERROR: start time + length for loop video can not be more than the length of the video - " + lengthOfVideo+ " seconds");
+						.showMessageDialog(
+								null,
+								"ERROR: start time + length for loop video can not be more than the length of the video - "
+										+ lengthOfVideo + " seconds");
 				MainVideoManipulator.getInstance().timeStart.setText("");
 				MainVideoManipulator.getInstance().timeLength.setText("");
 			}
@@ -219,35 +262,40 @@ public class VideoChecks {
 		// check for whether the loop field is empty
 		if (MainVideoManipulator.getInstance().loop.getText().trim().equals("")) {
 			JOptionPane
-			.showMessageDialog(
-					null,
-					"ERROR: please specify how many times you would like to loop the extracted video");
+					.showMessageDialog(
+							null,
+							"ERROR: please specify how many times you would like to loop the extracted video");
 			passedOrNot = false;
 		}
+		// check for whether the loop input is an integer
 		else {
 			Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
-			Matcher matchesInteger = integerPattern.matcher(MainVideoManipulator.getInstance().loop.getText());
+			Matcher matchesInteger = integerPattern
+					.matcher(MainVideoManipulator.getInstance().loop.getText());
 			boolean isInteger = matchesInteger.matches();
-
-			if (!isInteger){         
-				JOptionPane.showMessageDialog(null,
-						"ERROR: please specify the loop number that is 1 or more");
+			// if it is not an integer, inform the user
+			if (!isInteger) {
+				JOptionPane
+						.showMessageDialog(null,
+								"ERROR: please specify the loop number that is 1 or more");
 				passedOrNot = false;
 			}
 		}
 
 		// check for whether the outputLoopVideoName field is empty
-		if (MainVideoManipulator.getInstance().outputLoopVideoName.getText().trim().equals("")) {
+		if (MainVideoManipulator.getInstance().outputLoopVideoName.getText()
+				.trim().equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output loop video name");
 			passedOrNot = false;
 		}
 
 		// check whether the outputLoopVideoName specified user already exists
-		// in the
-		// project directory
-		String outputFile = MainVideoManipulator.getInstance().workingDir + "/" + MainVideoManipulator.getInstance().outputLoopVideoName.getText()
-				+ ".mp4";
+		// in the project directory
+		String outputFile = MainVideoManipulator.getInstance().workingDir
+				+ "/"
+				+ MainVideoManipulator.getInstance().outputLoopVideoName
+						.getText() + ".mp4";
 		File f = new File(outputFile);
 		if (f.exists()) {
 
@@ -255,17 +303,23 @@ public class VideoChecks {
 
 			// Allow user to choose either overwriting the current file or
 			// change the output file name
-			Object[] existOptions = { "Cancel", "Overwrite" };
-			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ MainVideoManipulator.getInstance().outputLoopVideoName.getText() + ".mp4 already exists. "
-					+ "Do you want to overwrite the existing file?",
-					"File Exists!", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, existOptions,
-					existOptions[0]);
-			if (optionChosen == 1) {
+			Object[] existOptions = { "Overwrite", "Cancel" };
+			int optionChosen = JOptionPane
+					.showOptionDialog(
+							null,
+							"ERROR: "
+									+ MainVideoManipulator.getInstance().outputLoopVideoName
+											.getText()
+									+ ".mp4 already exists. "
+									+ "Do you want to overwrite the existing file?",
+							"File Exists!", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, existOptions,
+							existOptions[0]);
+			if (optionChosen == 0) {
 				f.delete(); // Delete the existing file
 			} else {
-				MainVideoManipulator.getInstance().outputLoopVideoName.setText("");
+				MainVideoManipulator.getInstance().outputLoopVideoName
+						.setText("");
 				passedOrNot = false;
 			}
 		}
@@ -274,10 +328,14 @@ public class VideoChecks {
 	}
 
 	/**
-	 * allChecksFilter Method does all the checks for filter option
+	 * allChecksFilter Method does all the checks for filter option such as
+	 * detects empty fields.
 	 */
 
 	private boolean allChecksFilter() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
 		boolean passedOrNot = true;
 
 		if (MainVideoManipulator.getInstance().filter.equals("")) {
@@ -293,11 +351,12 @@ public class VideoChecks {
 	}
 
 	/**
-	 * allChecksVideo Method does all the checks for Video Manipulator
+	 * allChecksVideo Method does all the checks for Video Manipulator - calls
+	 * the methods allChecksSnapshot(), allChecksLoop() and allChecksFilter() to
+	 * determine whether the checks passed or not.
 	 */
 	protected boolean allChecksVideo() {
-		
-		
+
 		boolean passedAllChecks = true;
 		boolean passedSnapshot = true;
 		boolean passedLoop = true;
@@ -317,13 +376,11 @@ public class VideoChecks {
 		if (MainVideoManipulator.getInstance().filterEnable) {
 			passedFilter = allChecksFilter();
 		}
-		
-	
-		if(passedSnapshot && passedLoop && passedFilter){
+		// if all three checks pass, return true, otherwise return false
+		if (passedSnapshot && passedLoop && passedFilter) {
 			passedAllChecks = true;
 
-		}
-		else {
+		} else {
 			passedAllChecks = false;
 		}
 		return passedAllChecks;
