@@ -42,6 +42,7 @@ import javax.swing.SwingWorker;
 
 public class Download extends JPanel implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
 	// Initializing the text for the buttons
 	private final String TEXT_DOWNLOAD = "Download";
 	private final String TEXT_CANCEL = "Cancel";
@@ -143,7 +144,7 @@ public class Download extends JPanel implements ActionListener {
 		}
 
 		private Process process;
-		
+
 		/**
 		 * doInBackground() performs all the long tasks so the application does
 		 * not freeze
@@ -397,9 +398,9 @@ public class Download extends JPanel implements ActionListener {
 			cancelBt.setEnabled(true);
 			url.setText("");
 
-		} 
+		}
 		// If the cancel button is clicked
-		else { 
+		else {
 			// Cancel the download process
 			if (download != null) {
 				download.cancel(false);

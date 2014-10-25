@@ -51,6 +51,8 @@ import mainPackage.MediaPlayer;
 public class MainSubtitles extends JPanel implements ItemListener,
 		ActionListener {
 
+	private static final long serialVersionUID = 1L;
+
 	// Initializing the singleton instance of this class
 	private static MainSubtitles instance = new MainSubtitles();
 
@@ -315,6 +317,7 @@ public class MainSubtitles extends JPanel implements ItemListener,
 	public static MainSubtitles getInstance() {
 		return instance;
 	}
+
 	/**
 	 * itemStateChanged method responds to all the item events done by the user
 	 * on the GUI
@@ -420,6 +423,7 @@ public class MainSubtitles extends JPanel implements ItemListener,
 		}
 
 	}
+
 	/**
 	 * actionPerformed method responds to all the actions done by the user on
 	 * the GUI
@@ -451,10 +455,11 @@ public class MainSubtitles extends JPanel implements ItemListener,
 		else if (e.getSource() == getTime1Button) {
 
 			// if the video has been played once
-			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+			if (mainPackage.MediaPlayer.getInstance().video.getTime() != -1) {
 
 				// get the current time of the video
-				int time = (int) mainPackage.MediaPlayer.video.getTime();
+				int time = (int) mainPackage.MediaPlayer.getInstance().video
+						.getTime();
 
 				// reference:
 				// http://stackoverflow.com/questions
@@ -480,10 +485,11 @@ public class MainSubtitles extends JPanel implements ItemListener,
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime2Button) {
 			// if the video has been played once
-			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+			if (mainPackage.MediaPlayer.getInstance().video.getTime() != -1) {
 
 				// get the current time of the video
-				int time = (int) mainPackage.MediaPlayer.video.getTime();
+				int time = (int) mainPackage.MediaPlayer.getInstance().video
+						.getTime();
 
 				// reference:
 				// http://stackoverflow.com/questions
@@ -551,13 +557,14 @@ public class MainSubtitles extends JPanel implements ItemListener,
 		// If the playButton is clicked
 		else if (e.getSource() == playButton) {
 
-			// play the video from the start 
+			// play the video from the start
 			mainPackage.MediaPlayer.getInstance().video.stop();
 			mainPackage.MediaPlayer.getInstance().video.play();
 			mainPackage.MediaPlayer.getInstance().playBtn
 					.setIcon(mainPackage.MediaPlayer.getInstance().pause);
-			// add the subtitles 
-			mainPackage.MediaPlayer.video.setSubTitleFile(new File(inputFile));
+			// add the subtitles
+			mainPackage.MediaPlayer.getInstance().video
+					.setSubTitleFile(new File(inputFile));
 			JOptionPane.showMessageDialog(null,
 					"Imported subtitles have been added to the media player!");
 		}

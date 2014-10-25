@@ -31,12 +31,12 @@ public class AudioSave {
 
 		// Get the video path and length
 		MainAudioManipulator.getInstance().apf.setVideoInfo();
-		
+
 		// Perform all the checks
 		boolean passedAll = MainAudioManipulator.getInstance().ac
 				.allChecksAudio();
-		
-		// If checks are passed 
+
+		// If checks are passed
 		if (passedAll) {
 			// Reference for JOptionPane():
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html

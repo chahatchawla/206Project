@@ -45,16 +45,16 @@ public class OpenProject {
 		Main.tpf.enableTextEdit(false);
 		Main.spf.enableSubtitle(false);
 
-		//Reference:
-		//http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
+		// Reference:
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
 		// Prompt the user to choose a project
 		JFileChooser chooser = new JFileChooser();
-		
+
 		// Show only correct extension type file by default
-		chooser.setFileFilter(Menu.getInstance().projectFilter); 
+		chooser.setFileFilter(Menu.getInstance().projectFilter);
 
 		int returnVal = chooser.showOpenDialog(null);
-		
+
 		// Go back to the main frame if choosing project was cancelled
 		if (returnVal != JFileChooser.APPROVE_OPTION) {
 			return;
@@ -66,7 +66,7 @@ public class OpenProject {
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader(f));
 			// if the project file selected is not valid
-			if (!Menu.getInstance().projectPath.equals(reader.readLine())) { 
+			if (!Menu.getInstance().projectPath.equals(reader.readLine())) {
 				JOptionPane.showMessageDialog(null,
 						"Project file selected is no valid, please try again.");
 				reader.close();
@@ -143,23 +143,23 @@ public class OpenProject {
 			File f6 = new File(Menu.getInstance().workingDir
 					+ "/.subtitleFields");
 
-			// If video manipulation was performed 
+			// If video manipulation was performed
 			if (f2.exists()) {
 				Main.vpf.setAllFields(Menu.getInstance().workingDir
 						+ "/.videoFields");
 			}
-			// If audio manipulation was performed 
+			// If audio manipulation was performed
 			if (f3.exists()) {
 				Main.apf.setAllFields(Menu.getInstance().workingDir
 						+ "/.audioFields");
 			}
-			// If subtitles was performed 
+			// If subtitles was performed
 			if (f6.exists()) {
 				Main.spf.setAllFields(Menu.getInstance().workingDir
 						+ "/.subtitleFields");
 			}
 
-			// If text editing was performed 
+			// If text editing was performed
 			if (f4.exists() && !f5.exists()) {
 				Main.tpf.setCreditFields(Menu.getInstance().workingDir
 						+ "/.creditFields");

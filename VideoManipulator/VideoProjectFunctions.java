@@ -111,7 +111,7 @@ public class VideoProjectFunctions {
 			reader.readLine(); // project path
 			MainVideoManipulator.getInstance().hiddenDir = reader.readLine();
 			MainVideoManipulator.getInstance().workingDir = reader.readLine();
-			MainVideoManipulator.getInstance().videoPath = reader.readLine(); 
+			MainVideoManipulator.getInstance().videoPath = reader.readLine();
 			MainVideoManipulator.getInstance().videoLength = reader.readLine();
 			reader.close();
 		} catch (IOException e1) {

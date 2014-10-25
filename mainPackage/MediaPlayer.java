@@ -2,12 +2,10 @@ package mainPackage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,9 +22,7 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
@@ -55,12 +50,14 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 public class MediaPlayer extends JPanel implements ActionListener,
 		ChangeListener {
 
+	private static final long serialVersionUID = 1L;
+
 	// Initializing the singleton instance of this class
 	private static MediaPlayer instance = new MediaPlayer();
 
 	// Initializing the embedded media player components
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
-	public static EmbeddedMediaPlayer video;
+	public EmbeddedMediaPlayer video;
 
 	// Initializing the image icons
 	protected ImageIcon forward;
@@ -500,7 +497,6 @@ public class MediaPlayer extends JPanel implements ActionListener,
 		public SkipTask(int time) {
 			this.skipSpeed = time;
 		}
-
 
 		/**
 		 * doInBackground() performs all the long tasks so the application does

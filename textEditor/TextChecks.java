@@ -67,7 +67,7 @@ public class TextChecks {
 		else {
 			passed = false;
 
-			// Inform the user 
+			// Inform the user
 			JOptionPane
 					.showMessageDialog(
 							null,

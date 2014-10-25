@@ -47,6 +47,8 @@ import mainPackage.MediaPlayer;
 public class MainAudioManipulator extends JPanel implements ItemListener,
 		ActionListener {
 
+	private static final long serialVersionUID = 1L;
+
 	// Initializing the singleton instance of this class
 	private static MainAudioManipulator instance = new MainAudioManipulator();
 
@@ -110,9 +112,12 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 			"Set Video Duration");
 
 	// Initializing the list
+	@SuppressWarnings("rawtypes")
 	protected DefaultListModel audioFiles = new DefaultListModel();
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected JList audioFilesList = new JList(audioFiles);
 	protected JScrollPane scrollPane = new JScrollPane(audioFilesList);
+	@SuppressWarnings("rawtypes")
 	protected DefaultListModel fullNames = new DefaultListModel();
 
 	// Initializing the separators
@@ -570,6 +575,7 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 
 	/**
 	 * makeCommand Method creates the audio manipulating commands during export
+	 * 
 	 * @param input
 	 * @param output
 	 * @return

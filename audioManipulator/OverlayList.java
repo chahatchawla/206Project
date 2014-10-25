@@ -32,6 +32,7 @@ public class OverlayList {
 	 * inputOverlay Method is performed when the inputOverlayButton is clicked.
 	 * It adds the audio file to overlay list
 	 */
+	@SuppressWarnings("unchecked")
 	protected void inputOverlay() {
 
 		// Reference for JFileChooser():
@@ -93,8 +94,8 @@ public class OverlayList {
 	}
 
 	/**
-	 * deleteOverlay Method is performed when the deleteOverlayButton is clicked.
-	 * It deletes the selected audio file from the overlay list
+	 * deleteOverlay Method is performed when the deleteOverlayButton is
+	 * clicked. It deletes the selected audio file from the overlay list
 	 */
 	protected void deleteOverlay() {
 
@@ -131,8 +132,8 @@ public class OverlayList {
 	}
 
 	/**
-	 * playOverlay Method is performed when the playOverlayButton is clicked.
-	 * It plays the selected audio file in a background task.
+	 * playOverlay Method is performed when the playOverlayButton is clicked. It
+	 * plays the selected audio file in a background task.
 	 */
 	protected void playOverlay() {
 		// Get the video path and length
@@ -191,13 +192,13 @@ public class OverlayList {
 			playFile = MainAudioManipulator.getInstance().fullNames.get(index)
 					.toString();
 
-			
-			//Reference: https://libav.org/avplay.html
-			
+			// Reference: https://libav.org/avplay.html
+
 			// bash command to play the audio
 			String cmd = "avplay -i " + playFile
 					+ " -window_title playChosenAudio -x 400 -y 100";
 			ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
+			@SuppressWarnings("unused")
 			Process process;
 			try {
 				process = builder.start();

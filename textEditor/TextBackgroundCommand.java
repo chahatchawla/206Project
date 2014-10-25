@@ -21,9 +21,10 @@ public class TextBackgroundCommand {
 
 	private String firstInput;
 	private String lastOutput;
+
 	/**
-	 * makeTextCommand is a method that creates the bash commands in the form
-	 * of a string according to all the options selected by the user
+	 * makeTextCommand is a method that creates the bash commands in the form of
+	 * a string according to all the options selected by the user
 	 * 
 	 * @param input
 	 * @param output
@@ -34,7 +35,7 @@ public class TextBackgroundCommand {
 
 		firstInput = input;
 		lastOutput = output;
-		
+
 		// Get the video path and length
 		MainTextEditor.getInstance().tpf.setVideoInfo();
 		/*
@@ -240,7 +241,6 @@ public class TextBackgroundCommand {
 		else {
 			String inputFrameTime;
 			String inputFrameTime1;
-			String cmd;
 
 			// if the user has saved title screen settings but does not
 			// want to implement credit screen
@@ -502,8 +502,8 @@ public class TextBackgroundCommand {
 
 				MainTextEditor.getInstance().bothTitleAndCreditCommand = finalBothCommand
 						.toString();
-				
-				// return the final command 
+
+				// return the final command
 				return MainTextEditor.getInstance().bothTitleAndCreditCommand;
 			}
 		}

@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
-import audioManipulator.MainAudioManipulator;
-
 /**
  * SoftEng206 Project - video save class
  * 

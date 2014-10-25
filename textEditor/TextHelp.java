@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  * 
  */
 public class TextHelp {
-	
+
 	/**
 	 * textHelp() Method creates a help frame for text editing
 	 */

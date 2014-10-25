@@ -44,7 +44,9 @@ import mainPackage.MediaPlayer;
  */
 
 public class MainVideoManipulator extends JPanel implements ItemListener,
-ActionListener {
+		ActionListener {
+
+	private static final long serialVersionUID = 1L;
 
 	// Initializing the singleton instance of this class
 	private static MainVideoManipulator instance = new MainVideoManipulator();
@@ -107,6 +109,7 @@ ActionListener {
 	// Initializing the drop down list
 	protected String[] dropDownList = { "", "Negate", "Blur",
 			"Horizontal Flip", "Vertical Flip", "Fade In", "Transpose" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox filterList = new JComboBox(dropDownList);
 
 	// Initializing the separators
@@ -430,8 +433,9 @@ ActionListener {
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.MediaPlayer.video.getTime() != -1) {
-				int time = (int) mainPackage.MediaPlayer.video.getTime();
+			if (mainPackage.MediaPlayer.getInstance().video.getTime() != -1) {
+				int time = (int) mainPackage.MediaPlayer.getInstance().video
+						.getTime();
 				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);

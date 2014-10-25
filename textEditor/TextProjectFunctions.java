@@ -464,7 +464,8 @@ public class TextProjectFunctions {
 	}
 
 	/**
-	 * refreshCreditScreen Method refreshes all the credits fields in the text editing tab
+	 * refreshCreditScreen Method refreshes all the credits fields in the text
+	 * editing tab
 	 */
 	public void refreshCreditScreen() {
 		MainTextEditor.getInstance().addDuration.setText("");
@@ -500,7 +501,8 @@ public class TextProjectFunctions {
 	}
 
 	/**
-	 * refreshtextEdit Method refreshes all the project fields in the text editing tab
+	 * refreshtextEdit Method refreshes all the project fields in the text
+	 * editing tab
 	 */
 	public void refreshtextEdit() {
 		if ((MainTextEditor.getInstance().projectPath != null)

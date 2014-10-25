@@ -61,7 +61,8 @@ public class TextDelete {
 			// Delete the creditFields and also the CreditText
 			f.delete();
 			t.delete();
-			// Refresh the credit screen and inform the user that delete has been
+			// Refresh the credit screen and inform the user that delete has
+			// been
 			// performed
 			MainTextEditor.getInstance().tpf.refreshCreditScreen();
 			JOptionPane.showMessageDialog(null,

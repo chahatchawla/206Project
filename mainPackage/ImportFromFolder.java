@@ -34,8 +34,8 @@ public class ImportFromFolder {
 	 */
 	protected void importFromFolder() {
 
-		//Reference:
-		//http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
+		// Reference:
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
 		JFileChooser chooser = new JFileChooser();
 
 		// Show only correct extension type file by default
@@ -70,10 +70,10 @@ public class ImportFromFolder {
 								"ERROR: file imported does not"
 										+ "refer to a valid audio or video file. Please select a new input file!");
 				return;
-			} 
-			
+			}
+
 			// If the file is an audio only, enable extracting only
-			else if (type.equals("audio/mpeg")) { 
+			else if (type.equals("audio/mpeg")) {
 				Main.tabbedPane.setEnabled(true);
 				Main.apf.enableExtractOnly();
 				Main.tpf.enableTextEdit(false);
@@ -100,10 +100,11 @@ public class ImportFromFolder {
 		 * Store the name, directory and length of the input video in a txt file
 		 */
 		try {
-			
-			// Reference: http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
+
+			// Reference:
+			// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
 			// Reference: https://libav.org/avprobe.html
-			
+
 			// Open the video project file
 			File f = new File(Menu.getInstance().projectPath);
 			FileWriter fw = new FileWriter(f, true);

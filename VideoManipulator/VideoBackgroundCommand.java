@@ -220,7 +220,7 @@ public class VideoBackgroundCommand {
 		if (MainVideoManipulator.getInstance().filterEnable) {
 			finalCommand.append(MainVideoManipulator.getInstance().filterCmd);
 		}
-		// return the final command 
+		// return the final command
 		String cmd = finalCommand.toString();
 		return cmd;
 

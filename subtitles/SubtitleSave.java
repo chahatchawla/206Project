@@ -30,13 +30,13 @@ public class SubtitleSave {
 
 		// Get the video path and length
 		MainSubtitles.getInstance().spf.setVideoInfo();
-		
+
 		// Perform all the checks
 		boolean passedAllAdd = MainSubtitles.getInstance().sc.allChecksAdd();
 		boolean passedAllGenerate = MainSubtitles.getInstance().sc
 				.allChecksGenerate();
 
-		// If checks are passed 
+		// If checks are passed
 		if (passedAllAdd & passedAllGenerate) {
 			// Reference for JOptionPane():
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html

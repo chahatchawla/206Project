@@ -35,6 +35,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Menu extends JMenuBar implements ActionListener {
 
+	private static final long serialVersionUID = 1L;
+
 	// Initializing the singleton instance of this class
 	private static Menu instance = new Menu();
 
@@ -151,6 +153,7 @@ public class Menu extends JMenuBar implements ActionListener {
 	public static Menu getInstance() {
 		return instance;
 	}
+
 	/**
 	 * actionPerformed method responds to all the actions done by the user on
 	 * the GUI
@@ -160,14 +163,14 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		// if new project is clicked
 		if (e.getSource() == newProj) {
-			np.newProject();	
-		} 
+			np.newProject();
+		}
 		// if the open project is clicked
 		else if (e.getSource() == openProj) {
 			op.openProject();
-	
+
 		} // If user chooses to import video by downloading it from web
-		// Assume that the URL is for a valid mp4/mp3 video
+			// Assume that the URL is for a valid mp4/mp3 video
 		else if (e.getSource() == fromURL) {
 			// Create and set a new download frame
 			download = new Download(projectPath, workingDir);
@@ -176,8 +179,8 @@ public class Menu extends JMenuBar implements ActionListener {
 			downloadFrame.setSize(500, 200);
 			downloadFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			downloadFrame.setVisible(true);
-		
-		} 
+
+		}
 		// If user chooses to import media from local folder
 		else if (e.getSource() == fromFolder) {
 			iff.importFromFolder();
@@ -187,12 +190,12 @@ public class Menu extends JMenuBar implements ActionListener {
 		else if (e.getSource() == export) {
 			ex.export();
 
-		} 
+		}
 		// If exit is clicked = close the frame
 		else if (e.getSource() == exit) {
-			MediaPlayer.video.mute(false);
+			MediaPlayer.getInstance().video.mute(false);
 			Main.frame.dispose();
-		} 
+		}
 		// If help is clicked
 		else if (e.getSource() == help) {
 			ht.helpTab();

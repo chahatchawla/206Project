@@ -20,7 +20,7 @@ import javax.swing.SwingWorker;
 public class ReplacePreview {
 
 	private ReplaceBackgroundTask longTask;
-	
+
 	/**
 	 * replacePreview Method is performed when the playReplaceButton is clicked.
 	 * It plays the selected audio file in a background task.
@@ -56,22 +56,22 @@ public class ReplacePreview {
 	 */
 	class ReplaceBackgroundTask extends SwingWorker<Void, String> {
 		StringBuilder cmd = new StringBuilder();
-		
-		
+
 		/**
 		 * doInBackground() performs all the long tasks so the application does
 		 * not freeze
 		 */
 		@Override
 		protected Void doInBackground() throws Exception {
-			
-			//Reference: https://libav.org/avplay.html
-				
+
+			// Reference: https://libav.org/avplay.html
+
 			// bash command to play the audio
 			String cmd = "avplay -i "
 					+ MainAudioManipulator.getInstance().inputFile
 					+ " -window_title playChosenAudio -x 400 -y 100";
 			ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
+			@SuppressWarnings("unused")
 			Process process;
 			try {
 				process = builder.start();

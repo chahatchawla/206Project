@@ -55,7 +55,7 @@ public class NewProject {
 						// cancelled
 			// Reference:
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
-			
+
 			// Take the project name as an input from the user
 			String projectName = JOptionPane.showInputDialog(null,
 					"Project name: ", "Create new project",
@@ -118,8 +118,8 @@ public class NewProject {
 
 						// Reference:
 						// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
-						//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
-						
+						// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
+
 						// Allow user to choose either overwriting the current
 						// project or cancel creating new project
 						Object[] existOptions = { "Overwrite", "Cancel" };
@@ -133,13 +133,15 @@ public class NewProject {
 										JOptionPane.QUESTION_MESSAGE, null,
 										existOptions, existOptions[0]);
 
-						// if overwrite, delete the existing project and create a new one
-						if (optionChosen == 0) { 
+						// if overwrite, delete the existing project and create
+						// a new one
+						if (optionChosen == 0) {
 
 							String cmd = "rm -r "
 									+ Menu.getInstance().workingDir;
 							ProcessBuilder builder = new ProcessBuilder(
 									"/bin/bash", "-c", cmd);
+							@SuppressWarnings("unused")
 							Process process;
 							try {
 								process = builder.start();
@@ -162,12 +164,12 @@ public class NewProject {
 								BufferedWriter bw = new BufferedWriter(fw);
 								Menu.getInstance().projectPath = f.getPath();
 								// Store the project path
-								bw.write(Menu.getInstance().projectPath); 
+								bw.write(Menu.getInstance().projectPath);
 								bw.newLine();
 								// Store the hidden folder path
-								bw.write(hidden.toString()); 
+								bw.write(hidden.toString());
 								bw.newLine();
-								 // Store the working directory
+								// Store the working directory
 								bw.write(Menu.getInstance().workingDir);
 								bw.newLine();
 								bw.close();
@@ -197,22 +199,22 @@ public class NewProject {
 						// results of the intermediate processes
 						hidden.mkdir();
 
-						//Reference:
-						//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
-						
+						// Reference:
+						// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
+
 						// Write the hidden directory and the working directory
 						// to the main project file
 						FileWriter fw = new FileWriter(f);
 						BufferedWriter bw = new BufferedWriter(fw);
 						Menu.getInstance().projectPath = f.getPath();
 						// Store the project path
-						bw.write(Menu.getInstance().projectPath); 
+						bw.write(Menu.getInstance().projectPath);
 						bw.newLine();
 						// Store the hidden folder path
 						bw.write(hidden.toString());
 						bw.newLine();
-						 // Store the working directory
-						bw.write(Menu.getInstance().workingDir); 
+						// Store the working directory
+						bw.write(Menu.getInstance().workingDir);
 						bw.newLine();
 						bw.close();
 

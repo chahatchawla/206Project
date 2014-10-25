@@ -18,7 +18,7 @@ import javax.swing.JTabbedPane;
  * 
  */
 public class HelpTab {
-	
+
 	/**
 	 * helpTab() Method creates a help frame for the help tab
 	 */
@@ -27,7 +27,7 @@ public class HelpTab {
 		JFrame helpFrame = new JFrame("Help & Tips");
 		JTabbedPane helpTips = new JTabbedPane();
 		helpTips.setPreferredSize(new Dimension(525, 440));
-		
+
 		// Add images to the tabs
 		helpTips.add(Menu.getInstance().mainImage, "Welcome to Vamix");
 		helpTips.add(Menu.getInstance().videoImage, "Video Manipulation");

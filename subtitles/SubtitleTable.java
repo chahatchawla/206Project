@@ -134,11 +134,11 @@ public class SubtitleTable {
 		// if all checks are passed
 		if (passedGenerate) {
 
-			//Reference: 
-			//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
+			// Reference:
+			// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedWriter.html
 			FileWriter fw;
-			
-			// create the .srt file 
+
+			// create the .srt file
 			File f = new File(MainSubtitles.getInstance().workingDir + "/"
 					+ MainSubtitles.getInstance().outputFileName.getText()
 					+ ".srt");
@@ -147,7 +147,7 @@ public class SubtitleTable {
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter x = new PrintWriter(bw);
 
-				// add each subtitle 
+				// add each subtitle
 				for (int i = 0; i < MainSubtitles.getInstance().model
 						.getRowCount(); i++) {
 
@@ -168,7 +168,7 @@ public class SubtitleTable {
 				e1.printStackTrace();
 			}
 
-			// inform the user that the .srt file has been generated 
+			// inform the user that the .srt file has been generated
 			JOptionPane
 					.showMessageDialog(
 							null,

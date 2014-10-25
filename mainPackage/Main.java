@@ -21,7 +21,7 @@ import VideoManipulator.VideoProjectFunctions;
  * SoftEng206 Project - Main class
  * 
  * Purpose: The purpose of this class is to run the application. This is where
- * the main frame of the application gets constructed. 
+ * the main frame of the application gets constructed.
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
@@ -38,8 +38,8 @@ public class Main {
 	 */
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-			
-			// Run the application 
+
+			// Run the application
 			@Override
 			public void run() {
 				new Main();
@@ -51,8 +51,7 @@ public class Main {
 	protected static JFrame frame;
 
 	protected static JTabbedPane tabbedPane;
-	
-	
+
 	protected static MainAudioManipulator audioMan;
 	protected static MainVideoManipulator videoMan;
 	protected static MainTextEditor textEdit;
@@ -65,12 +64,11 @@ public class Main {
 	private JLabel titleImage;
 
 	/**
-	 * The Main() Construction - sets up the MAIN GUI frame and the welcome screen 
+	 * The Main() Construction - sets up the MAIN GUI frame and the welcome
+	 * screen
 	 */
 	private Main() {
 
-		
-		
 		titleImage = new JLabel(new ImageIcon(
 				MediaPlayer.class.getResource("Resources/title.png")));
 
@@ -80,7 +78,7 @@ public class Main {
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setPreferredSize(new Dimension(525, 700));
 
-		// Add the singleton classes to the tabs 
+		// Add the singleton classes to the tabs
 		videoMan = MainVideoManipulator.getInstance();
 		tabbedPane.add("Video Manipulator", videoMan);
 		audioMan = MainAudioManipulator.getInstance();
@@ -115,8 +113,8 @@ public class Main {
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				MediaPlayer.video.mute(false);
-				MediaPlayer.video.setVolume(100);
+				MediaPlayer.getInstance().video.mute(false);
+				MediaPlayer.getInstance().video.setVolume(100);
 			}
 		});
 

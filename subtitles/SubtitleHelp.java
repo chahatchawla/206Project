@@ -21,8 +21,8 @@ public class SubtitleHelp {
 	/**
 	 * subtitleHelp() Method creates a help frame for subtitles
 	 */
-	protected void subtitleHelp(){
-		//Set the subtitles help frame and panel
+	protected void subtitleHelp() {
+		// Set the subtitles help frame and panel
 		JFrame helpframe = new JFrame("Help - Subtitles");
 		JPanel helpPanel = new JPanel(new BorderLayout());
 		// Add the image to the panel

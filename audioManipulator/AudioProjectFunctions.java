@@ -66,9 +66,9 @@ public class AudioProjectFunctions {
 	@SuppressWarnings("unchecked")
 	public void setAllFields(String audioFieldsPath) {
 
-		//Reference to BufferedReader :
-		//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
-		
+		// Reference to BufferedReader :
+		// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
+
 		MainAudioManipulator.getInstance().audioFields = audioFieldsPath;
 		File f = new File(MainAudioManipulator.getInstance().audioFields);
 		try {
@@ -147,10 +147,11 @@ public class AudioProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		MainAudioManipulator.getInstance().projectPath = Menu.getInstance().getProjectPath();
-		
-		//Reference to BufferedReader :
-		//http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
+		MainAudioManipulator.getInstance().projectPath = Menu.getInstance()
+				.getProjectPath();
+
+		// Reference to BufferedReader :
+		// http://docs.oracle.com/javase/7/docs/api/java/io/BufferedReader.html
 		File f = new File(MainAudioManipulator.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables

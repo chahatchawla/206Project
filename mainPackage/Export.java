@@ -72,7 +72,7 @@ public class Export {
 					// if there are no spaces
 
 					// ensure that the video is not muted
-					MediaPlayer.video.mute(false);
+					MediaPlayer.getInstance().video.mute(false);
 
 					// Check that the file doesn't exists in the specified
 					// directory
@@ -209,7 +209,7 @@ public class Export {
 								outputFileName));
 					}
 
-					// Execute the final bash command for export 
+					// Execute the final bash command for export
 					ExportBackGroundTask longTask = new ExportBackGroundTask(
 							finalCmd.toString());
 					longTask.execute();

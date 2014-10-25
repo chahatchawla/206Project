@@ -137,7 +137,7 @@ public class AudioBackgroundCommand {
 			}
 
 			StringBuilder bigReplaceCmd = new StringBuilder();
-			
+
 			// replace audio stream bash command
 			bigReplaceCmd.append("avconv -i " + firstInput + " -i ");
 			bigReplaceCmd.append(MainAudioManipulator.getInstance().inputFile);
@@ -150,20 +150,17 @@ public class AudioBackgroundCommand {
 
 			MainAudioManipulator.getInstance().replaceCmd = bigReplaceCmd
 					.toString();
-			
-			
+
 			// if overlay is enabled as well, change the variable lastOutput to
-			// back to the original lastOutput 
+			// back to the original lastOutput
 			if (MainAudioManipulator.getInstance().overlayEnable) {
 				lastOutput = tempName;
 			}
 		}
 
-		
 		// if overlay is enabled, constructs the command for overlay
 		if (MainAudioManipulator.getInstance().overlayEnable) {
 
-			
 			// if replace is enabled as well, change the variable firstInput to
 			// the temp file r.mp4
 			String tempName = "";
@@ -201,7 +198,7 @@ public class AudioBackgroundCommand {
 			String maps = m.toString();
 
 			// if duration is not enabled - merge the audio streams using
-			// the filter amix=inputs bash command 
+			// the filter amix=inputs bash command
 			// Reference to Nasser's slides
 			if (!MainAudioManipulator.getInstance().overlayDurationEnable) {
 				bigOverlayCmd.append("avconv -i " + firstInput + " ");
@@ -241,7 +238,8 @@ public class AudioBackgroundCommand {
 				String length = "" + lengthInSeconds;
 				String stopTime = "" + stopTimeInSeconds;
 
-				// temp file Selection.mp4 with the video selection that they want to add audio too 
+				// temp file Selection.mp4 with the video selection that they
+				// want to add audio too
 				bigOverlayCmd.append("avconv -i " + firstInput + " -ss ");
 				bigOverlayCmd.append(startTime);
 				bigOverlayCmd.append(" -t ");
@@ -251,9 +249,10 @@ public class AudioBackgroundCommand {
 						+ "/Selection.mp4; avconv -i "
 						+ MainAudioManipulator.getInstance().hiddenDir
 						+ "/Selection.mp4 ");
-				
+
 				// then merge the audio streams of the input audio file and
-				// selection and concatenate the corresponding segments of the video
+				// selection and concatenate the corresponding segments of the
+				// video
 				// together
 				bigOverlayCmd.append(inputFileNames);
 				bigOverlayCmd
@@ -295,9 +294,9 @@ public class AudioBackgroundCommand {
 				bigOverlayCmd.append(";");
 
 			}
-			
+
 			// if replace is enabled as well, change the variable firstInput to
-			// back to the original firstInput 
+			// back to the original firstInput
 			if (MainAudioManipulator.getInstance().replaceEnable) {
 				firstInput = tempName;
 			}
@@ -307,11 +306,10 @@ public class AudioBackgroundCommand {
 
 		}
 
-		
 		// construct the final command for audio
 		StringBuilder finalCommand = new StringBuilder();
 
-		// if remove is enabled AND replace is NOT enabled 
+		// if remove is enabled AND replace is NOT enabled
 		if (MainAudioManipulator.getInstance().removeEnable
 				&& !MainAudioManipulator.getInstance().replaceEnable) {
 			finalCommand.append(MainAudioManipulator.getInstance().removeCmd);
@@ -333,7 +331,7 @@ public class AudioBackgroundCommand {
 
 		}
 
-		// return the final command 
+		// return the final command
 		String cmd = finalCommand.toString();
 		return cmd;
 	}

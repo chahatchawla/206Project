@@ -143,7 +143,7 @@ public class SubtitleProjectFunctions {
 		MainSubtitles.getInstance().outputFileName.setText("");
 		MainSubtitles.getInstance().inputFile = "";
 
-		// Deletes all the rows from the table 
+		// Deletes all the rows from the table
 		int listRow = MainSubtitles.getInstance().model.getRowCount();
 		for (int i = 0; i < listRow; i++) {
 			MainSubtitles.getInstance().model.removeRow(0);

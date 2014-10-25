@@ -119,8 +119,9 @@ public class ExportBackGroundTask extends SwingWorker<Integer, String> {
 		if (process.exitValue() == 0) {
 			progressBar.setValue(0);
 			exportFrame.dispose();
-			
-			//Reference: http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
+			// Reference:
+			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
 			Object[] existOptions = { "Yes, Please", "No, Thankyou" };
 			int optionChosen = JOptionPane
 					.showOptionDialog(

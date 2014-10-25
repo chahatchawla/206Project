@@ -106,18 +106,23 @@ public class MainTextEditor extends JPanel implements ActionListener,
 
 	// Initializing the ComboBox and lists of drop down menus
 	protected String[] dropDownScreen = { "", "Title Screen", "Credit Screen" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox screenList = new JComboBox(dropDownScreen);
 	protected String[] dropDownFonts = { "Arial", "Courier", "Georgia",
 			"TimesNewRoman", "Verdana" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox fontsList = new JComboBox(dropDownFonts);
 	protected String[] dropDownStyles = { "PLAIN", "BOLD", "ITALIC",
 			"BOLD&ITALIC" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox stylesList = new JComboBox(dropDownStyles);
 	protected String[] dropDownSizes = { "8", "10", "14", "18", "22", "26",
 			"30", "34", "38", "42", "48", "52", "56", "72" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox sizesList = new JComboBox(dropDownSizes);
 	protected String[] dropDownColors = { "black", "green", "blue", "yellow",
 			"red", "white", "pink" };
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected JComboBox coloursList = new JComboBox(dropDownColors);
 
 	// Initializing the image for the icons
@@ -207,7 +212,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 		addTextArea.setDocument(new JTextFieldLimit(250));
 		// add the addTextArea textArea to the ScrollPane scroll
 		JScrollPane scroll = new JScrollPane(addTextArea);
-		
+
 		// set the fonts
 		textEditorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
@@ -263,7 +268,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 		add(helpButton);
 		add(saveButton);
 
-		// set the preferred size for the seperators 
+		// set the preferred size for the seperators
 		separator.setPreferredSize(new Dimension(525, 30));
 		separator2.setPreferredSize(new Dimension(525, 20));
 		separator3.setPreferredSize(new Dimension(525, 10));
@@ -274,7 +279,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 		separator8.setPreferredSize(new Dimension(525, 10));
 		separator9.setPreferredSize(new Dimension(525, 10));
 
-		// set the preferred size for the JComponents 
+		// set the preferred size for the JComponents
 		saveButton.setPreferredSize(new Dimension(150, 25));
 		helpButton.setPreferredSize(new Dimension(60, 40));
 		prevBtn.setPreferredSize(new Dimension(150, 25));
@@ -299,9 +304,9 @@ public class MainTextEditor extends JPanel implements ActionListener,
 		defaultCheck.setEnabled(false);
 
 	}
+
 	/**
-	 * getInstance() returns the singleton instance of the MainTextEditor
-	 * class
+	 * getInstance() returns the singleton instance of the MainTextEditor class
 	 * 
 	 * @return
 	 */
@@ -340,33 +345,33 @@ public class MainTextEditor extends JPanel implements ActionListener,
 
 			}
 		}
-		// if the save button is clicked 
+		// if the save button is clicked
 		if (e.getSource() == saveButton) {
 			ts.textSave();
-		} 
-		// if the fontsList is clicked 
+		}
+		// if the fontsList is clicked
 		else if (e.getSource() == fontsList) {
 			fontType = fontsList.getSelectedIndex();
 			prevFont = fontsList.getSelectedItem().toString();
 			// change the font type on the text the user writes to the font type
 			// they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} 
-		// if the stylesList is clicked 
+		}
+		// if the stylesList is clicked
 		else if (e.getSource() == stylesList) {
 			fontStyle = stylesList.getSelectedIndex();
 			// change the font style on the text the user writes to the font
 			// style they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} 
-		// if the sizesList is clicked 
+		}
+		// if the sizesList is clicked
 		else if (e.getSource() == sizesList) {
 			fontSize = Integer.parseInt(sizesList.getSelectedItem().toString());
 			// change the font size on the text the user writes to the font size
 			// they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} 
-		// if the coloursList is clicked 
+		}
+		// if the coloursList is clicked
 		else if (e.getSource() == coloursList) {
 			fontColour = coloursList.getSelectedItem().toString();
 			// change the font color on the text the user writes to the font
@@ -397,17 +402,18 @@ public class MainTextEditor extends JPanel implements ActionListener,
 		}
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
-			
+
 			// if the video has been played once
-			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+			if (mainPackage.MediaPlayer.getInstance().video.getTime() != -1) {
 				// get the current time of the video
-				int time = (int) mainPackage.MediaPlayer.video.getTime();
+				int time = (int) mainPackage.MediaPlayer.getInstance().video
+						.getTime();
 				// reference:
 				// http://stackoverflow.com/questions
 				// /9214786/how-to-convert-the-seconds-in-this-format-hhmmss
 
 				// format it to HH:mm:ss
-				
+
 				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
@@ -415,7 +421,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 
 				// set the addTimeFrame field to the new formatted time
 				addTimeFrame.setText(formatedTime);
-			} 
+			}
 			// if the video hasn't been played once, inform the user so they can
 			// do so.
 			else {
@@ -446,7 +452,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		
+
 		if (e.getSource() == frameCheck) {
 			// if frame background is chosen, disable other radio buttons
 			if (e.getStateChange() == 1) {
@@ -504,14 +510,17 @@ public class MainTextEditor extends JPanel implements ActionListener,
 	 * Reference: http://www.java2s.com/Code/Java/Swing-JFC/
 	 * LimitJTextFieldinputtoamaximumlength.htm
 	 */
-	
+
 	/**
-	 * JTextFieldLimit class sets the character limit for the text area 
+	 * JTextFieldLimit class sets the character limit for the text area
+	 * 
 	 * @author ccha504
-	 *
+	 * 
 	 */
 
 	class JTextFieldLimit extends PlainDocument {
+
+		private static final long serialVersionUID = 1L;
 		private int limit;
 
 		JTextFieldLimit(int limit) {
@@ -541,6 +550,7 @@ public class MainTextEditor extends JPanel implements ActionListener,
 
 	/**
 	 * makeCommand Method creates the text editing commands during export
+	 * 
 	 * @param input
 	 * @param output
 	 * @return

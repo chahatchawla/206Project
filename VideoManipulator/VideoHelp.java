@@ -26,7 +26,7 @@ public class VideoHelp {
 		// Set the video help frame
 		JFrame helpframe = new JFrame("Help - Video Manipulator");
 		JPanel helpPanel = new JPanel(new BorderLayout());
-		
+
 		// Add the image to the panel
 		helpPanel.add(MainVideoManipulator.getInstance().helpImage);
 
