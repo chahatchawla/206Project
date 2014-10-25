@@ -43,7 +43,7 @@ ActionListener {
 	protected SnapshotPreview sp = new SnapshotPreview();
 	protected FilterPreview fp = new FilterPreview();
 	protected VideoSave vs = new VideoSave();
-	protected VideoBackgroundTask vbt = new VideoBackgroundTask();
+	protected VideoBackgroundCommand vbt = new VideoBackgroundCommand();
 
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
@@ -139,7 +139,7 @@ ActionListener {
 	protected String videoFields;
 
 	// Initializing the swing worker BackgroundTask
-	private VideoBackgroundTask longTask;
+	private VideoBackgroundCommand longTask;
 
 	/**
 	 * Constructor for VideoManipulator() -Sets up the GUI for video

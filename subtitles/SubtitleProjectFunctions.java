@@ -108,8 +108,6 @@ public class SubtitleProjectFunctions {
 	/**
 	 * setVideoInfo Method stores the video info from the hidden file to the
 	 * private fields
-	 * 
-	 * @param hiddenDir
 	 */
 	public void setVideoInfo() {
 		// Get the main project file

@@ -7,10 +7,29 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JOptionPane;
-
+/**
+ * SoftEng206 Project - text edit save class
+ * 
+ * Purpose: The purpose of this class is to save all the user inputs in the
+ * text editing tab in a hidden file, so when the open their project
+ * again, they can view their inputs. This class is used in
+ * MainTextEditor.java.
+ * 
+ * @author Chahat Chawla ccha504 8492142
+ * 
+ *         Partial Code Extracted by Assignment 3
+ * @author Chahat Chawla and Zainab Al Lawati
+ * 
+ */
 public class TextSave {
 	
 	private int fileExistsResponse = -1;
+	
+	/**
+	 * textSave() Method checks performs all the text checks, checks whether
+	 * the user has already saved changes in the text editing tab and
+	 * lastly saves the user input
+	 */
 	protected void textSave(){
 		
 		// Get the video path and length
@@ -24,8 +43,9 @@ public class TextSave {
 			return;
 		}
 
+		// Perform all the checks
 		boolean passsedChecks = MainTextEditor.getInstance().tc.allChecks();
-
+		// If checks are passed 
 		if (passsedChecks) {
 
 			// check the screen type to select the corresponding text file
@@ -40,6 +60,9 @@ public class TextSave {
 				// set the font settings for title screen
 				MainTextEditor.getInstance().tpf.setTitleFontSettings();
 
+				// Reference:
+				// http://www.mkyong.com/java/how-to-write-to-file-in-java-bufferedwriter-example/
+				
 				// Save all user inputs to the hidden titleFields text
 				File f = new File(MainTextEditor.getInstance().workingDir + "/.titleFields");
 				try {
@@ -78,6 +101,9 @@ public class TextSave {
 
 				// Save all user inputs to the hidden creditFields text
 				File f = new File(MainTextEditor.getInstance().workingDir + "/.creditFields");
+				
+				// Reference:
+				// http://www.mkyong.com/java/how-to-write-to-file-in-java-bufferedwriter-example/
 				try {
 					FileWriter fw = new FileWriter(f);
 					BufferedWriter bw = new BufferedWriter(fw);

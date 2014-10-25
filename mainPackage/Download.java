@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 /**
- * SoftEng206 Assignment3 -download class
+ * SoftEng206 Project -download class
  * 
  * Purpose: The purpose of this class is to download a mp3 or a mp4 file from a
  * URL. This class is used in MainAudioMainpulator.java.

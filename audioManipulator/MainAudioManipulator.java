@@ -23,7 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import mainPackage.MediaPlayer;
 
 /**
- * SoftEng206 Assignment3 - main audio manipulator class
+ * SoftEng206 Project - main audio manipulator class
  * 
  * Purpose: The purpose of this class is to create the GUI for the audio
  * manipulator tab and handle all the actions performed. This class is used in
@@ -35,7 +35,7 @@ import mainPackage.MediaPlayer;
  * the application progresses.
  * 
  * Audio Manipulation provides the functionality to remove, extract, replace
- * and/or overlay audio. 
+ * and/or overlay audio.
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
@@ -162,7 +162,7 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 	protected String audioFields;
 
 	/**
-	 * Constructor for AudioManipulator() -Sets up the GUI for audio
+	 * Constructor for MainAudioManipulator() -Sets up the GUI for audio
 	 * manipulation tab - sets up the default layout
 	 */
 
@@ -329,6 +329,10 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 		return instance;
 	}
 
+	/**
+	 * itemStateChanged method responds to all the item events done by the user
+	 * on the GUI
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 
@@ -512,6 +516,10 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 
 	}
 
+	/**
+	 * actionPerformed method responds to all the actions done by the user on
+	 * the GUI
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -562,8 +570,9 @@ public class MainAudioManipulator extends JPanel implements ItemListener,
 
 	/**
 	 * makeCommand Method creates the audio manipulating commands during export
-	 * 
-	 * @return exit status
+	 * @param input
+	 * @param output
+	 * @return
 	 */
 	public String makeCommand(String input, String output) {
 

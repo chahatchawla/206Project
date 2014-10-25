@@ -28,9 +28,20 @@ import javax.swing.text.PlainDocument;
 
 import mainPackage.MediaPlayer;
 
-
 /**
- * SoftEng206 Assignment3 - text editor class
+ * SoftEng206 Project - main text editor class
+ * 
+ * Purpose: The purpose of this class is to create the GUI for the text editor
+ * tab and handle all the actions performed. This class is used in
+ * mainPackage.Main.java to initialize the text editor tab.
+ * 
+ * This class is a singleton, as for our application, only one instance of the
+ * MainTextEditor class should be created, since the "tab" object should only be
+ * created once instead of having multiple instances being created as the
+ * application progresses.
+ * 
+ * Text Editing provides the functionality to add a title screen or/and a credit
+ * screen
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
@@ -38,16 +49,19 @@ import mainPackage.MediaPlayer;
  * @author Chahat Chawla and Zainab Al Lawati
  * 
  */
-public class MainTextEditor extends JPanel implements ActionListener, ItemListener {
-
+public class MainTextEditor extends JPanel implements ActionListener,
+		ItemListener {
+	// Initializing the singleton instance of this class
 	private static MainTextEditor instance = new MainTextEditor();
+
+	// Initializing all the helper classes for text editing
 	protected TextChecks tc = new TextChecks();
 	protected TextProjectFunctions tpf = new TextProjectFunctions();
 	protected TextHelp th = new TextHelp();
 	protected TextPreview tp = new TextPreview();
 	protected TextDelete td = new TextDelete();
 	protected TextSave ts = new TextSave();
-	protected TextBackgroundTask tbt = new TextBackgroundTask();
+	protected TextBackgroundCommand tbt = new TextBackgroundCommand();
 
 	private static final long serialVersionUID = 1L;
 
@@ -56,7 +70,6 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 	protected final String TEXT_PREVIEW = "Preview";
 	protected final String TEXT_DELETE = "Delete";
 	protected final String TEXT_TIME = "Get Video Time";
-
 
 	// Initializing the buttons
 	protected JButton saveButton = new JButton(TEXT_SAVE);
@@ -98,7 +111,7 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 			"TimesNewRoman", "Verdana" };
 	protected JComboBox fontsList = new JComboBox(dropDownFonts);
 	protected String[] dropDownStyles = { "PLAIN", "BOLD", "ITALIC",
-	"BOLD&ITALIC" };
+			"BOLD&ITALIC" };
 	protected JComboBox stylesList = new JComboBox(dropDownStyles);
 	protected String[] dropDownSizes = { "8", "10", "14", "18", "22", "26",
 			"30", "34", "38", "42", "48", "52", "56", "72" };
@@ -164,15 +177,24 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 	protected String prevFont = "Arial";
 	protected String creditFields;
 
-	protected TextBackgroundTask longTask;
+	protected TextBackgroundCommand longTask;
 
-	// TextEditor constructor - sets the GUI for textEditor tab
+	/**
+	 * Constructor for MainTextEditor() -Sets up the GUI for text editing tab -
+	 * sets up the default layout
+	 */
+
 	private MainTextEditor() {
+		// sets the images so they are imported from the resources folder in
+		// this package
+		// Reference:
+		// http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
 
 		help = new ImageIcon(
 				MediaPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(
 				MediaPlayer.class.getResource("Resources/textEdit.png")));
+
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -180,16 +202,17 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 
-
+		// set the font size to be 30 as default
 		sizesList.setSelectedIndex(6);
 
+		// set the character limit for the text area to be 250
 		addTextArea.setDocument(new JTextFieldLimit(250));
-		addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		// change the font of the title
-		textEditorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
-
 		// add the addTextArea textArea to the ScrollPane scroll
 		JScrollPane scroll = new JScrollPane(addTextArea);
+		
+		// set the fonts
+		textEditorLabel.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
 
 		// adding action listeners to all the buttons and lists so when a user
 		// clicks a button or a list, the corresponding actions are done.
@@ -236,14 +259,13 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		add(separator8);
 		add(scroll);
 		add(separator7);
-
 		add(deleteBtn);
 		add(prevBtn);
 		add(separator9);
 		add(helpButton);
 		add(saveButton);
 
-		// set the preferred size for the components
+		// set the preferred size for the seperators 
 		separator.setPreferredSize(new Dimension(525, 30));
 		separator2.setPreferredSize(new Dimension(525, 20));
 		separator3.setPreferredSize(new Dimension(525, 10));
@@ -254,6 +276,7 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		separator8.setPreferredSize(new Dimension(525, 10));
 		separator9.setPreferredSize(new Dimension(525, 10));
 
+		// set the preferred size for the JComponents 
 		saveButton.setPreferredSize(new Dimension(150, 25));
 		helpButton.setPreferredSize(new Dimension(60, 40));
 		prevBtn.setPreferredSize(new Dimension(150, 25));
@@ -271,14 +294,19 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		addTimeFrame.setColumns(6);
 		addDuration.setColumns(3);
 
-		// disable the fields
+		// disabling components that are not accessible in the default screen
 		addTimeFrame.setEnabled(false);
 		getTime1Button.setEnabled(false);
 		frameCheck.setEnabled(false);
 		defaultCheck.setEnabled(false);
 
 	}
-
+	/**
+	 * getInstance() returns the singleton instance of the MainTextEditor
+	 * class
+	 * 
+	 * @return
+	 */
 	public static MainTextEditor getInstance() {
 		return instance;
 	}
@@ -314,25 +342,34 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 
 			}
 		}
+		// if the save button is clicked 
 		if (e.getSource() == saveButton) {
 			ts.textSave();
-		} else if (e.getSource() == fontsList) {
+		} 
+		// if the fontsList is clicked 
+		else if (e.getSource() == fontsList) {
 			fontType = fontsList.getSelectedIndex();
 			prevFont = fontsList.getSelectedItem().toString();
 			// change the font type on the text the user writes to the font type
 			// they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} else if (e.getSource() == stylesList) {
+		} 
+		// if the stylesList is clicked 
+		else if (e.getSource() == stylesList) {
 			fontStyle = stylesList.getSelectedIndex();
 			// change the font style on the text the user writes to the font
 			// style they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} else if (e.getSource() == sizesList) {
+		} 
+		// if the sizesList is clicked 
+		else if (e.getSource() == sizesList) {
 			fontSize = Integer.parseInt(sizesList.getSelectedItem().toString());
 			// change the font size on the text the user writes to the font size
 			// they choose
 			addTextArea.setFont(new Font(prevFont, fontStyle, fontSize));
-		} else if (e.getSource() == coloursList) {
+		} 
+		// if the coloursList is clicked 
+		else if (e.getSource() == coloursList) {
 			fontColour = coloursList.getSelectedItem().toString();
 			// change the font color on the text the user writes to the font
 			// color they choose
@@ -362,23 +399,34 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		}
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
-
-			if (mainPackage.MediaPlayer.video.getTime() != -1){
+			
+			// if the video has been played once
+			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+				// get the current time of the video
 				int time = (int) mainPackage.MediaPlayer.video.getTime();
-				SimpleDateFormat df = new SimpleDateFormat(
-						"HH:mm:ss");
+				// reference:
+				// http://stackoverflow.com/questions
+				// /9214786/how-to-convert-the-seconds-in-this-format-hhmmss
+
+				// format it to HH:mm:ss
+				
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
 				String formatedTime = df.format(new Date(time));
 
+				// set the addTimeFrame field to the new formatted time
 				addTimeFrame.setText(formatedTime);
-			}
+			} 
+			// if the video hasn't been played once, inform the user so they can
+			// do so.
 			else {
-				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+				JOptionPane.showMessageDialog(null,
+						"Please play the imported video once!");
 			}
 
 		}
-		
+
 		// if the preview button is clicked
 		else if (e.getSource() == prevBtn) {
 			tp.textPreview();
@@ -388,17 +436,19 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		else if (e.getSource() == deleteBtn) {
 			td.textDelete();
 		}
-
+		// if the help button is clicked
 		else if (e.getSource() == helpButton) {
 			th.textHelp();
 		}
 	}
 
 	/**
-	 * Make sure that when one radio button is enabled, the others are disabled
+	 * itemStateChanged method responds to all the item events done by the user
+	 * on the GUI
 	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		
 		if (e.getSource() == frameCheck) {
 			// if frame background is chosen, disable other radio buttons
 			if (e.getStateChange() == 1) {
@@ -407,7 +457,7 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 				backgroundImageOption = 2;
 				addTimeFrame.setEnabled(true);
 				getTime1Button.setEnabled(true);
-				
+
 			} else {
 				addTimeFrame.setText("hh:mm:ss");
 				addTimeFrame.setEnabled(false);
@@ -453,7 +503,14 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 	 * characters, allowing them to be aware of the limit and change their text
 	 * accordingly.
 	 * 
-	 * Reference: http://www.java2s.com/Code/Java/Swing-JFC/LimitJTextFieldinputtoamaximumlength.htm
+	 * Reference: http://www.java2s.com/Code/Java/Swing-JFC/
+	 * LimitJTextFieldinputtoamaximumlength.htm
+	 */
+	
+	/**
+	 * JTextFieldLimit class sets the character limit for the text area 
+	 * @author ccha504
+	 *
 	 */
 
 	class JTextFieldLimit extends PlainDocument {
@@ -485,11 +542,11 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 	}
 
 	/**
-	 * Method run all the audio manipulating commands in a background thread
-	 * 
-	 * @return exit status
+	 * makeCommand Method creates the text editing commands during export
+	 * @param input
+	 * @param output
+	 * @return
 	 */
-
 	public String makeCommand(String input, String output) {
 
 		String cmd = tbt.makeTextCommand(input, output);

@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * SoftEng206 Assignment3 - menu class
+ * SoftEng206 Project - menu class
  * 
  * Purpose: The purpose of this class is to create the GUI for the menu on top
  * of the screen and handle all the actions performed. This class is used in
@@ -151,7 +151,10 @@ public class Menu extends JMenuBar implements ActionListener {
 	public static Menu getInstance() {
 		return instance;
 	}
-
+	/**
+	 * actionPerformed method responds to all the actions done by the user on
+	 * the GUI
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import mainPackage.MediaPlayer;
 
 /**
- * SoftEng206 Assignment3 - main subtitles class
+ * SoftEng206 Project - main subtitles class
  * 
  * Purpose: The purpose of this class is to create the GUI for the subtitles tab
  * and handle all the actions performed. This class is used in
@@ -315,7 +315,10 @@ public class MainSubtitles extends JPanel implements ItemListener,
 	public static MainSubtitles getInstance() {
 		return instance;
 	}
-
+	/**
+	 * itemStateChanged method responds to all the item events done by the user
+	 * on the GUI
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 
@@ -417,7 +420,10 @@ public class MainSubtitles extends JPanel implements ItemListener,
 		}
 
 	}
-
+	/**
+	 * actionPerformed method responds to all the actions done by the user on
+	 * the GUI
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -488,7 +494,7 @@ public class MainSubtitles extends JPanel implements ItemListener,
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
 				String formatedTime = df.format(new Date(time));
-				// set the startTime field to the new formatted time
+				// set the endTime field to the new formatted time
 				endTime.setText(formatedTime);
 			}
 			// if the video hasn't been played once, inform the user so they can

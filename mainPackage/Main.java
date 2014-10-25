@@ -18,7 +18,7 @@ import VideoManipulator.MainVideoManipulator;
 import VideoManipulator.VideoProjectFunctions;
 
 /**
- * SoftEng206 Assignment3 - Main class
+ * SoftEng206 Project - Main class
  * 
  * Purpose: The purpose of this class is to run the application. This is where
  * the main frame of the application gets constructed. 

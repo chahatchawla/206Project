@@ -1,6 +1,6 @@
 package VideoManipulator;
 
-public class VideoBackgroundTask{
+public class VideoBackgroundCommand{
 	
 	private String firstInput;
 	private String lastOutput;

@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
 /**
- * SoftEng206 Assignment3 - export background task class
+ * SoftEng206 Project - export background task class
  * 
  * Purpose: The purpose of this class is to extend SwingWorker and handle all
  * the long tasks to execute the final bash command for all the edits (video

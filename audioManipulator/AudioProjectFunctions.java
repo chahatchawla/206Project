@@ -63,6 +63,7 @@ public class AudioProjectFunctions {
 	 * @param audioFieldsPath
 	 *            : the path of the stored audio fields
 	 */
+	@SuppressWarnings("unchecked")
 	public void setAllFields(String audioFieldsPath) {
 
 		//Reference to BufferedReader :
@@ -143,8 +144,6 @@ public class AudioProjectFunctions {
 	/**
 	 * setVideoInfo Method stores the video info from the hidden file to the
 	 * private fields
-	 * 
-	 * @param hiddenDir
 	 */
 	public void setVideoInfo() {
 		// Get the main project file

@@ -31,7 +31,7 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 /**
- * SoftEng206 Assignment3 - media player class
+ * SoftEng206 Project - media player class
  * 
  * Purpose: The purpose of this class is to create the GUI for the media player
  * and handle all the actions performed. This class is used in
