@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 import audioManipulator.MainAudioManipulator;
 
-import mainPackage.VideoPlayer;
+import mainPackage.MediaPlayer;
 
 /**
  * SoftEng206 Assignment3 - subtitles class
@@ -169,8 +169,8 @@ ActionListener {
 
 
 
-		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/subtitle.png")));
+		help = new ImageIcon(MediaPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(MediaPlayer.class.getResource("Resources/subtitle.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -445,8 +445,8 @@ ActionListener {
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.VideoPlayer.video.getTime() != -1){
-				int time = (int) mainPackage.VideoPlayer.video.getTime();
+			if (mainPackage.MediaPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.MediaPlayer.video.getTime();
 				SimpleDateFormat df = new SimpleDateFormat(
 						"HH:mm:ss,SSS");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -463,8 +463,8 @@ ActionListener {
 
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime2Button) {
-			if (mainPackage.VideoPlayer.video.getTime() != -1){
-				int time = (int) mainPackage.VideoPlayer.video.getTime();
+			if (mainPackage.MediaPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.MediaPlayer.video.getTime();
 				SimpleDateFormat df = new SimpleDateFormat(
 						"HH:mm:ss,SSS");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -525,11 +525,11 @@ ActionListener {
 		// If the playButton is clicked
 		else if (e.getSource() == playButton) {
 			
-				mainPackage.VideoPlayer.getInstance().video.stop();
-				mainPackage.VideoPlayer.getInstance().video.play();
-				mainPackage.VideoPlayer.getInstance().playBtn.setIcon(mainPackage.VideoPlayer.getInstance().pause);
+				mainPackage.MediaPlayer.getInstance().video.stop();
+				mainPackage.MediaPlayer.getInstance().video.play();
+				mainPackage.MediaPlayer.getInstance().playBtn.setIcon(mainPackage.MediaPlayer.getInstance().pause);
 				
-				mainPackage.VideoPlayer.video.setSubTitleFile(new File(inputFile));
+				mainPackage.MediaPlayer.video.setSubTitleFile(new File(inputFile));
 				JOptionPane
 				.showMessageDialog(null,
 						"Imported subtitles have been added to the media player!");

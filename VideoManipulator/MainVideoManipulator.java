@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import mainPackage.VideoPlayer;
+import mainPackage.MediaPlayer;
 
 
 /**
@@ -147,8 +147,8 @@ ActionListener {
 	 */
 
 	private MainVideoManipulator() {
-		help = new ImageIcon(VideoPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(VideoPlayer.class.getResource("Resources/video.png")));
+		help = new ImageIcon(MediaPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(MediaPlayer.class.getResource("Resources/video.png")));
 
 		// set the icons to the help button
 		helpButton.setIcon(help);
@@ -405,8 +405,8 @@ ActionListener {
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.VideoPlayer.video.getTime() != -1){
-				int time = (int) mainPackage.VideoPlayer.video.getTime();
+			if (mainPackage.MediaPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.MediaPlayer.video.getTime();
 				SimpleDateFormat df = new SimpleDateFormat(
 						"HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");

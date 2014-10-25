@@ -99,7 +99,7 @@ public class SubtitleProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		MainSubtitles.getInstance().projectPath = Menu.getProjectPath();
+		MainSubtitles.getInstance().projectPath = Menu.getInstance().getProjectPath();
 		File f = new File(MainSubtitles.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables

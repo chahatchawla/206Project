@@ -73,7 +73,7 @@ public class VideoProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		MainVideoManipulator.getInstance().projectPath = Menu.getProjectPath();
+		MainVideoManipulator.getInstance().projectPath = Menu.getInstance().getProjectPath();
 		File f = new File(MainVideoManipulator.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables

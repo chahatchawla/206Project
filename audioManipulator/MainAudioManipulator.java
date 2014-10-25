@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import mainPackage.VideoPlayer;
+import mainPackage.MediaPlayer;
 
 /**
  * SoftEng206 Assignment3 - main audio manipulator class
@@ -34,6 +34,9 @@ import mainPackage.VideoPlayer;
  * only be created once instead of having multiple instances being created as
  * the application progresses.
  * 
+ * Audio Manipulation provides the functionality to remove, extract, replace
+ * and/or overlay audio. 
+ * 
  * @author Chahat Chawla ccha504 8492142
  * 
  *         Partial Code Extracted by Assignment 3
@@ -42,7 +45,7 @@ import mainPackage.VideoPlayer;
  */
 
 public class MainAudioManipulator extends JPanel implements ItemListener,
-ActionListener {
+		ActionListener {
 
 	// Initializing the singleton instance of this class
 	private static MainAudioManipulator instance = new MainAudioManipulator();
@@ -63,7 +66,7 @@ ActionListener {
 	protected final String TEXT_DELETE = "Delete Selected";
 	protected final String TEXT_PLAY_AUDIO = "Play Audio";
 
-	// // Initializing the labels
+	// Initializing the labels
 	protected JLabel audioManipulatorLabel = new JLabel("Audio Manipulator");
 	protected JLabel optionalLabel = new JLabel("(* = Optional)");
 	protected JLabel starLabel2 = new JLabel("*");
@@ -171,9 +174,9 @@ ActionListener {
 		// http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
 
 		help = new ImageIcon(
-				VideoPlayer.class.getResource("Resources/help.png"));
+				MediaPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(
-				VideoPlayer.class.getResource("Resources/audio.png")));
+				MediaPlayer.class.getResource("Resources/audio.png")));
 
 		// set the icons to the help button and disable button background
 		helpButton.setIcon(help);

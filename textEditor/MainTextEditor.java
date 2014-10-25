@@ -26,7 +26,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import mainPackage.VideoPlayer;
+import mainPackage.MediaPlayer;
 
 
 /**
@@ -170,9 +170,9 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 	private MainTextEditor() {
 
 		help = new ImageIcon(
-				VideoPlayer.class.getResource("Resources/help.png"));
+				MediaPlayer.class.getResource("Resources/help.png"));
 		helpImage = new JLabel(new ImageIcon(
-				VideoPlayer.class.getResource("Resources/textEdit.png")));
+				MediaPlayer.class.getResource("Resources/textEdit.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -363,8 +363,8 @@ public class MainTextEditor extends JPanel implements ActionListener, ItemListen
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.VideoPlayer.video.getTime() != -1){
-				int time = (int) mainPackage.VideoPlayer.video.getTime();
+			if (mainPackage.MediaPlayer.video.getTime() != -1){
+				int time = (int) mainPackage.MediaPlayer.video.getTime();
 				SimpleDateFormat df = new SimpleDateFormat(
 						"HH:mm:ss");
 				TimeZone tz = TimeZone.getTimeZone("UTC");

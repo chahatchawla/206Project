@@ -18,7 +18,7 @@ public class TextProjectFunctions {
 	 */
 	public void setVideoInfo() {
 		// Get the main project file
-		MainTextEditor.getInstance().projectPath = Menu.getProjectPath();
+		MainTextEditor.getInstance().projectPath = Menu.getInstance().getProjectPath();
 		File f = new File(MainTextEditor.getInstance().projectPath);
 		try {
 			// Read the file and save the necessary variables
