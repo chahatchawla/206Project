@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * SoftEng206 Project - audio save class
  * 
  * Purpose: The purpose of this class is to save all the user inputs in the
- * audio manipulation class in a hidden file, so when the open their project
+ * audio manipulation tab in a hidden file, so when the open their project
  * again, they can view their inputs. This class is used in
  * MainAudioManipulator.java.
  * 
@@ -31,9 +31,12 @@ public class AudioSave {
 
 		// Get the video path and length
 		MainAudioManipulator.getInstance().apf.setVideoInfo();
+		
+		// Perform all the checks
 		boolean passedAll = MainAudioManipulator.getInstance().ac
 				.allChecksAudio();
-
+		
+		// If checks are passed 
 		if (passedAll) {
 			// Reference for JOptionPane():
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html

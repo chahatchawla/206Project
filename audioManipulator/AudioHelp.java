@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class AudioHelp {
 
 	/**
-	 * audioHelp() Method creates a help fram for audio manipulation
+	 * audioHelp() Method creates a help frame for audio manipulation
 	 */
 	protected void audioHelp() {
 		// Set the audio help frame and panel

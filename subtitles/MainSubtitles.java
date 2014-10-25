@@ -13,48 +13,54 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutionException;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-
-import audioManipulator.MainAudioManipulator;
-
 import mainPackage.MediaPlayer;
 
 /**
- * SoftEng206 Assignment3 - subtitles class
+ * SoftEng206 Assignment3 - main subtitles class
+ * 
+ * Purpose: The purpose of this class is to create the GUI for the subtitles tab
+ * and handle all the actions performed. This class is used in
+ * mainPackage.Main.java to initialize the subtitles tab.
+ * 
+ * This class is a singleton, as for our application, only one instance of the
+ * MainSubtitles class should be created, since the "tab" object should only be
+ * created once instead of having multiple instances being created as the
+ * application progresses.
+ * 
+ * Subtitles provides the functionality to create your own .srt file and also
+ * import subtitles
  * 
  * @author Chahat Chawla ccha504 8492142
  * 
- * Partial Code Extracted by Assignment 3 
+ *         Partial Code Extracted by Assignment 3
  * @author Chahat Chawla and Zainab Al Lawati
  * 
  */
-
 public class MainSubtitles extends JPanel implements ItemListener,
-ActionListener {
+		ActionListener {
 
+	// Initializing the singleton instance of this class
 	private static MainSubtitles instance = new MainSubtitles();
+
+	// Initializing all the helper classes for subtitles
 	protected SubtitleChecks sc = new SubtitleChecks();
 	protected SubtitleProjectFunctions spf = new SubtitleProjectFunctions();
 	protected SubtitleHelp sh = new SubtitleHelp();
 	protected SubtitleSave ss = new SubtitleSave();
-	protected SubtitleList sl = new SubtitleList();
-	
+	protected SubtitleTable sl = new SubtitleTable();
+
 	// Initializing the text for the buttons
 	protected final String TEXT_SAVE = "Save";
 	protected final String TEXT_ADD = "Add Subtitle";
@@ -81,7 +87,6 @@ ActionListener {
 	protected JTextField endTime = new JTextField("hh:mm:ss,mmm");
 	protected JTextField text = new JTextField("");
 
-
 	// Initializing the buttons
 	protected JButton helpButton = new JButton();
 	protected JButton inputSubtitleButton = new JButton(TEXT_ADD);
@@ -99,13 +104,13 @@ ActionListener {
 	protected JCheckBox srtCheck = new JCheckBox("Create Your Own .srt File");
 
 	// Initializing the table
-	protected DefaultTableModel model = new DefaultTableModel(); 
-	protected JTable subtitlesTable = new JTable(model){
+	protected DefaultTableModel model = new DefaultTableModel();
+	protected JTable subtitlesTable = new JTable(model) {
 
 		private static final long serialVersionUID = 1L;
 
-		public boolean isCellEditable(int row, int column) {                
-			return false;               
+		public boolean isCellEditable(int row, int column) {
+			return false;
 		};
 	};;
 	protected JScrollPane scrollPane = new JScrollPane(subtitlesTable);
@@ -133,12 +138,11 @@ ActionListener {
 			"srt files", "srt");
 
 	// Initializing the enable booleans
-
 	protected boolean srtEnable = false;
 	protected boolean importEnable = false;
 
 	// Initializing the image for the icons
-	protected ImageIcon help ;
+	protected ImageIcon help;
 	protected JLabel helpImage;
 
 	// Initializing the Strings
@@ -155,22 +159,20 @@ ActionListener {
 	protected MainSubtitles longTask;
 
 	/**
-	 * Constructor for AudioManipulator() -Sets up the GUI for audio
-	 * manipulation tab -Sets up the default layout
+	 * Constructor for MainSubtitles() -Sets up the GUI for subtitle tab -Sets
+	 * up the default layout
 	 */
 
 	private MainSubtitles() {
 
-
-		// Create a couple of columns 
-		model.addColumn("Text"); 
-		model.addColumn("Start Time"); 
-		model.addColumn("End Time"); 
-
-
-
-		help = new ImageIcon(MediaPlayer.class.getResource("Resources/help.png"));
-		helpImage = new JLabel(new ImageIcon(MediaPlayer.class.getResource("Resources/subtitle.png")));
+		// sets the images so they are imported from the resources folder in
+		// this package
+		// Reference:
+		// http://docs.oracle.com/javase/tutorial/uiswing/components/icon.html
+		help = new ImageIcon(
+				MediaPlayer.class.getResource("Resources/help.png"));
+		helpImage = new JLabel(new ImageIcon(
+				MediaPlayer.class.getResource("Resources/subtitle.png")));
 		// set the icons to the help button
 		helpButton.setIcon(help);
 		helpButton.setBorder(null);
@@ -192,6 +194,10 @@ ActionListener {
 		// settings for the list
 		subtitlesTable.setRowSelectionAllowed(true);
 		scrollPane.setPreferredSize(new Dimension(450, 110));
+		// Create the columns for the table
+		model.addColumn("Text");
+		model.addColumn("Start Time");
+		model.addColumn("End Time");
 
 		// set the size of the buttons
 		helpButton.setPreferredSize(new Dimension(60, 40));
@@ -223,7 +229,6 @@ ActionListener {
 		add(subtitlesLabel);
 		add(separator);
 		add(separator2);
-
 		add(srtCheck);
 		add(separator6);
 		add(startTimeLabel);
@@ -290,7 +295,6 @@ ActionListener {
 		playButton.setEnabled(false);
 		chooseSrtLabel.setEnabled(false);
 		generateButton.setEnabled(false);
-
 		startTimeLabel.setEnabled(false);
 		startTime.setEnabled(false);
 		getTime1Button.setEnabled(false);
@@ -300,14 +304,17 @@ ActionListener {
 		textLabel.setEnabled(false);
 		text.setEnabled(false);
 
-
 	}
 
-
+	/**
+	 * getInstance() returns the singleton instance of the MainAudioManipulator
+	 * class
+	 * 
+	 * @return
+	 */
 	public static MainSubtitles getInstance() {
 		return instance;
 	}
-
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -315,12 +322,12 @@ ActionListener {
 		// Reference for JCheckBox:
 		// http://www.java2s.com/Code/Java/Swing-JFC/SwingCheckBoxDemo.htm
 
-
+		// if the srtCheck is clicked
 		if (e.getItemSelectable() == srtCheck) {
 
-
+			// if the srtCheck is enabled, set srtEnable to true and
+			// enable the user to create a .srtFile
 			if (e.getStateChange() == 1) {
-
 
 				inputSubtitleButton.setEnabled(true);
 				deleteSubtitleButton.setEnabled(true);
@@ -334,7 +341,6 @@ ActionListener {
 				subtitlesTable.setEnabled(true);
 				outputFileName.setEnabled(true);
 				generateButton.setEnabled(true);
-
 				startTimeLabel.setEnabled(true);
 				startTime.setEnabled(true);
 				getTime1Button.setEnabled(true);
@@ -344,17 +350,15 @@ ActionListener {
 				textLabel.setEnabled(true);
 				text.setEnabled(true);
 
-
-
+				// disable import feature while srt is enabled
 				importCheck.setEnabled(false);
 				importCheck.setSelected(false);
 				importEnable = false;
 
 			}
-
-
+			// if the srtCheck is disabled, set srtEnable and set the srt
+			// options to default
 			else {
-
 
 				inputSubtitleButton.setEnabled(false);
 				deleteSubtitleButton.setEnabled(false);
@@ -377,36 +381,37 @@ ActionListener {
 				textLabel.setEnabled(false);
 				text.setEnabled(false);
 
+				// enable import feature while srt is disabled
 				importCheck.setEnabled(true);
-
-
 
 			}
 		}
+		// if the importCheck is clicked
 		else if (e.getItemSelectable() == importCheck) {
 
+			// if the importCheck is enabled, set importEnable to true and
+			// enable the user to import and add subtitles
 			if (e.getStateChange() == 1) {
 				inputSrtButton.setEnabled(true);
-				//playButton.setEnabled(true);
 				chooseSrtLabel.setEnabled(true);
 				importEnable = true;
 
-
+				// disable srt feature while import is enabled
 				srtCheck.setEnabled(false);
 				srtCheck.setSelected(false);
 				srtEnable = false;
 
 			}
-
+			// if the importCheck is disabled, set importEnable and set the srt
+			// options to default
 			else {
 
 				inputSrtButton.setEnabled(false);
 				playButton.setEnabled(false);
 				chooseSrtLabel.setEnabled(false);
 				importEnable = false;
-
+				// enable srt feature while import is disabled
 				srtCheck.setEnabled(true);
-
 
 			}
 		}
@@ -416,26 +421,20 @@ ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
 		// If the inputSubtitleButton is clicked
 		if (e.getSource() == inputSubtitleButton) {
 			sl.inputSubtitle();
 		}
-
-
 
 		// If the deleteSubtitleButton is clicked
 		else if (e.getSource() == deleteSubtitleButton) {
 			sl.deleteSubtitle();
 		}
 
-
-
 		// If the playSubtitleButton is clicked
 		else if (e.getSource() == editSubtitleButton) {
 			sl.editSubtitle();
 		}
-
 
 		// If the playSubtitleButton is clicked
 		else if (e.getSource() == generateButton) {
@@ -445,41 +444,63 @@ ActionListener {
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime1Button) {
 
-			if (mainPackage.MediaPlayer.video.getTime() != -1){
+			// if the video has been played once
+			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+
+				// get the current time of the video
 				int time = (int) mainPackage.MediaPlayer.video.getTime();
-				SimpleDateFormat df = new SimpleDateFormat(
-						"HH:mm:ss,SSS");
+
+				// reference:
+				// http://stackoverflow.com/questions
+				// /9214786/how-to-convert-the-seconds-in-this-format-hhmmss
+
+				// format it to HH:mm:ss,SSS
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss,SSS");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
 				String formatedTime = df.format(new Date(time));
-
+				// set the startTime field to the new formatted time
 				startTime.setText(formatedTime);
 			}
+			// if the video hasn't been played once, inform the user so they can
+			// do so.
 			else {
-				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+				JOptionPane.showMessageDialog(null,
+						"Please play the imported video once!");
 			}
 
 		}
 
 		// If the getTime1Button is clicked
 		else if (e.getSource() == getTime2Button) {
-			if (mainPackage.MediaPlayer.video.getTime() != -1){
+			// if the video has been played once
+			if (mainPackage.MediaPlayer.video.getTime() != -1) {
+
+				// get the current time of the video
 				int time = (int) mainPackage.MediaPlayer.video.getTime();
-				SimpleDateFormat df = new SimpleDateFormat(
-						"HH:mm:ss,SSS");
+
+				// reference:
+				// http://stackoverflow.com/questions
+				// /9214786/how-to-convert-the-seconds-in-this-format-hhmmss
+
+				// format it to HH:mm:ss,SSS
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss,SSS");
 				TimeZone tz = TimeZone.getTimeZone("UTC");
 				df.setTimeZone(tz);
 				String formatedTime = df.format(new Date(time));
-
+				// set the startTime field to the new formatted time
 				endTime.setText(formatedTime);
 			}
+			// if the video hasn't been played once, inform the user so they can
+			// do so.
 			else {
-				JOptionPane.showMessageDialog(null,"Please play the imported video once!");
+				JOptionPane.showMessageDialog(null,
+						"Please play the imported video once!");
 			}
 		}
 
 		// If the inputSrtButton is clicked
-		else if (e.getSource() == inputSrtButton){
+		else if (e.getSource() == inputSrtButton) {
 
 			// Reference for JFileChooser():
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html
@@ -490,59 +511,57 @@ ActionListener {
 			// Store the chosen file
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				inputFile = chooser.getSelectedFile().toString();
-				
+
+				// Reference to File.probeContentType
+				// http://docs.oracle.com/javase/7/docs/api/java/nio/file/spi/FileTypeDetector.html
 				File file = new File(inputFile);
 				Path path = file.toPath();
 				String type = "";
-				
+
 				try {
 					type = Files.probeContentType(path);
 				} catch (IOException f) {
 					f.printStackTrace();
 				}
-				
+
 				// if the file is NOT a .srt file, notify the user and
 				// allow them to select again
 				if (!(type.equals("application/x-subrip"))) {
 					JOptionPane
-					.showMessageDialog(
-							null,
-							"ERROR: "
-									+ inputFile
-									+ " does not refer to a valid .srt file. Please select a new input file!");
-				}
-				else {
-					
+							.showMessageDialog(
+									null,
+									"ERROR: "
+											+ inputFile
+											+ " does not refer to a valid .srt file. Please select a new input file!");
+				} else {
+
+					// if it is a .srt file, enable the play button
 					playButton.setEnabled(true);
 				}
-				
-				
-				
-			}
 
+			}
 
 		}
 		// If the playButton is clicked
 		else if (e.getSource() == playButton) {
-			
-				mainPackage.MediaPlayer.getInstance().video.stop();
-				mainPackage.MediaPlayer.getInstance().video.play();
-				mainPackage.MediaPlayer.getInstance().playBtn.setIcon(mainPackage.MediaPlayer.getInstance().pause);
-				
-				mainPackage.MediaPlayer.video.setSubTitleFile(new File(inputFile));
-				JOptionPane
-				.showMessageDialog(null,
-						"Imported subtitles have been added to the media player!");
-		}
 
+			// play the video from the start 
+			mainPackage.MediaPlayer.getInstance().video.stop();
+			mainPackage.MediaPlayer.getInstance().video.play();
+			mainPackage.MediaPlayer.getInstance().playBtn
+					.setIcon(mainPackage.MediaPlayer.getInstance().pause);
+			// add the subtitles 
+			mainPackage.MediaPlayer.video.setSubTitleFile(new File(inputFile));
+			JOptionPane.showMessageDialog(null,
+					"Imported subtitles have been added to the media player!");
+		}
 
 		// If the save button is clicked
 		else if (e.getSource() == saveButton) {
 			ss.subtitleSave();
 		}
-
-
-		else if (e.getSource() == helpButton){
+		// If the help button is clicked
+		else if (e.getSource() == helpButton) {
 			sh.subtitleHelp();
 		}
 

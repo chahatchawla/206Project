@@ -1,7 +1,6 @@
 package subtitles;
 
 import java.io.File;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,14 +8,27 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
 
+/**
+ * SoftEng206 Project - subtitle checks class
+ * 
+ * Purpose: The purpose of this class is to perform all the error checks for the
+ * features create a new srt file and import subtitles. It also provides some
+ * helper methods that are necessary for these checks. This class is used in
+ * SubtitlesTable.java.
+ * 
+ * @author Chahat Chawla ccha504 8492142
+ * 
+ *         Partial Code Extracted by Assignment 3
+ * @author Chahat Chawla and Zainab Al Lawati
+ * 
+ */
 public class SubtitleChecks {
 
 	/**
-	 * convertToSeconds Method changes a string in the format hh:mm:ss to
-	 * seconds
+	 * convertToSeconds Method is a helper method changes a string in the format
+	 * hh:mm:ss to seconds
 	 * 
 	 * @param longFormat
 	 */
@@ -55,17 +67,17 @@ public class SubtitleChecks {
 	}
 
 	/**
-	 * timeChecks Method checks whether the time inputs given by the user were
-	 * in the hh:mm:ss,mmm format or not
+	 * timeChecks Method is a helper method that checks whether the time inputs
+	 * given by the user were in the hh:mm:ss format or not
 	 * 
 	 * @param startTime
-	 *            , endTime
+	 *            , length
 	 */
-
 	protected int timeChecks(String startTime, String endTime) {
 
 		// Reference: from assignment 3 of Chahat Chawla
-		// checks whether the startTime and length are in the format hh:mm:ss,mmm
+		// checks whether the startTime and length are in the format
+		// hh:mm:ss,mmm
 		Pattern timePattern = Pattern.compile("\\d\\d:\\d\\d:\\d\\d,\\d\\d\\d");
 		Matcher startMatcher = timePattern.matcher(startTime);
 		Matcher lengthMatcher = timePattern.matcher(endTime);
@@ -85,32 +97,36 @@ public class SubtitleChecks {
 		return passed;
 	}
 
-
 	/**
-	 * allChecksExtract Method does all the checks for extract
+	 * allChecksAdd Method does all the checks for when the user creates a new
+	 * subtitle and adds it to the table such as check time formats, check
+	 * whether times are within video range and detect empty fields.
+	 * 
 	 */
-
 	protected boolean allChecksAdd() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		// Get the video path and length
 		MainSubtitles.getInstance().spf.setVideoInfo();
 		boolean passedOrNot = true;
 
-
-		// check whether the input startTime and lengthTime is in the right
+		// check whether the input startTime and endTime is in the right
 		// format or not using timeChecks()
-		int passedTimeCheckExtract = timeChecks(MainSubtitles.getInstance().startTime.getText()
-				.trim(), MainSubtitles.getInstance().endTime.getText().trim());
+		int passedTimeCheckExtract = timeChecks(
+				MainSubtitles.getInstance().startTime.getText().trim(),
+				MainSubtitles.getInstance().endTime.getText().trim());
 
 		// if both are in the wrong format, inform the user and allow them
-		// to enter the start time and length again
+		// to enter the start time and endTime again
 		if (passedTimeCheckExtract == 3) {
 			MainSubtitles.getInstance().startTime.setText("");
 			MainSubtitles.getInstance().endTime.setText("");
 			passedOrNot = false;
 			JOptionPane
-			.showMessageDialog(
-					null,
-					"ERROR: start time and end time can only be in the format hh:mm:ss,mmm");
+					.showMessageDialog(null,
+							"ERROR: start time and end time can only be in the format hh:mm:ss,mmm");
 		}
 
 		// if start time is in the wrong format, inform the user and allow
@@ -118,84 +134,82 @@ public class SubtitleChecks {
 		else if (passedTimeCheckExtract == 1) {
 			MainSubtitles.getInstance().startTime.setText("");
 			passedOrNot = false;
-			JOptionPane
-			.showMessageDialog(null,
+			JOptionPane.showMessageDialog(null,
 					"ERROR: start time can only be in the format hh:mm:ss,mmm");
 
 		}
 
-		// if length is in the wrong format, inform the user and allow them
-		// to enter the length again
+		// if endTime is in the wrong format, inform the user and allow them
+		// to enter the endTime again
 		else if (passedTimeCheckExtract == 2) {
 			MainSubtitles.getInstance().endTime.setText("");
 			passedOrNot = false;
-			JOptionPane
-			.showMessageDialog(null,
+			JOptionPane.showMessageDialog(null,
 					"ERROR: end time can only be in the format hh:mm:ss,mmm");
 		}
 
-		// check for whether the given duration + start time is smaller than
-		// the length of the video or not
+		// check for whether the given endTime is smaller than the length of the
+		// video and whether the end time is bigger than the start time or not
 		else if (passedOrNot) {
 
+			int startTime = convertToSeconds(MainSubtitles.getInstance().startTime
+					.getText().trim());
 
-			int startTime = convertToSeconds(MainSubtitles.getInstance().startTime.getText()
-					.trim());
+			int endTime = convertToSeconds(MainSubtitles.getInstance().endTime
+					.getText().trim());
 
-			int endTime = convertToSeconds(MainSubtitles.getInstance().endTime.getText()
-					.trim());
+			int lengthOfVideo = (int) (Double.parseDouble(MainSubtitles
+					.getInstance().videoLength));
 
-			int lengthOfVideo = (int) (Double.parseDouble(MainSubtitles.getInstance().videoLength));
-
-			// if totalTime is more than the length of the video, inform the
-			// user and allow them to enter the start time and length again
+			// if endTime is more than the length of the video, inform the
+			// user and allow them to enter the endTime again
 			if (endTime > lengthOfVideo) {
 				passedOrNot = false;
 				JOptionPane
-				.showMessageDialog(
-						null,
-						"ERROR: end time can not be more than the length of the video");
+						.showMessageDialog(null,
+								"ERROR: end time can not be more than the length of the video");
 				MainSubtitles.getInstance().endTime.setText("");
 
 			}
-
+			// if endTime is smaller than the startTime, inform the
+			// user and allow them to enter the startTime again
 			else if (endTime < startTime) {
 				passedOrNot = false;
 				JOptionPane
-				.showMessageDialog(
-						null,
-						"ERROR: start time can not be more than the end time selected");
-				MainSubtitles.getInstance().startTime.setText("");	
+						.showMessageDialog(null,
+								"ERROR: start time can not be more than the end time selected");
+				MainSubtitles.getInstance().startTime.setText("");
 			}
 
 			// check for whether the text field is empty
-			else if (MainSubtitles.getInstance().text.getText().trim().equals("")) {
+			else if (MainSubtitles.getInstance().text.getText().trim()
+					.equals("")) {
 				JOptionPane.showMessageDialog(null,
 						"ERROR: please specify some text for subtitles");
 				passedOrNot = false;
 			}
 		}
 
-
 		return passedOrNot;
-
-
-
 
 	}
 
 	/**
-	 * allChecksGenerate Method does all the checks for extract
+	 * allChecksGenerate Method does all the checks for generating the srt file
+	 * such as detecting empty fields and checks for existing files.
+	 * 
 	 */
-
 	protected boolean allChecksGenerate() {
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		// Get the video path and length
 		MainSubtitles.getInstance().spf.setVideoInfo();
 		boolean passedOrNot = true;
 
-
 		// check for whether the outputFileName field is empty
-		if (MainSubtitles.getInstance().outputFileName.getText().trim().equals("")) {
+		if (MainSubtitles.getInstance().outputFileName.getText().trim()
+				.equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output .srt file name");
 			passedOrNot = false;
@@ -203,18 +217,17 @@ public class SubtitleChecks {
 
 		// check whether the outputFileName specified user already exists in the
 		// project directory
-		String outputFile = MainSubtitles.getInstance().workingDir + "/" + MainSubtitles.getInstance().outputFileName.getText()
-				+ ".srt";
+		String outputFile = MainSubtitles.getInstance().workingDir + "/"
+				+ MainSubtitles.getInstance().outputFileName.getText() + ".srt";
 		File f = new File(outputFile);
 		if (f.exists()) {
 
-			// Reference for JOptionPane() as above.
-
 			// Allow user to choose either overwriting the current file or
 			// change the output file name
-			Object[] existOptions = {"Overwrite", "Cancel"};
+			Object[] existOptions = { "Overwrite", "Cancel" };
 			int optionChosen = JOptionPane.showOptionDialog(null, "ERROR: "
-					+ MainSubtitles.getInstance().outputFileName.getText() + ".srt already exists. "
+					+ MainSubtitles.getInstance().outputFileName.getText()
+					+ ".srt already exists. "
 					+ "Do you want to overwrite the existing file?",
 					"File Exists!", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, null, existOptions,
@@ -226,7 +239,6 @@ public class SubtitleChecks {
 				passedOrNot = false;
 			}
 		}
-
 
 		return passedOrNot;
 

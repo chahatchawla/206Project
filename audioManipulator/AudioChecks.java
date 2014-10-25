@@ -219,6 +219,10 @@ public class AudioChecks {
 	 */
 
 	protected boolean allChecksExtract() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		// Get the video path and length
 		MainAudioManipulator.getInstance().apf.setVideoInfo();
 		boolean passedOrNot = true;
@@ -311,9 +315,6 @@ public class AudioChecks {
 		File f = new File(outputFile);
 		if (f.exists()) {
 
-			// Reference for JOptionPane() :
-			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
-
 			// Allow user to choose either overwriting the current file or
 			// change the output file name
 			Object[] existOptions = { "Overwrite", "Cancel" };
@@ -343,6 +344,10 @@ public class AudioChecks {
 	 */
 
 	protected boolean allChecksOverlay() {
+
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+
 		// Get the video path and length
 		MainAudioManipulator.getInstance().apf.setVideoInfo();
 		boolean passedOrNot = true;
@@ -437,7 +442,8 @@ public class AudioChecks {
 
 	protected boolean allChecksReplace() {
 		boolean passedOrNot = true;
-
+		// Reference for JOptionPane() :
+		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
 		// Reference to File.probeContentType
 		// http://docs.oracle.com/javase/7/docs/api/java/nio/file/spi/FileTypeDetector.html
 

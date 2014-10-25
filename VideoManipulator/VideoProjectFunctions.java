@@ -32,7 +32,7 @@ public class VideoProjectFunctions {
 	 * the previously saved values
 	 * 
 	 * @param videoFieldsPath
-	 *            : the path of the stored audio fields
+	 *            : the path of the stored video fields
 	 */
 	public void setAllFields(String videoFieldsPath) {
 
