@@ -202,13 +202,19 @@ public class SubtitleChecks {
 	protected boolean allChecksGenerate() {
 		// Reference for JOptionPane() :
 		// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
-
+	
 		// Get the video path and length
 		MainSubtitles.getInstance().spf.setVideoInfo();
 		boolean passedOrNot = true;
+		
+		if (MainSubtitles.getInstance().model.getRowCount() == 0) {
+			JOptionPane.showMessageDialog(null,
+					"ERROR: subtitle table is empty, can not generate an empty .srt file");
+			passedOrNot = false;
+		}
 
 		// check for whether the outputFileName field is empty
-		if (MainSubtitles.getInstance().outputFileName.getText().trim()
+		else if (MainSubtitles.getInstance().outputFileName.getText().trim()
 				.equals("")) {
 			JOptionPane.showMessageDialog(null,
 					"ERROR: please specify an output .srt file name");

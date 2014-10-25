@@ -120,6 +120,8 @@ public class AudioSave {
 
 				bw.close();
 
+				JOptionPane.showMessageDialog(null, "Audio Manipulator changes have been saved!");
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

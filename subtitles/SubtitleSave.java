@@ -30,11 +30,15 @@ public class SubtitleSave {
 
 		// Get the video path and length
 		MainSubtitles.getInstance().spf.setVideoInfo();
-
+		boolean passedAllGenerate = true;
+		boolean passedAllAdd = true;
 		// Perform all the checks
-		boolean passedAllAdd = MainSubtitles.getInstance().sc.allChecksAdd();
-		boolean passedAllGenerate = MainSubtitles.getInstance().sc
-				.allChecksGenerate();
+		if (MainSubtitles.getInstance().srtEnable){
+
+			passedAllAdd = MainSubtitles.getInstance().sc.allChecksAdd();
+			passedAllGenerate= MainSubtitles.getInstance().sc
+					.allChecksGenerate();
+		}
 
 		// If checks are passed
 		if (passedAllAdd & passedAllGenerate) {
@@ -95,6 +99,7 @@ public class SubtitleSave {
 				bw.write(MainSubtitles.getInstance().inputFile + "\n");
 
 				bw.close();
+				JOptionPane.showMessageDialog(null, "Subtitle changes have been saved!");
 
 			} catch (IOException e1) {
 				e1.printStackTrace();

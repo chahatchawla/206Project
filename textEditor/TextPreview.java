@@ -23,7 +23,7 @@ import javax.swing.SwingWorker;
  * 
  **/
 public class TextPreview {
-	private StringBuilder cmd = new StringBuilder();
+
 	private String inputFrameTime;
 	private File filePreview;
 	private TextPrevBackgroundTask longTask;
@@ -50,7 +50,7 @@ public class TextPreview {
 		// http://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java
 		FileWriter fw;
 		try {
-			fw = new FileWriter(filePreview, true);
+			fw = new FileWriter(filePreview, false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter x = new PrintWriter(bw);
 			x.println(MainTextEditor.getInstance().addTextArea.getText());
@@ -187,6 +187,8 @@ public class TextPreview {
 		 */
 		@Override
 		protected Void doInBackground() throws Exception {
+
+			StringBuilder cmd = new StringBuilder();
 			// command to take a screenshot from the video at the given
 			// inputFrametime
 			cmd.append("avconv -i " + MainTextEditor.getInstance().videoPath
@@ -209,6 +211,7 @@ public class TextPreview {
 			// run the preview Command
 			Process process;
 			ProcessBuilder builder;
+
 			builder = new ProcessBuilder("/bin/bash", "-c",
 					MainTextEditor.getInstance().previewCommand);
 			try {

@@ -91,6 +91,7 @@ public class TextSave {
 							+ "\n");
 					bw.write(MainTextEditor.getInstance().addTextArea.getText()
 							+ "\n");
+					JOptionPane.showMessageDialog(null, "Title Screen changes have been saved!");
 					bw.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -141,6 +142,7 @@ public class TextSave {
 					bw.write(MainTextEditor.getInstance().addTextArea.getText()
 							+ "\n");
 					bw.close();
+					JOptionPane.showMessageDialog(null, "Credit Screen changes have been saved!");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}

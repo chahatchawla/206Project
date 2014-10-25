@@ -173,7 +173,6 @@ public class NewProject {
 								bw.write(Menu.getInstance().workingDir);
 								bw.newLine();
 								bw.close();
-
 								// When project is created successfully, enable
 								// importing media
 								Menu.getInstance().submenu.setEnabled(true);
@@ -217,7 +216,7 @@ public class NewProject {
 						bw.write(Menu.getInstance().workingDir);
 						bw.newLine();
 						bw.close();
-
+						JOptionPane.showMessageDialog(null, "A new project was created! Please import a media file now (file -> import media).");
 						// When project is created successfully, enable
 						// importing media
 						Menu.getInstance().submenu.setEnabled(true);

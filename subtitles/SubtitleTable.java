@@ -75,7 +75,7 @@ public class SubtitleTable {
 			else {
 				JOptionPane
 						.showMessageDialog(null,
-								"ERROR: please select an subtitle from the table to delete");
+								"ERROR: please select a row from the table to delete");
 			}
 		}
 	}
@@ -114,7 +114,7 @@ public class SubtitleTable {
 			else {
 				JOptionPane
 						.showMessageDialog(null,
-								"ERROR: please select an subtitle from the table to edit");
+								"ERROR: please select a row from the table to edit");
 			}
 		}
 

@@ -146,24 +146,30 @@ public class TextChecks {
 				Matcher matchesInteger = integerPattern.matcher(MainTextEditor
 						.getInstance().addDuration.getText());
 				boolean isInteger = matchesInteger.matches();
-				int duration = Integer
-						.parseInt(MainTextEditor.getInstance().addDuration
-								.getText().trim());
-				int lengthOfVideo = (int) (Double.parseDouble(MainTextEditor
-						.getInstance().videoLength));
 
+				// if duration is an integer
+				if (isInteger) {
+					int duration = Integer.parseInt(MainTextEditor
+							.getInstance().addDuration.getText().trim());
+					int lengthOfVideo = (int) (Double
+							.parseDouble(MainTextEditor.getInstance().videoLength));
+
+					// if duration is more than the length of the video
+					if (duration > lengthOfVideo) {
+						JOptionPane.showMessageDialog(null,
+								"ERROR: duration cannot be more than "
+										+ lengthOfVideo + " seconds");
+						MainTextEditor.getInstance().addDuration.setText("");
+						passedOrNot = false;
+					}
+
+				}
 				// if duration is not an integer
-				if (!isInteger) {
+				else {
 					JOptionPane
 							.showMessageDialog(null,
-									"ERROR: please specify the duration that is 1 or more seconds");
-					passedOrNot = false;
-				}
-				// if duration is more than the length of the video
-				else if (duration > lengthOfVideo) {
-					JOptionPane.showMessageDialog(null,
-							"ERROR: duration cannot be more than "
-									+ lengthOfVideo + " seconds");
+									"ERROR: please specify the duration that is 1 or more seconds and is an integer");
+					MainTextEditor.getInstance().addDuration.setText("");
 					passedOrNot = false;
 				}
 

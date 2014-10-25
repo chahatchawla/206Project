@@ -93,7 +93,7 @@ public class VideoSave {
 				bw.write(MainVideoManipulator.getInstance().filter + "\n");
 
 				bw.close();
-
+				JOptionPane.showMessageDialog(null, "Video Manipulator changes have been saved!");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
