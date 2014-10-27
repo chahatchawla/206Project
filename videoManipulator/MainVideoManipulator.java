@@ -1,4 +1,4 @@
-package VideoManipulator;
+package videoManipulator;
 
 import java.awt.Dimension;
 import java.awt.Font;

@@ -122,7 +122,7 @@ public class ExportBackGroundTask extends SwingWorker<Integer, String> {
 
 			// Reference:
 			// http://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
-			Object[] existOptions = { "Yes, Please", "No, Thankyou" };
+			Object[] existOptions = { "Yes, Please", "No, Thank You" };
 			int optionChosen = JOptionPane
 					.showOptionDialog(
 							null,

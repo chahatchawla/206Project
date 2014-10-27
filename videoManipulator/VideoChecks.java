@@ -1,4 +1,4 @@
-package VideoManipulator;
+package videoManipulator;
 
 import java.io.File;
 import java.text.ParseException;

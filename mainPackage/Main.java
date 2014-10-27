@@ -12,10 +12,10 @@ import subtitles.SubtitleProjectFunctions;
 import subtitles.MainSubtitles;
 import textEditor.MainTextEditor;
 import textEditor.TextProjectFunctions;
+import videoManipulator.MainVideoManipulator;
+import videoManipulator.VideoProjectFunctions;
 import audioManipulator.MainAudioManipulator;
 import audioManipulator.AudioProjectFunctions;
-import VideoManipulator.MainVideoManipulator;
-import VideoManipulator.VideoProjectFunctions;
 
 /**
  * SoftEng206 Project - Main class

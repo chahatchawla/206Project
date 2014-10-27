@@ -1,4 +1,4 @@
-package VideoManipulator;
+package videoManipulator;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;

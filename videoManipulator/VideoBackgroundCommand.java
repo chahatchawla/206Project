@@ -1,4 +1,4 @@
-package VideoManipulator;
+package videoManipulator;
 
 /**
  * SoftEng206 Project - video background command class
